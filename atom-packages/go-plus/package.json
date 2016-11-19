@@ -1,0 +1,610 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "/tmp/d-1161019-29065-14of6y5.t7nwg3c8fr/package.tgz",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "/tmp/d-1161019-29065-14of6y5.t7nwg3c8fr/package.tgz",
+        "spec": "/tmp/d-1161019-29065-14of6y5.t7nwg3c8fr/package.tgz",
+        "type": "local"
+      },
+      "/tmp/apm-install-dir-1161019-29065-16uu3be.vpxdzk6gvi"
+    ]
+  ],
+  "_from": "../d-1161019-29065-14of6y5.t7nwg3c8fr/package.tgz",
+  "_id": "go-plus@4.3.2",
+  "_inCache": true,
+  "_location": "/go-plus",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "/tmp/d-1161019-29065-14of6y5.t7nwg3c8fr/package.tgz",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "/tmp/d-1161019-29065-14of6y5.t7nwg3c8fr/package.tgz",
+    "spec": "/tmp/d-1161019-29065-14of6y5.t7nwg3c8fr/package.tgz",
+    "type": "local"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:../d-1161019-29065-14of6y5.t7nwg3c8fr/package.tgz",
+  "_shasum": "393ffb1cd94fe0815a2a1345d98d999071d101cb",
+  "_shrinkwrap": null,
+  "_spec": "/tmp/d-1161019-29065-14of6y5.t7nwg3c8fr/package.tgz",
+  "_where": "/tmp/apm-install-dir-1161019-29065-16uu3be.vpxdzk6gvi",
+  "author": {
+    "name": "Joe Fitzgerald",
+    "email": "jfitzgerald@pivotal.io",
+    "url": "http://github.com/joefitzgerald"
+  },
+  "bugs": {
+    "url": "https://github.com/joefitzgerald/go-plus/issues"
+  },
+  "configSchema": {
+    "panelDisplayMode": {
+      "title": "Panel Display Mode",
+      "description": "Control the behavior of the go-plus panel when a new Atom window is opened",
+      "type": "string",
+      "default": "open",
+      "enum": [
+        "open",
+        "closed"
+      ],
+      "order": 1
+    },
+    "maxPanelHeight": {
+      "title": "Maximum Panel Height",
+      "description": "Prevent the panel from occupying the entire window",
+      "type": "string",
+      "default": "50vh",
+      "order": 2
+    },
+    "minPanelHeight": {
+      "title": "Minimum Panel Height",
+      "description": "Ensure the panel doesn't disappear when open",
+      "type": "string",
+      "default": "10vh",
+      "order": 3
+    },
+    "currentPanelHeight": {
+      "title": "Current Panel Height",
+      "description": "The height of the panel (this is changed when you drag the panel to resize it, so the setting is preserved)",
+      "type": "string",
+      "default": "15vh",
+      "order": 3
+    }
+  },
+  "consumedServices": {
+    "status-bar": {
+      "versions": {
+        "^1.0.0": "consumeStatusBar"
+      }
+    },
+    "go-config": {
+      "versions": {
+        "1.0.0": "consumeGoconfig"
+      }
+    },
+    "go-plus.view": {
+      "versions": {
+        "0.1.0": "consumeViewProvider"
+      }
+    }
+  },
+  "dependencies": {
+    "atom-package-deps": "4.2.0",
+    "etch": "0.6.3",
+    "etch-octicon": "^0.0.4"
+  },
+  "description": "Makes working with go in Atom awesome.",
+  "devDependencies": {
+    "standard": "^8.3.0"
+  },
+  "engines": {
+    "atom": ">=1.9.9 <2.0.0",
+    "node": "*"
+  },
+  "homepage": "https://atom.io/packages/go-plus",
+  "keywords": [
+    "go",
+    "golang",
+    "autocomplete",
+    "gofmt",
+    "gocode",
+    "format",
+    "fmt",
+    "godef",
+    "goimports",
+    "gorename",
+    "goreturns",
+    "lint",
+    "vet",
+    "gometalinter",
+    "go-debug",
+    "delve"
+  ],
+  "license": "Apache-2.0",
+  "main": "./lib/main",
+  "name": "go-plus",
+  "optionalDependencies": {},
+  "package-deps": [
+    "go-config",
+    "go-get",
+    "gometalinter-linter",
+    "autocomplete-go",
+    "navigator-go",
+    "gofmt",
+    "tester-go",
+    "gorename",
+    "builder-go",
+    "go-debug",
+    "godoc"
+  ],
+  "readme": "# [go-plus](https://atom.io/packages/go-plus) [![Build Status](https://travis-ci.org/joefitzgerald/go-plus.svg?branch=master)](https://travis-ci.org/joefitzgerald/go-plus) [![Build status](https://ci.appveyor.com/api/projects/status/d0cekvaprt9wo1et/branch/master?svg=true)](https://ci.appveyor.com/project/joefitzgerald/go-plus/branch/master) [![Slack](https://img.shields.io/badge/atom_slack-%23go--plus-blue.svg?style=flat)](https://atom-slack.herokuapp.com) [![Slack](https://img.shields.io/badge/gophers_slack-%23go--plus-blue.svg?style=flat)](https://gophersinvite.herokuapp.com)\n\n> An Improved [Go](https://www.golang.org) Experience For The [Atom Editor](https://atom.io)\n\n* Github: https://github.com/joefitzgerald/go-plus\n* Atom: https://atom.io/packages/go-plus\n\n## Overview\n\nThis package adds extra functionality to Atom for the go language by installing the following packages:\n\n* [autocomplete-go](https://atom.io/packages/autocomplete-go): Autocomplete using `gocode`\n* [gofmt](https://atom.io/packages/gofmt): Formatting source using `gofmt`, `goimports`, or `goreturns`\n* [builder-go](https://atom.io/packages/builder-go): Run `go install .` and `go test -c -o {tempdir} .` to verify your code can compile and to keep gocode suggestions up to date\n* [gometalinter-linter](https://atom.io/packages/gometalinter-linter): Run a variety of linters (e.g. `golint`, `vet`, `gotype`, etc.) against your code\n* [navigator-go](https://atom.io/packages/navigator-go): Go to definition using `godef`\n* [tester-go](https://atom.io/packages/tester-go): Display test coverage using `go test -coverprofile`\n* [gorename](https://atom.io/packages/gorename): Rename the symbol under your cursor using `gorename`\n* [go-debug](https://atom.io/packages/go-debug): Debug your package / tests using [`delve`](https://github.com/derekparker/delve)\n* [godoc](https://atom.io/packages/godoc): Display documentation for identifiers in source code using [`gogetdoc`](https://github.com/zmb3/gogetdoc)\n\n## Platforms\n\nThe package has CI for OS X, Windows and Ubuntu.\n\n## Detection Of Your Go Installation\n\nThis package relies on [go-config](https://atom.io/packages/go-config) to detect your go installation(s), your `GOPATH`, and the location of your installed tools.\n\n## Installing Missing Tools\n\nIf you are missing any required tools, you may be prompted by [go-get](https://atom.io/packages/go-get) to install them. You can also manually install the required tools in your terminal.\n\n## Having Issues?\n\n`go-plus` has evolved over time, and is now a collection of curated single-purpose packages. If you are having issues, please file an issue at the relevant repository:\n\n* [`runtime detection`](https://github.com/joefitzgerald/go-config): [create issue](https://github.com/joefitzgerald/go-config/issues/new)\n* [`autocompletion / gocode`](https://github.com/joefitzgerald/autocomplete-go): [create issue](https://github.com/joefitzgerald/autocomplete-go/issues/new)\n* [`building`](https://github.com/joefitzgerald/builder-go): [create issue](https://github.com/joefitzgerald/builder-go/issues/new)\n* [`linting / gometalinter`](https://github.com/joefitzgerald/gometalinter-linter): [create issue](https://github.com/joefitzgerald/gometalinter-linter/issues/new)\n* [`gofmt / goimports / goreturns`](https://github.com/joefitzgerald/gofmt): [create issue](https://github.com/joefitzgerald/gofmt/issues/new)\n* [`go to definition / godef`](https://github.com/joefitzgerald/navigator-go): [create issue](https://github.com/joefitzgerald/navigator-go/issues/new)\n* [`test coverage`](https://github.com/joefitzgerald/tester-go/issues/new)\n* [`gorename`](https://github.com/zmb3/gorename): [create issue](https://github.com/zmb3/gorename/issues/new)\n* [`go-debug`](https://github.com/lloiser/go-debug): [create issue](https://github.com/lloiser/go-debug/issues/new)\n* [`godoc`](https://github.com/zmb3/godoc): [create issue](https://github.com/zmb3/godoc/issues/new)\n\n## Contributors\nA list of contributors can be found at https://github.com/joefitzgerald/go-plus/graphs/contributors. Joe Fitzgerald ([@joefitzgerald](https://github.com/joefitzgerald)) is the maintainer of this project.\n\n## Contributing\n\nContributions are greatly appreciated. Please fork this repository, make your\nchanges, and open a pull request. See [Contributing](https://github.com/joefitzgerald/go-plus/wiki/Contributing) for detailed instructions.\n",
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/joefitzgerald/go-plus.git"
+  },
+  "standard": {
+    "globals": [
+      "atom",
+      "waitsForPromise"
+    ]
+  },
+  "version": "4.3.2",
+  "_atomModuleCache": {
+    "version": 1,
+    "dependencies": [
+      {
+        "name": "atom-package-deps",
+        "version": "4.2.0",
+        "path": "node_modules/atom-package-deps/lib/index.js"
+      },
+      {
+        "name": "atom-package-path",
+        "version": "1.1.0",
+        "path": "node_modules/atom-package-path/lib/index.js"
+      },
+      {
+        "name": "browser-split",
+        "version": "0.0.1",
+        "path": "node_modules/browser-split/index.js"
+      },
+      {
+        "name": "camelize",
+        "version": "1.0.0",
+        "path": "node_modules/camelize/index.js"
+      },
+      {
+        "name": "consistent-env",
+        "version": "1.3.0",
+        "path": "node_modules/consistent-env/lib/index.js"
+      },
+      {
+        "name": "dom-walk",
+        "version": "0.1.1",
+        "path": "node_modules/dom-walk/index.js"
+      },
+      {
+        "name": "etch",
+        "version": "0.6.3",
+        "path": "node_modules/etch/dist/index.js"
+      },
+      {
+        "name": "etch-octicon",
+        "version": "0.0.4",
+        "path": "node_modules/etch-octicon/lib/index.js"
+      },
+      {
+        "name": "ev-store",
+        "version": "7.0.0",
+        "path": "node_modules/ev-store/index.js"
+      },
+      {
+        "name": "global",
+        "version": "4.3.1",
+        "path": "node_modules/global/window.js"
+      },
+      {
+        "name": "individual",
+        "version": "3.0.0",
+        "path": "node_modules/individual/index.js"
+      },
+      {
+        "name": "is-object",
+        "version": "1.0.1",
+        "path": "node_modules/is-object/index.js"
+      },
+      {
+        "name": "lodash.uniq",
+        "version": "4.5.0",
+        "path": "node_modules/lodash.uniq/index.js"
+      },
+      {
+        "name": "min-document",
+        "version": "2.19.0",
+        "path": "node_modules/min-document/index.js"
+      },
+      {
+        "name": "next-tick",
+        "version": "0.2.2",
+        "path": "node_modules/next-tick/index.js"
+      },
+      {
+        "name": "octicons",
+        "version": "4.4.0",
+        "path": "node_modules/octicons/index.js"
+      },
+      {
+        "name": "process",
+        "version": "0.5.2",
+        "path": "node_modules/process/index.js"
+      },
+      {
+        "name": "sb-callsite",
+        "version": "1.1.2",
+        "path": "node_modules/sb-callsite/lib/main.js"
+      },
+      {
+        "name": "sb-exec",
+        "version": "2.0.5",
+        "path": "node_modules/sb-exec/lib/index.js"
+      },
+      {
+        "name": "sb-memoize",
+        "version": "1.0.2",
+        "path": "node_modules/sb-memoize/lib/index.js"
+      },
+      {
+        "name": "sb-npm-path",
+        "version": "1.0.1",
+        "path": "node_modules/sb-npm-path/lib/index.js"
+      },
+      {
+        "name": "sb-promisify",
+        "version": "1.3.0",
+        "path": "node_modules/sb-promisify/lib/index.js"
+      },
+      {
+        "name": "string-template",
+        "version": "0.2.1",
+        "path": "node_modules/string-template/index.js"
+      },
+      {
+        "name": "virtual-dom",
+        "version": "2.1.1",
+        "path": "node_modules/virtual-dom/index.js"
+      },
+      {
+        "name": "x-is-array",
+        "version": "0.1.0",
+        "path": "node_modules/x-is-array/index.js"
+      },
+      {
+        "name": "x-is-string",
+        "version": "0.1.0",
+        "path": "node_modules/x-is-string/index.js"
+      },
+      {
+        "name": "xtend",
+        "version": "4.0.1",
+        "path": "node_modules/xtend/immutable.js"
+      }
+    ],
+    "extensions": {
+      ".js": [
+        "lib/components/empty-tab-view.js",
+        "lib/components/go-information-view.js",
+        "lib/components/go-plus-panel.js",
+        "lib/components/go-plus-status-bar.js",
+        "lib/etch-component.js",
+        "lib/go-information.js",
+        "lib/main.js",
+        "lib/panel-manager.js",
+        "node_modules/atom-package-deps/decls/atom.js",
+        "node_modules/atom-package-deps/decls/jasmine.js",
+        "node_modules/atom-package-deps/decls/package-deps.js",
+        "node_modules/atom-package-deps/lib/helpers.js",
+        "node_modules/atom-package-deps/lib/index.js",
+        "node_modules/atom-package-deps/lib/types.js",
+        "node_modules/atom-package-deps/lib/view.js",
+        "node_modules/atom-package-path/lib/index.js",
+        "node_modules/browser-split/index.js",
+        "node_modules/camelize/example/camel.js",
+        "node_modules/camelize/index.js",
+        "node_modules/consistent-env/decls/jasmine.js",
+        "node_modules/consistent-env/lib/helpers.js",
+        "node_modules/consistent-env/lib/index.js",
+        "node_modules/dom-walk/example/index.js",
+        "node_modules/dom-walk/example/static/bundle.js",
+        "node_modules/dom-walk/index.js",
+        "node_modules/error/option.js",
+        "node_modules/error/test.js",
+        "node_modules/error/typed.js",
+        "node_modules/error/validation.js",
+        "node_modules/etch/dist/component-helpers.js",
+        "node_modules/etch/dist/component-widget.js",
+        "node_modules/etch/dist/default-scheduler.js",
+        "node_modules/etch/dist/dom.js",
+        "node_modules/etch/dist/index.js",
+        "node_modules/etch/dist/ref-hook.js",
+        "node_modules/etch/dist/refs-stack.js",
+        "node_modules/etch/dist/scheduler-assignment.js",
+        "node_modules/etch/dist/svg-tags.js",
+        "node_modules/etch-octicon/lib/Octicon.js",
+        "node_modules/etch-octicon/lib/index.js",
+        "node_modules/ev-store/index.js",
+        "node_modules/ev-store/test.js",
+        "node_modules/global/console.js",
+        "node_modules/global/document.js",
+        "node_modules/global/process.js",
+        "node_modules/global/window.js",
+        "node_modules/individual/index.js",
+        "node_modules/individual/one-version.js",
+        "node_modules/individual/test.js",
+        "node_modules/is-object/index.js",
+        "node_modules/lodash.uniq/index.js",
+        "node_modules/min-document/document.js",
+        "node_modules/min-document/dom-comment.js",
+        "node_modules/min-document/dom-element.js",
+        "node_modules/min-document/dom-fragment.js",
+        "node_modules/min-document/dom-text.js",
+        "node_modules/min-document/event/add-event-listener.js",
+        "node_modules/min-document/event/dispatch-event.js",
+        "node_modules/min-document/event/remove-event-listener.js",
+        "node_modules/min-document/event.js",
+        "node_modules/min-document/index.js",
+        "node_modules/min-document/serialize.js",
+        "node_modules/next-tick/index.js",
+        "node_modules/octicons/index.js",
+        "node_modules/process/browser.js",
+        "node_modules/process/index.js",
+        "node_modules/sb-callsite/lib/main.js",
+        "node_modules/sb-exec/lib/helpers.js",
+        "node_modules/sb-exec/lib/index.js",
+        "node_modules/sb-exec/lib/types.js",
+        "node_modules/sb-memoize/lib/index.js",
+        "node_modules/sb-npm-path/lib/helpers.js",
+        "node_modules/sb-npm-path/lib/index.js",
+        "node_modules/sb-promisify/lib/index.js",
+        "node_modules/string-template/compile.js",
+        "node_modules/string-template/index.js",
+        "node_modules/virtual-dom/create-element.js",
+        "node_modules/virtual-dom/diff.js",
+        "node_modules/virtual-dom/dist/virtual-dom.js",
+        "node_modules/virtual-dom/h.js",
+        "node_modules/virtual-dom/index.js",
+        "node_modules/virtual-dom/patch.js",
+        "node_modules/virtual-dom/vdom/apply-properties.js",
+        "node_modules/virtual-dom/vdom/create-element.js",
+        "node_modules/virtual-dom/vdom/dom-index.js",
+        "node_modules/virtual-dom/vdom/patch-op.js",
+        "node_modules/virtual-dom/vdom/patch.js",
+        "node_modules/virtual-dom/vdom/update-widget.js",
+        "node_modules/virtual-dom/virtual-hyperscript/hooks/attribute-hook.js",
+        "node_modules/virtual-dom/virtual-hyperscript/hooks/ev-hook.js",
+        "node_modules/virtual-dom/virtual-hyperscript/hooks/focus-hook.js",
+        "node_modules/virtual-dom/virtual-hyperscript/hooks/soft-set-hook.js",
+        "node_modules/virtual-dom/virtual-hyperscript/index.js",
+        "node_modules/virtual-dom/virtual-hyperscript/parse-tag.js",
+        "node_modules/virtual-dom/virtual-hyperscript/svg-attribute-namespace.js",
+        "node_modules/virtual-dom/virtual-hyperscript/svg.js",
+        "node_modules/virtual-dom/vnode/handle-thunk.js",
+        "node_modules/virtual-dom/vnode/is-thunk.js",
+        "node_modules/virtual-dom/vnode/is-vhook.js",
+        "node_modules/virtual-dom/vnode/is-vnode.js",
+        "node_modules/virtual-dom/vnode/is-vtext.js",
+        "node_modules/virtual-dom/vnode/is-widget.js",
+        "node_modules/virtual-dom/vnode/version.js",
+        "node_modules/virtual-dom/vnode/vnode.js",
+        "node_modules/virtual-dom/vnode/vpatch.js",
+        "node_modules/virtual-dom/vnode/vtext.js",
+        "node_modules/virtual-dom/vtree/diff-props.js",
+        "node_modules/virtual-dom/vtree/diff.js",
+        "node_modules/x-is-array/index.js",
+        "node_modules/x-is-string/index.js",
+        "node_modules/xtend/immutable.js",
+        "node_modules/xtend/mutable.js",
+        "node_modules/xtend/test.js"
+      ],
+      ".json": [
+        "node_modules/atom-package-deps/.eslintrc.json",
+        "node_modules/atom-package-deps/package.json",
+        "node_modules/atom-package-path/package.json",
+        "node_modules/browser-split/component.json",
+        "node_modules/browser-split/package.json",
+        "node_modules/camelize/package.json",
+        "node_modules/consistent-env/.eslintrc.json",
+        "node_modules/consistent-env/package.json",
+        "node_modules/dom-walk/package.json",
+        "node_modules/error/package.json",
+        "node_modules/etch/package.json",
+        "node_modules/etch-octicon/package.json",
+        "node_modules/ev-store/package.json",
+        "node_modules/global/package.json",
+        "node_modules/individual/package.json",
+        "node_modules/is-object/.jscs.json",
+        "node_modules/is-object/.testem.json",
+        "node_modules/is-object/package.json",
+        "node_modules/lodash.uniq/package.json",
+        "node_modules/min-document/.testem.json",
+        "node_modules/min-document/package.json",
+        "node_modules/next-tick/package.json",
+        "node_modules/octicons/build/svg.json",
+        "node_modules/octicons/lib/font/codepoints.json",
+        "node_modules/octicons/lib/keywords.json",
+        "node_modules/octicons/package.json",
+        "node_modules/process/package.json",
+        "node_modules/sb-callsite/package.json",
+        "node_modules/sb-exec/.eslintrc.json",
+        "node_modules/sb-exec/package.json",
+        "node_modules/sb-memoize/.eslintrc.json",
+        "node_modules/sb-memoize/package.json",
+        "node_modules/sb-npm-path/.eslintrc.json",
+        "node_modules/sb-npm-path/package.json",
+        "node_modules/sb-promisify/package.json",
+        "node_modules/string-template/package.json",
+        "node_modules/virtual-dom/package.json",
+        "node_modules/x-is-array/package.json",
+        "node_modules/x-is-string/package.json",
+        "node_modules/xtend/package.json",
+        "package.json"
+      ]
+    },
+    "folders": [
+      {
+        "paths": [
+          "keymaps",
+          "lib/components",
+          "lib",
+          "",
+          "spec"
+        ],
+        "dependencies": {
+          "atom-package-deps": "4.2.0",
+          "etch": "0.6.3",
+          "etch-octicon": "^0.0.4"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-package-deps",
+          "node_modules/atom-package-deps/decls",
+          "node_modules/atom-package-deps/lib"
+        ],
+        "dependencies": {
+          "atom-package-path": "^1.1.0",
+          "sb-exec": "^2.0.5"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/atom-package-path/lib",
+          "node_modules/atom-package-path",
+          "node_modules/atom-package-path/spec"
+        ],
+        "dependencies": {
+          "sb-callsite": "^1.1.2"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/consistent-env",
+          "node_modules/consistent-env/decls",
+          "node_modules/consistent-env/lib"
+        ],
+        "dependencies": {
+          "lodash.uniq": "^4.5.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/error"
+        ],
+        "dependencies": {
+          "camelize": "^1.0.0",
+          "string-template": "~0.2.0",
+          "xtend": "~4.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/etch/dist",
+          "node_modules/etch"
+        ],
+        "dependencies": {
+          "virtual-dom": "^2.0.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/etch-octicon/lib",
+          "node_modules/etch-octicon"
+        ],
+        "dependencies": {
+          "octicons": "^4.3.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/ev-store"
+        ],
+        "dependencies": {
+          "individual": "^3.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/global"
+        ],
+        "dependencies": {
+          "min-document": "^2.19.0",
+          "process": "~0.5.1"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/min-document",
+          "node_modules/min-document/event",
+          "node_modules/min-document/test",
+          "node_modules/min-document/test/static"
+        ],
+        "dependencies": {
+          "dom-walk": "^0.1.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/sb-exec",
+          "node_modules/sb-exec/lib"
+        ],
+        "dependencies": {
+          "consistent-env": "^1.2.0",
+          "sb-npm-path": "^1.0.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/sb-npm-path",
+          "node_modules/sb-npm-path/lib",
+          "node_modules/sb-npm-path/spec"
+        ],
+        "dependencies": {
+          "sb-memoize": "^1.0.1",
+          "sb-promisify": "^1.2.0"
+        }
+      },
+      {
+        "paths": [
+          "node_modules/virtual-dom",
+          "node_modules/virtual-dom/dist",
+          "node_modules/virtual-dom/test",
+          "node_modules/virtual-dom/test/lib",
+          "node_modules/virtual-dom/vdom",
+          "node_modules/virtual-dom/vdom/test",
+          "node_modules/virtual-dom/virtual-hyperscript/hooks",
+          "node_modules/virtual-dom/virtual-hyperscript",
+          "node_modules/virtual-dom/virtual-hyperscript/test",
+          "node_modules/virtual-dom/vnode",
+          "node_modules/virtual-dom/vnode/test",
+          "node_modules/virtual-dom/vtree",
+          "node_modules/virtual-dom/vtree/test"
+        ],
+        "dependencies": {
+          "browser-split": "0.0.1",
+          "error": "^4.3.0",
+          "ev-store": "^7.0.0",
+          "global": "^4.3.0",
+          "is-object": "^1.0.1",
+          "next-tick": "^0.2.2",
+          "x-is-array": "0.1.0",
+          "x-is-string": "0.1.0"
+        }
+      }
+    ]
+  }
+}
