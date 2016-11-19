@@ -1,0 +1,2 @@
+setxkbmap -v gb
+setxkbmap -option caps:swapescape
