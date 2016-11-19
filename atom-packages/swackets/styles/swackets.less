@@ -1,0 +1,11 @@
+// The ui-variables file is provided by base themes provided by Atom.
+@import "ui-variables";
+
+
+:host, atom-text-editor, atom-text-editor::shadow {
+  atom-text-editor .highlight.highlight-selected .region {
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+  }
+}
