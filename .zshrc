@@ -54,6 +54,7 @@ alias vimupdate='vim +PluginInstall +qall'
 # === git shortcuts ===
 alias gs='git status'
 alias ga='git add .'
+alias gap='git add --patch'
 alias gpull='git pull'
 alias gitshove='git pull; git add .; git commit -m $1'
 
