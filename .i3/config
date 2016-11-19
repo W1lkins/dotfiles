@@ -8,7 +8,7 @@
 set $mod Mod1
 
 # font for window titles
-font pango:monospace 10 
+font pango:Fira Mono 10
 
 # use $mod and mouse to drag floating windows to their wanted position
 floating_modifier $mod
@@ -20,7 +20,7 @@ bindsym $mod+t exec i3-sensible-terminal
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+r exec rofi -show run -lines 5 -width 100 -padding 645 -opacity "85" -bw 0 -font "Source Code Pro Regular 18" 
+bindsym $mod+r exec rofi -show run -lines 5 -width 100 -padding 645 -opacity "85" -bw 0 -font "Fira Mono 18" 
 
 # change focus
 bindsym $mod+j focus left
@@ -121,7 +121,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 bar {
         strip_workspace_numbers yes 
      	status_command i3blocks -c ~/.i3/i3blocks.conf
-        font pango: Inconsolata, FontAwesome 12 
+        font pango: Fira Mono, FontAwesome 14 
         colors {
             background $bg-color
             separator #757575
