@@ -15,6 +15,7 @@ export SPOTIPY_REDIRECT_URI='http://localhost/listentothis/callback/'
 #setxkbmap -option caps:swapescape # swap capslock with escape
 export GOPATH=~/dev/go
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$HOME/bin
 
 # Base16 Shell
 BASE16_SHELL="$HOME/.config/base16-shell/base16-eighties.sh"
