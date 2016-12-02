@@ -115,4 +115,5 @@ alias cupdate='find .-name PKGBUILD -execdir makepkg -si \;'
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDG_VTNR" -eq 1 ]; then
       exec startx
 fi
-
+alias aursearch='cower -s $1'
+alias aurdl='cd /home/$USER/tmp; cower -d $1'
