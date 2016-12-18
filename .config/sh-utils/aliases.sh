@@ -70,6 +70,6 @@ if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDF_VTNR" -eq 1 ]; then
     exec startx
 fi
 
-if [ "$HOST" = "archie" || "$HOST" = "glados" ]; then
+if [ "$HOST" = "archie" ] || [ "$HOST" = "glados" ]; then
    /opt/vc/bin/tvservice -o 
 fi
