@@ -1,0 +1,15 @@
+export ZSH=/home/$USER/.oh-my-zsh
+export ZSH_THEME=afowler
+plugins=(git nvm history jump extract gitignore)
+export VISUAL=vim
+export EDITOR=vim
+export TERM=xterm-256color
+export CLICOLOR=1
+export GOPATH=~/projects/go
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/home/pi/bin"
+export PATH=$PATH:$GOPATH
+
+# project exports
+export SPOTIPY_CLIENT_ID='ea8316fa93a740ad99f6e773bfedb2da'
+export SPOTIPY_CLIENT_SECRET='8e5f7a3790144c7e90e376ae670554b1'
+export SPOTIPY_REDIRECT_URI='http://localhost/listentothis/callback/'
