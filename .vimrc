@@ -30,6 +30,9 @@ Plugin 'shougo/neocomplete.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'scrooloose/syntastic'
+Plugin 'ctrlpvim/ctrlp.vim' " Search for files
+Plugin 'mileszs/ack.vim' " Search in files for string
+Plugin 'jacoborus/tender' " Colorscheme
 call vundle#end()
 filetype plugin indent on
 
@@ -138,8 +141,8 @@ syntax enable
 let base16colorspace=256
 set background=dark
 try
-    colorscheme base16-railcasts 
-    "colorscheme tender
+    "colorscheme base16-railcasts
+    colorscheme tender
 catch
 endtry
 
@@ -234,8 +237,8 @@ map <leader>h :bprevious<cr>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove<
-map <leader>t<leader> :tabnext
+map <leader>tm :tabmove 
+map <leader>t<leader> :tabnext 
 
 " Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
@@ -415,3 +418,4 @@ endfunction
 if has("autocmd")
    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
+
