@@ -2,12 +2,12 @@
 makenote() {
     if [ $# -eq 0 ]
     then
-        local filename=note_`date +%H%M%S`
-        touch $filename
-        vi $filename
+        local filename=note_$(date +%H%M%S)
+        touch "$filename"
+        vi "$filename"
     else
-        touch $1
-        vi $1
+        touch "$1"
+        vi "$1"
     fi
 }
 
@@ -15,9 +15,9 @@ makenote() {
 utop() {
     if [ $# -eq 0 ]
     then
-        htop -u $USER
+        htop -u "$USER"
     else
-        htop -u $1
+        htop -u "$1"
     fi
 }
 
