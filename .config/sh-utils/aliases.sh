@@ -36,7 +36,7 @@ alias vimupdate='vim +PluginInstall +qall'
 
 # --- git ---
 alias gs='git status'
-alias ga='git add .'
+alias ga='git add --all'
 alias gap='git add --patch'
 alias gpull='git pull'
 alias gitshove='gpull; ga; git commit -m $1'

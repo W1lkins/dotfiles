@@ -10,3 +10,13 @@ makenote() {
         vi $1
     fi
 }
+
+# htop current user, else htop 1st argv
+utop() {
+    if [ $# -eq 0 ]
+    then
+        htop -u $USER
+    else
+        htop -u $1
+    fi
+}
