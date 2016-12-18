@@ -21,6 +21,20 @@ utop() {
     fi
 }
 
+# add current user to specified groups
+joingroup () {
+    for group in "$@"; do
+        sudo gpasswd -a "$USER" "$group"
+    done
+}
+
+# del user from specified groups
+leavegroup () {
+    for group in "$@"; do
+        sudo gpasswd -d "$USER" "$group"
+    done
+}
+
 # coloured man pages
 man() {
     LESS_TERMCAP_md=$'\e[01;31m' \
