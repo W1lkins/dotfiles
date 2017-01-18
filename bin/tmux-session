@@ -26,7 +26,7 @@ add_window() {
 
 new_session() {
   cd "$3" &&
-  tmux new-session -d -s "$1" -n "$2" $4
+  tmux new-session -d -s "$1" -n "$2" "$4"
 }
 
 backup_tmux_session() {
