@@ -1,3 +1,5 @@
+#!/bin/bash
+
 export ZSH=/home/$USER/.oh-my-zsh
 export ZSH_THEME=afowler
 plugins=(git nvm history jump extract gitignore)

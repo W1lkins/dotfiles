@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # oh-my-zsh
 source "$ZSH"/oh-my-zsh.sh
 

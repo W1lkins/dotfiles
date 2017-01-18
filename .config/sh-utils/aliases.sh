@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # --- generally useful ---
 alias ..='cd ..'
 alias l='ls -lFh'
@@ -22,8 +24,6 @@ alias listservices='sudo systemctl -r --type service --all | grep " active"'
 alias mpack='makepkg -s'
 alias ipack='makepkg -i'
 alias cupdate='find .-name PKGBUILD -execdir makepkg -si \;'
-alias aursearch='cower -s $1'
-alias aurdl='cd /home/$USER/tmp; cower -d $1'
 
 # --- dotfile shortcuts ---
 alias zshrc='vi ~/.zshrc'
@@ -39,11 +39,8 @@ alias gs='git status'
 alias ga='git add --all'
 alias gap='git add --patch'
 alias gpull='git pull'
-alias gitshove='gpull; ga; git commit -m $1'
 
 # --- tmux ---
-alias tc='tmux new -s $1'
-alias ta='tmux attach -t $1'
 alias tl='tmux list-sessions'
 
 # --- docker ---

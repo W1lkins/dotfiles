@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # make a note with an argv filename, else note_$(time)
 makenote() {
     if [ $# -eq 0 ]
@@ -21,15 +23,21 @@ utop() {
     fi
 }
 
+# disable crontab -r
+function crontab() {
+    # replace -r with -e
+    /usr/bin/crontab "${@/-r/-e}"
+}
+
 # add current user to specified groups
-joingroup () {
+joingroup() {
     for group in "$@"; do
         sudo gpasswd -a "$USER" "$group"
     done
 }
 
 # del user from specified groups
-leavegroup () {
+leavegroup() {
     for group in "$@"; do
         sudo gpasswd -d "$USER" "$group"
     done
@@ -44,4 +52,32 @@ man() {
     LESS_TERMCAP_ue=$'\e[0m' \
     LESS_TERMCAP_us=$'\e[01;32m' \
     command man "$@"
+}
+
+# search the aur for a pkg using cower
+aursearch() {
+    cower -s "$1"
+}
+
+# download from aur using cower to ~$USER/tmp
+aurdl() {
+    cd /home/"$USER"/tmp || exit;
+    cower -d "$1"
+}
+
+# pull from git, add everything, and commit with first argv
+gitshove() {
+    gpull;
+    ga;
+    git commit -m "$1";
+}
+
+# create a tmux session with a name corresponding to 1st argv
+tc() {
+    tmux new -s "$1"
+}
+
+# attach to tmux session with name corresponding to 1st argv
+ta() {
+    tmux attach -t "$1"
 }
