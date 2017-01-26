@@ -72,9 +72,10 @@ sub usage{
         Check Number of requests from access log file apache
         Mandatory arguments:
                 --log		: Path to the access log file
-                --time  	: time start requests in access log format [DD/Mmm/YYYY:hh:mm ex: 22/Sep/2013:06:34]
+                --time  	: time start requests in access log format [DD/Mmm/YYYY:hh:mm ex: 22/Jan/2017:06:34]
 		--minutes 	: number of minutes after the time
-                --help     	: print this menu help
+        Optional arguments:
+                --help      : print this menu
 EOF
         exit 0;
 }
