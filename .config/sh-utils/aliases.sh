@@ -61,6 +61,7 @@ alias checkip='curl icanhazip.com'
 alias src='source ~/.zshrc'
 alias pls='sudo $(fc -ln -1)'
 alias irc='weechat'
+alias weather='curl wttr.in'
 alias wtf='dmesg | tail'
 
 # --- python ---
