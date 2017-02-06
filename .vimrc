@@ -33,6 +33,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'ctrlpvim/ctrlp.vim' " Search for files
 Plugin 'mileszs/ack.vim' " Search in files for string
 Plugin 'jacoborus/tender' " Colorscheme
+Plugin 'vimwiki/vimwiki'
 call vundle#end()
 filetype plugin indent on
 
