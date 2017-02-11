@@ -1,10 +1,18 @@
 #!/bin/bash
 
+# `v` with no arguments opens `pwd` in vim otherwise opens location
+v() {
+	if [ $# -eq 0 ]; then
+		vim .
+	else
+		vim "$@"
+	fi
+}
+
 # make a note with an argv filename, else note_$(time)
 mknote() {
     filename=note_$(date +%H%M%S)
-    if [ $# -eq 0 ]
-    then
+    if [ $# -eq 0 ]; then
         touch "$filename"
         vi "$filename"
     else
@@ -15,8 +23,7 @@ mknote() {
 
 # htop current user, else htop 1st argv
 utop() {
-    if [ $# -eq 0 ]
-    then
+    if [ $# -eq 0 ]; then
         htop -u "$USER"
     else
         htop -u "$1"
@@ -154,11 +161,11 @@ isup() {
 mksh() {
     filename=sh_$(date +%H%M%S)
     if [ $# -eq 0 ]; then
-        echo "#!/bin/bash\n" >> "$filename"
+        echo "#!/bin/bash" >> "$filename"
         chmod +x "$filename"
         vi "$filename"
 	else
-        echo "#!/bin/bash\n" >> "$1"
+        echo "#!/bin/bash" >> "$1"
         chmod +x "$1";
         vi "$1"
 	fi
