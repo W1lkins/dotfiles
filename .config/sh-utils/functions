@@ -14,10 +14,10 @@ mknote() {
     filename=note_$(date +%H%M%S)
     if [ $# -eq 0 ]; then
         touch "$filename"
-        vi "$filename"
+        $EDITOR "$filename"
     else
         touch "$1"
-        vi "$1"
+        $EDITOR "$1"
     fi
 }
 
