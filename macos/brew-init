@@ -1,16 +1,9 @@
 #!/bin/bash
 
-# Warn if we're not on osx..
-if [[ ! "$OSTYPE" == "darwin"* ]]; then
-    echo 'We are not on OSX';
-    exit 1
-fi
-
 # Check if we have brew installed
 if ! type brew &> /dev/null; then
-    echo 'You dont have brew installed. We could install it for you but you should do it yourself via:
-/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
-exit 1
+    echo "Installing Homebrew.."
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 # Make sure we’re using the latest Homebrew
@@ -59,3 +52,5 @@ brew install ffmpeg --with-libvpx
 
 # Remove outdated versions from the cellar
 brew cleanup
+
+exit 0
