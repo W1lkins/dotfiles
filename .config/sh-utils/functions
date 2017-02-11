@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # make a note with an argv filename, else note_$(time)
-makenote() {
+mknote() {
+    filename=note$(date +%H%M%S)
     if [ $# -eq 0 ]
     then
-        filename=note_$(date +%H%M%S)
         touch "$filename"
         vi "$filename"
     else
@@ -24,7 +24,7 @@ utop() {
 }
 
 # disable crontab -r
-function crontab() {
+crontab() {
     # replace -r with -e
     /usr/bin/crontab "${@/-r/-e}"
 }
@@ -137,4 +137,15 @@ fs() {
 # shorthand for `tree` hiddenfiles and colour enabled, ignores .git, directories first, piped into less if output too big
 tre() {
 	tree -aC -I '.git' --dirsfirst "$@" | less -FRNX
+}
+
+# check if website is up
+isup() {
+	local uri=$1
+
+	if curl -s --head  --request GET "$uri" | grep "200 OK" > /dev/null ; then
+		notify-send --urgency=critical "$uri is down"
+	else
+		notify-send --urgency=low "$uri is up"
+	fi
 }
