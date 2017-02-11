@@ -1,0 +1,61 @@
+#!/bin/bash
+
+# Warn if we're not on osx..
+if [[ ! "$OSTYPE" == "darwin"* ]]; then
+    echo 'We are not on OSX';
+    exit 1
+fi
+
+# Check if we have brew installed
+if ! type brew &> /dev/null; then
+    echo 'You dont have brew installed. We could install it for you but you should do it yourself via:
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"'
+exit 1
+fi
+
+# Make sure we’re using the latest Homebrew
+brew update
+
+# Upgrade any already-installed formulae
+brew upgrade
+
+# GNU core utilities (those that come with OS X are outdated)
+brew install coreutils
+brew install moreutils
+# GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed
+brew install findutils
+# GNU `sed`, overwriting the built-in `sed`
+brew install gnu-sed --with-default-names
+
+# zsh
+brew install zsh
+brew install zsh-completions
+
+brew install brew-cask-completion
+
+# Install wget with IRI support
+brew install wget --with-iri
+
+# vim
+brew install vim --with-override-system-vi
+
+# useful
+brew install ansible
+brew install ffmpeg
+brew install htop
+brew install mariadb
+brew install mongodb
+brew install node
+brew install perl
+brew install python
+brew install shellcheck
+brew install tmux
+brew install sqlite
+brew install yarn
+brew install youtube-dl
+brew install imagemagick --with-webp
+brew install tree
+brew install ffmpeg --with-libvpx
+
+# Remove outdated versions from the cellar
+brew cleanup
