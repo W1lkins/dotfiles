@@ -64,6 +64,7 @@ alias wtf='dmesg | tail'
 # --- python ---
 alias vv='virtualenv venv'
 alias svenv='source ./venv/bin/activate'
+alias urlencode="python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);""
 
 # --- arch specific ---
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDF_VTNR" -eq 1 ]; then
