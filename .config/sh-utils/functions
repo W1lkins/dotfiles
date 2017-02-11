@@ -103,13 +103,13 @@ calc() {
 	printf "\n"
 }
 
-# Create a new directory and enter it
+# create a new directory and enter it
 mkd() {
 	mkdir -p "$@"
 	cd "$@" || exit
 }
 
-# Make a temporary directory and enter it
+# make a temporary directory and enter it
 tmpd() {
 	local dir
 	if [ $# -eq 0 ]; then
@@ -120,7 +120,7 @@ tmpd() {
 	cd "$dir" || exit
 }
 
-# Determine size of a file or total size of a directory
+# determine size of a file or total size of a directory
 fs() {
 	if du -b /dev/null > /dev/null 2>&1; then
 		local arg=-sbh
@@ -132,4 +132,9 @@ fs() {
 	else
 		du $arg -- .[^.]* *
 	fi
+}
+
+# shorthand for `tree` hiddenfiles and colour enabled, ignores .git, directories first, piped into less if output too big
+tre() {
+	tree -aC -I '.git' --dirsfirst "$@" | less -FRNX
 }
