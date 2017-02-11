@@ -2,7 +2,7 @@
 
 # make a note with an argv filename, else note_$(time)
 mknote() {
-    filename=note$(date +%H%M%S)
+    filename=note_$(date +%H%M%S)
     if [ $# -eq 0 ]
     then
         touch "$filename"
@@ -147,5 +147,19 @@ isup() {
 		notify-send --urgency=critical "$uri is down"
 	else
 		notify-send --urgency=low "$uri is up"
+	fi
+}
+
+# open a new sh file in vim and +x it
+mksh() {
+    filename=sh_$(date +%H%M%S)
+    if [ $# -eq 0 ]; then
+        echo "#!/bin/bash\n" >> "$filename"
+        chmod +x "$filename"
+        vi "$filename"
+	else
+        echo "#!/bin/bash\n" >> "$1"
+        chmod +x "$1";
+        vi "$1"
 	fi
 }
