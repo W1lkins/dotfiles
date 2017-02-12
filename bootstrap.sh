@@ -24,7 +24,7 @@ fail () {
 }
 
 setup_gitconfig () {
-  if ! [ -f git/gitconfig.local.symlink ]
+  if ! [ -f $HOME/.gitconfig ]
   then
     info 'setup gitconfig'
 
@@ -42,6 +42,8 @@ setup_gitconfig () {
     sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" -i git/gitconfig.sym
 
     success 'gitconfig'
+  else
+    success 'skipped gitconfig'
   fi
 }
 
