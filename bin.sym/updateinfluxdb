@@ -9,7 +9,7 @@ docker pull influxdb
 echo "Stopping influxdb Container"
 docker stop influxdb
 echo "Backing up old influxdb Container to influxdb_$(timestamp)"
-docker rename influxdb influxdb_$(timestamp)
+docker rename influxdb "influxdb_$(timestamp)"
 echo "Creating and starting new influxdb Server"
 docker create \
 --name influxdb \

@@ -2,6 +2,11 @@
 set -e
 set -o pipefail
 
+if [ "$1" ]; then
+    shellcheck "$1" && echo "[OK]: successfully linted $1"
+    exit 0
+fi
+
 (
 # find all executables and run `shellcheck`
 for f in $(find . -type f -not -iwholename '*.git*' | sort -u); do
