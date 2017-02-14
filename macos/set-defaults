@@ -56,7 +56,7 @@ echo "Dock - Don’t show Dashboard as a Space"
 defaults write com.apple.dock "dashboard-in-overlay" -bool true
 
 echo "Finder - Show the $HOME/Library folder"
-chflags nohidden $HOME/Library
+chflags nohidden "$HOME"/Library
 
 echo "Finder - Show hidden files"
 defaults write com.apple.finder AppleShowAllFiles -bool true
