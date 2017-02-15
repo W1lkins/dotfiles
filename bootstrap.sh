@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 DOTFILES_ROOT=$(pwd -P)
 set -e
@@ -6,19 +6,19 @@ echo ''
 
 # util functions
 info () {
-  printf "\r  [ \033[00;34m..\033[0m ] %s\n" "$1"
+  printf "\r  [ \033[00;34m..\033[0m ] $1\n"
 }
 
 user () {
-  printf "\r  [ \033[0;33m??\033[0m ] %s\n" "$1"
+  printf "\r  [ \033[0;33m??\033[0m ] $1\n"
 }
 
 success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] %s\n" "$1"
+  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n"
 }
 
 fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] %s\n" "$1"
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n"
   echo ''
   exit
 }
@@ -51,19 +51,16 @@ setup_gitconfig () {
 link_file () {
   local src=$1 dst=$2
 
-  local overwrite='' 
-  local backup=''
-  local skip=''
-  local action=''
-  local currentSrc=''
+  local overwrite= backup= skip=
+  local action=
 
-  if [ -f "$dst" ] || [ -d "$dst" ] || [ -L "$dst" ]
+  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
   then
 
     if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
     then
 
-      currentSrc="$(readlink "$dst")"
+      local currentSrc="$(readlink $dst)"
 
       if [ "$currentSrc" == "$src" ]
       then
@@ -141,17 +138,17 @@ install_dotfiles () {
 setup_gitconfig
 install_dotfiles
 
-# If we're on a Mac, let's install and setup homebrew.
-if [ "$(uname -s)" == "Darwin" ]
+# if we're on a mac, let's install and setup homebrew
+if [ "$(uname -s)" == "Darawin" ]
 then
-  info "installing dependencies"
-  if source macos/osx-init > /tmp/osx-installed 2>&1
+  info 'installing dependencies'
+  if source macos/osx-init > /tmp/osx-install 2>&1
   then
-    success "dependencies installed"
+    success 'dependencies installed'
   else
-    fail "error installing dependencies"
+    fail 'error installing dependencies'
   fi
 fi
 
 echo ''
-echo '  All installed!'
+echo ' all installed!'
