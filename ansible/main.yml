@@ -26,6 +26,14 @@
       dest=~/.oh-my-zsh
     register: ohmyzsh_cloned
 
+  - name: download dotfiles
+    become_user: wilkins
+    become: true
+    git:
+      repo=https://github.com/W1lkins/dotfiles
+      dest=~/dotfiles
+    register: dotfiles_cloned
+
   - name: make sure ~/.vim exists
     become_user: wilkins
     become: true
@@ -51,14 +59,6 @@
       repo=https://github.com/VundleVim/Vundle.vim
       dest=~/.vim/bundle/Vundle.vim
     register: vundle_installed
-
-  - name: download dotfiles
-    become_user: wilkins
-    become: true
-    git:
-      repo=https://github.com/W1lkins/dotfiles
-      dest=~/dotfiles
-    register: dotfiles_cloned
 
   - name: chmod bootstrap
     when: dotfiles_cloned|success
