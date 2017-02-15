@@ -16,5 +16,5 @@ export HISTIGNORE=" *:ls:cd:cd -:pwd:exit:date:* --help:* ";
 
 # project exports
 export SPOTIPY_CLIENT_ID='ea8316fa93a740ad99f6e773bfedb2da'
-export SPOTIPY_CLIENT_SECRET='8e5f7a3790144c7e90e376ae670554b1'
+export SPOTIPY_CLIENT_SECRET='REGENERATED <(+_+)>_|_'
 export SPOTIPY_REDIRECT_URI='http://localhost/listentothis/callback/'
