@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# source our docker funcs
+source "~/.docker/docker_functions"
+
 # `v` with no arguments opens `pwd` in vim otherwise opens location
 v() {
 	if [ $# -eq 0 ]; then
@@ -19,6 +22,11 @@ mknote() {
         touch "$1"
         $EDITOR "$1"
     fi
+}
+
+# list users on the system
+listusers() {
+    cut -d: -f1 /etc/passwd
 }
 
 # htop current user, else htop 1st argv

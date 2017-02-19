@@ -1,6 +1,6 @@
 # Set up a temp environment with my dotfile setup, in a container
 # Usage:
-#       docker run -it wilkins:latest zsh
+#       docker run -it wilkins:latest
 #       run bootstrap.sh && source ~/.zshrc
 
 FROM ubuntu:latest
@@ -24,4 +24,7 @@ RUN git clone https://github.com/VundleVim/Vundle.vim.git /root/.vim/bundle/Vund
 # grab my dotfiles
 RUN git clone https://github.com/W1lkins/dotfiles.git /root/dotfiles
 
+# start zsh in /root/dotfiles
 WORKDIR /root/dotfiles
+ENV SHELL /usr/bin/zsh
+ENTRYPOINT /usr/bin/zsh
