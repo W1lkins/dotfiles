@@ -44,7 +44,7 @@ alias gpull='git pull'
 alias tl='tmux list-sessions'
 
 # --- docker ---
-source "~/.docker/docker.alias"
+source "$HOME/.docker/docker.alias"
 
 # --- misc ---
 alias torrent='deluged; deluge-web&;'
