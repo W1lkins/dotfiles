@@ -2,7 +2,7 @@
 
 # find the ip of a docker container via id|name
 docker_ip() {
-    docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$1"
+    docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$1"
 }
 
 # start docker container if stopped then attach, and attach if already started
