@@ -2,5 +2,4 @@
 
 alias dstop='docker stop $(docker ps -a -q)'
 alias drma='docker rmi $(docker ps -a -q)'
-alias debian='docker run -it debian bash'
 alias vm='docker run -it wilkins:latest zsh'
