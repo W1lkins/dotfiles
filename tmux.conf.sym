@@ -3,6 +3,12 @@ unbind C-b
 set-option -g prefix C-a
 bind-key C-a send-prefix
 
+# tweak wait time between key sequences
+set -s escape-time 0
+
+# make windows count upward from 1 rather than 0
+set -g base-index 1
+
 # sane splitting
 bind | split-window -h
 bind - split-window -v
@@ -23,6 +29,10 @@ bind-key -n S-Up set-option -g status
 
 # don't rename windows automatically
 set-option -g allow-rename off
+
+# name windows when creating them via prefix-C
+bind-key C new-window
+bind-key c command-prompt -p "Name of new window: " "new-window -n '%%'"
 
 # vi copypaste mode
 set-window-option -g mode-keys vi
