@@ -3,3 +3,4 @@ bin/speedtest.py
 .config/pulse
 .config/base16-shell
 .config/deluge
+vim.sym/tmp
