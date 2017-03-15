@@ -636,9 +636,13 @@ vmap <C-F>f <Plug>CtrlSFVwordExec
 " search word under cursor with <Ctrl-f>F
 nmap <C-F>F <Plug>CtrlSFCwordPath
 
+" <Ctrl-F>t to leave insert mode and toggle split window
+inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
+
 " }}}
 " Ctrl-P {{{
 
+" initial setup
 let g:ctrlp_dont_split = 'NERD_tree_2'
 let g:ctrlp_jump_to_buffer = 0
 let g:ctrlp_working_path_mode = 0
@@ -647,9 +651,18 @@ let g:ctrlp_split_window = 0
 let g:ctrlp_max_height = 10
 let g:ctrlp_extensions = ['tag']
 
+" bindings
 let g:ctrlp_map = '<leader>,'
 nnoremap <leader>. :CtrlPTag<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
+
+" ignore list
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
 
 let g:ctrlp_prompt_mappings = {
 \ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
@@ -658,6 +671,9 @@ let g:ctrlp_prompt_mappings = {
 \ 'PrtHistory(1)':        ['<c-p>'],
 \ 'ToggleFocus()':        ['<c-tab>'],
 \ }
+
+" custom find command
+let g:ctrlp_user_command = 'find %s -type f'
 
 " }}}
 
