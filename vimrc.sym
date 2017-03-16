@@ -436,12 +436,18 @@ nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 " }}}
 " Tabs & Buffers ---------------------------------------------------------- {{{
 
+" Tabs {{{
+
 " ctrl-t to open a new tab
 nnoremap T :tabnew<cr>
 
 " tl to tab-next and th to tab-prev
 nnoremap tl :tabN<cr>
 nnoremap th :tabp<cr>
+
+" }}}
+" Buffers {{{
+" }}}
 
 " }}}
 " Searching & Movement ---------------------------------------------------- {{{
