@@ -433,6 +433,11 @@ nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 
 " }}}
+" Tabs & Buffers ---------------------------------------------------------- {{{
+
+" ctrl-t to open a new tab
+nnoremap T :tabnew<cr>
+" }}}
 " Searching & Movement ---------------------------------------------------- {{{
 
 " use sane regexes.
