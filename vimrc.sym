@@ -1,8 +1,13 @@
 " Basic Options ----------------------------------------------------------- {{{
 
+" Plugin options {{{
+
 call pathogen#infect()                           " plugin handler
 filetype plugin indent on                        " useful for syntax highlighting, loads ftplugin.vim, loads indent.vim
 set nocompatible
+
+" }}}
+" Set options {{{
 
 set listchars=tab:>\ ,eol:¬,extends:❯,precedes:❮ " change tab/eol chars etc.
 set nocompatible
@@ -33,9 +38,32 @@ set shiftround                                   " round indent to multiple of `
 set title                                        " title of the window will be set to value of `titlestring`
 set linebreak                                    " vim will wrap long lines at char `breakat`
 set colorcolumn=+1                               " highlight column after 'textwidth'
+set synmaxcol=800                                " don't try to highlight lines longer than 800 characters.
+set backupskip=/tmp/*,/private/tmp/*"            " make Vim able to edit crontab files again.
 
-" Spelling
-"
+" time out on key codes but not mappings
+" e.g. `ci` will not timeout until you press t or ( or ESC etc.
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+
+" better completion
+set complete=.,w,b,u,t
+set completeopt=longest,menuone
+
+" save when losing focus
+au FocusLost * :silent! wall
+
+" resize splits when the window is resized
+au VimResized * :wincmd =
+
+" leader
+let mapleader = ","
+let maplocalleader = "\\"
+
+" }}}
+" Spelling {{{
+
 " three dictionaries used for spellchecking:
 "   /usr/share/dict/words
 "       basic stuff
@@ -46,35 +74,7 @@ set dictionary=/usr/share/dict/words
 set spellfile=~/.vim/custom-dictionary.utf-8.add
 nnoremap zG 2zg
 
-" use pipes for terminal speed, if terminal is fast and can use nice unicode lines -just turn this option off
-" set fillchars=diff:⣿,vert:│
-" set fillchars=diff:⣿,vert:\|
-
-" don't try to highlight lines longer than 800 characters.
-set synmaxcol=800
-
-" time out on key codes but not mappings
-" e.g. `ci` will not timeout until you press t or ( or ESC etc.
-set notimeout
-set ttimeout
-set ttimeoutlen=10
-
-" make Vim able to edit crontab files again.
-set backupskip=/tmp/*,/private/tmp/*"
-
-" better completion
-set complete=.,w,b,u,t
-set completeopt=longest,menuone
-
-" save when losing focus
-au FocusLost * :silent! wall
-
-" resize splits when the window is resized
-" au VimResized * :wincmd =
-
-" leader
-let mapleader = ","
-let maplocalleader = "\\"
+"}}}
 
 " Cursorline {{{
 " Only show cursorline in the current window and in normal mode.
@@ -167,6 +167,7 @@ colorscheme goodwolf
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " }}}
+
 " }}}
 " Folding ----------------------------------------------------------------- {{{
 set foldmethod=marker " fold with {{{ }}}
@@ -254,7 +255,7 @@ iabbrev lhap ಥ‿ಥ
 iabbrev lmis ಠ‿ಠ
 
 " }}}
-" Convenience Mappings ---------------------------------------------------- {{{
+" Mappings & Useful Functions --------------------------------------------- {{{
 
 " no help key
 noremap  <F1> <Nop>
@@ -437,6 +438,11 @@ nnoremap <leader>ev :vsplit ~/.vimrc<cr>
 
 " ctrl-t to open a new tab
 nnoremap T :tabnew<cr>
+
+" tl to tab-next and th to tab-prev
+nnoremap tl :tabN<cr>
+nnoremap th :tabp<cr>
+
 " }}}
 " Searching & Movement ---------------------------------------------------- {{{
 
