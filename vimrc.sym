@@ -470,7 +470,10 @@ noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
 if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
+
+" move between brackets with tab
 map <tab> %
+
 silent! unmap [%
 silent! unmap ]%
 
