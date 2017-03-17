@@ -4,7 +4,7 @@
 
 call pathogen#infect()                           " plugin handler
 filetype plugin indent on                        " useful for syntax highlighting, loads ftplugin.vim, loads indent.vim
-set nocompatible
+set nocompatible                                 " make vi actually improved
 
 " }}}
 " Set options {{{
@@ -130,7 +130,7 @@ augroup END
 set tabstop=4           " number of spaces a <Tab> counts for
 set shiftwidth=4
 set softtabstop=4       " number of spaces a <Tab> counts for while editing
-set expandtab
+set expandtab           " insert mode, uses spaces to insert <Tab>
 set wrap                " lines longer than the width of the window will wrap
 set textwidth=120       " marker on 80 chars
 set formatoptions=qrn1j " how vim will auto formar
@@ -677,11 +677,9 @@ nnoremap <leader>. :CtrlPTag<cr>
 nnoremap <leader>b :CtrlPBuffer<cr>
 
 " ignore list
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn)$',
   \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
   \ }
 
 let g:ctrlp_prompt_mappings = {
