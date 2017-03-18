@@ -50,6 +50,10 @@ brew install imagemagick --with-webp
 brew install tree
 brew install ffmpeg --with-libvpx
 
+# fzf and ripgrep
+brew install fzf
+brew install ripgrep
+
 # Remove outdated versions from the cellar
 brew cleanup
 
