@@ -645,21 +645,6 @@ let NERDTreeChDirMode = 2
 let NERDTreeMapJumpFirstChild = 'gK'
 
 " }}}
-" CtrlSF {{{
-
-" <Ctrl-Shift-F> --> start typing
-nmap <C-S-F> <Plug>CtrlSFPrompt
-
-" on visual selection <Ctrl-f>f for selected string, executes immediately
-vmap <C-F>f <Plug>CtrlSFVwordExec
-
-" search word under cursor with <Ctrl-f>F
-nmap <C-F>F <Plug>CtrlSFCwordPath
-
-" <Ctrl-F>t to leave insert mode and toggle split window
-inoremap <C-F>t <Esc>:CtrlSFToggle<CR>
-
-" }}}
 " Ctrl-P {{{
 
 " initial setup
