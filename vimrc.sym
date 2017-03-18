@@ -447,6 +447,18 @@ nnoremap th :tabp<cr>
 
 " }}}
 " Buffers {{{
+
+" show open buffers with ls
+nnoremap ls :ls!<cr>
+
+" mappings for switching buffer via `Ngb` where N 1-99
+let c = 1
+while c <= 99
+  execute "nnoremap <silent> " . c . "gb :" . c . "b\<CR>"
+  let c += 1
+endwhile
+
+
 " }}}
 
 " }}}
