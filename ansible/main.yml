@@ -51,15 +51,6 @@
       state: directory
     register: bundle_exists
 
-  - name: clone vundle
-    when: bundle_exists|success
-    become_user: wilkins
-    become: true
-    git:
-      repo=https://github.com/VundleVim/Vundle.vim
-      dest=~/.vim/bundle/Vundle.vim
-    register: vundle_installed
-
   - name: chmod bootstrap
     when: dotfiles_cloned|success
     become_user: wilkins
