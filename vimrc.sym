@@ -449,7 +449,7 @@ nnoremap th :tabp<cr>
 " Buffers {{{
 
 " show open buffers with Ls
-nnoremap Ls :ls!<cr>
+nnoremap <leader>l :ls!<cr>
 
 " mappings for switching buffer via `Ngb` where N 1-99
 let c = 1
