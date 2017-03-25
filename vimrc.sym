@@ -9,6 +9,7 @@ set nocompatible                                 " make vi actually improved
 " }}}
 " Set options {{{
 
+set encoding=utf-8                               " make stuff work
 set listchars=tab:>\ ,eol:¬                      " change tab/eol chars etc.
 set nocompatible
 set modelines=0                                  " sets the number of lines (at the beginning and end of each file) vim checks for initialisations
