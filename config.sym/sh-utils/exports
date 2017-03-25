@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$(uname -s)" == "Darwin" ]
+if [ "$(uname -s)" = "Darwin" ]
 then
     export ZSH=/Users/$USER/.oh-my-zsh
 else
