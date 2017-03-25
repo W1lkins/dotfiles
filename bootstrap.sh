@@ -150,7 +150,7 @@ then
 
   if [ "$response" == 'y' ]; then
     info 'installing dependencies'
-    if source macos/osx-init > /tmp/osx-install 2>&1
+    if source macos/osx-init > /tmp/osx-install.log 2>&1
     then
         success 'dependencies installed'
     else
