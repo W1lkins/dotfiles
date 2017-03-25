@@ -139,7 +139,7 @@ setup_gitconfig
 install_dotfiles
 
 # if we're on a mac, let's install and setup homebrew
-if [ "$(uname -s)" == "Darawin" ]
+if [ "$(uname -s)" == "Darwin" ]
 then
   info 'installing dependencies'
   if source macos/osx-init > /tmp/osx-install 2>&1
