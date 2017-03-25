@@ -30,7 +30,7 @@ new_session() {
 }
 
 backup_tmux_session() {
-  mkdir /home/"$USER"/.tmux-sessions
+  mkdir "$HOME"/.tmux-sessions
   mv ~/.tmux-session ~/.tmux-sessions/tmux-session."$(date +%Y%m%d)"
 }
 

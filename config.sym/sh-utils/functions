@@ -84,9 +84,9 @@ aursearch() {
     cower -s "$1"
 }
 
-# download from aur using cower to ~$USER/tmp
+# download from aur using cower to $HOME/tmp
 aurdl() {
-    cd /home/"$USER"/tmp || exit;
+    cd "$HOME"/tmp || exit;
     cower -d "$1"
 }
 
