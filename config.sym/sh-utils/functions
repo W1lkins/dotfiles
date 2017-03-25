@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # source our docker funcs
+# shellcheck source=/dev/null
 source "$HOME/.docker/docker.functions"
 
 # check if an executable exists e.g. command_exists git
@@ -12,8 +13,8 @@ command_exists () {
 v() {
 	if [ $# -eq 0 ]; then
         # if we have fzf installed, use it else open cwd
-        if command_exists fzf; then 
-            vim $(fzf)
+        if command_exists fzf; then
+            vim "$(fzf)"
         else
             vim .
         fi
@@ -189,3 +190,27 @@ mksh() {
 	fi
 }
 
+# attempt find the current operating system
+findcurrentos() {
+    local DISTRO="";
+    local os_type="";
+
+    os_type=$(uname);
+    case "$os_type" in
+            "Darwin") {
+                echo "OSX"
+            } ;;
+            "Linux") {
+                # If available, use LSB to identify distribution
+                if [ -f /etc/lsb-release ] || [ -d /etc/lsb-release.d ]; then
+                    DISTRO=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+                else
+                    DISTRO=$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
+                fi
+                echo "$DISTRO" | tr 'a-z' 'A-Z'
+            } ;;
+            *) {
+                echo "UNKNOWN"
+            } ;;
+    esac;
+}
