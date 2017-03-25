@@ -9,7 +9,7 @@ set nocompatible                                 " make vi actually improved
 " }}}
 " Set options {{{
 
-set listchars=tab:>\ ,eol:¬,extends:❯,precedes:❮ " change tab/eol chars etc.
+set listchars=tab:>\ ,eol:¬                      " change tab/eol chars etc.
 set nocompatible
 set modelines=0                                  " sets the number of lines (at the beginning and end of each file) vim checks for initialisations
 set autoindent                                   " copy indent from current line when starting a new
