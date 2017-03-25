@@ -24,7 +24,7 @@ NEW_STAT=$(stat -t "$DIR_TO_CHECK")
  
 if [ "$OLD_STAT" != "$NEW_STAT" ]
 then
-    echo -e "Directory $1 has changed\nOutput from 'ls $1' :\n$(ls "$1" | cut -d'.' -f1-4)" | push
+    echo -e "Directory $1 has changed"
     # update the OLD_STAT_FILE
     echo "$NEW_STAT" > "$OLD_STAT_FILE"
 fi
