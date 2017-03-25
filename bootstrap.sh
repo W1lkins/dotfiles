@@ -57,7 +57,6 @@ link_file () {
   local backup=''
   local skip=''
   local action=''
-  local currentSrc=''
 
   if [ -f "$dst" ] || [ -d "$dst" ] || [ -L "$dst" ]
   then
@@ -65,7 +64,7 @@ link_file () {
     if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
     then
 
-      currentSrc="$(readlink "$dst")"
+      local currentSrc="$(readlink "$dst")"
 
       if [ "$currentSrc" == "$src" ]
       then
@@ -74,8 +73,8 @@ link_file () {
 
       else
 
-        user "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
-        [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+        user "File already exists: $dst ($(basename "$src")), what do you want to do?"
+        user "[s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
         read -rn 1 action
 
         case "$action" in
