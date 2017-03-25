@@ -145,12 +145,19 @@ install_dotfiles
 # if we're on a mac, let's install and setup homebrew
 if [ "$(uname -s)" == "Darwin" ]
 then
-  info 'installing dependencies'
-  if source macos/osx-init > /tmp/osx-install 2>&1
-  then
-    success 'dependencies installed'
+  user "Do you want to install brew & OSX dependencies, your password may be requested? (y/n)"
+  read -rn 1 response
+
+  if [ "$response" == 'y' ]; then
+    info 'installing dependencies'
+    if source macos/osx-init > /tmp/osx-install 2>&1
+    then
+        success 'dependencies installed'
+    else
+        fail 'error installing dependencies'
+    fi
   else
-    fail 'error installing dependencies'
+    info 'not installing dependencies'
   fi
 fi
 
