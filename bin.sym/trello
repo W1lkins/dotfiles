@@ -21,8 +21,8 @@ safe_name=$(echo "$name" | tr ' ' '+'|sed s/\&/%26/g)
 
 key='4f6fb649bf838b639fcff2a1131c4636'
 
-# this script requires an exported variable for the auth token, e.g export trello_token='abc123'
-token=$trello_token
+# this script requires an exported variable for the auth token, e.g export TRELLOTOKEN='abc123'
+token=$TRELLOTOKEN
 
 # make sure we have a token env variable
 if [[ ! -n $token ]]
