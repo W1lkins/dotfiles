@@ -3,6 +3,9 @@
 if [ "$(uname -s)" = "Darwin" ]
 then
     export ZSH=/Users/$USER/.oh-my-zsh
+elseif [ $(whoami) = "root" ]
+then
+    export ZSH=/root/.oh-my-zsh
 else
     export ZSH=/home/$USER/.oh-my-zsh
 fi
