@@ -26,11 +26,11 @@ v() {
 mknote() {
     filename=note_$(date +%H%M%S)
     if [ $# -eq 0 ]; then
-        touch "$filename"
-        $EDITOR "$filename"
+        touch "$HOME"/.notes/"$filename"
+        $EDITOR "$HOME"/.notes/"$filename"
     else
-        touch "$1"
-        $EDITOR "$1"
+        touch "$HOME"/.notes/"$1"
+        $EDITOR "$HOME"/.notes/"$1"
     fi
 }
 
