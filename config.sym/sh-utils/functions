@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # source our docker funcs
-# shellcheck source=/dev/null
 source "$HOME/.docker/docker.functions"
 
 # check if an executable exists e.g. command_exists git
@@ -207,7 +206,7 @@ findcurrentos() {
                 else
                     DISTRO=$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
                 fi
-                echo "$DISTRO" | tr 'a-z' 'A-Z'
+                echo "$DISTRO" | tr '[:lower:]' '[:upper:]'
             } ;;
             *) {
                 echo "UNKNOWN"
