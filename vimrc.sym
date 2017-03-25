@@ -337,7 +337,7 @@ vnoremap gu u
 " nnoremap <leader><cr> :silent !myctags >/dev/null 2>&1 &<cr>:redraw!<cr>
 
 " clear trailing whitespace
-nnoremap <leader>ww mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+nnoremap <leader>wh mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
 " select entire buffer
 nnoremap vaa ggvGg_
@@ -707,7 +707,7 @@ let g:rg_command = '
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
 " map `F` to rg_command
-nnoremap F :F 
+nnoremap F :F
 
 " }}}
 
