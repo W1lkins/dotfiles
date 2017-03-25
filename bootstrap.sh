@@ -39,7 +39,9 @@ setup_gitconfig () {
     user ' - What is your github author email?'
     read -re git_authoremail
 
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" -i git/gitconfig.sym
+    cp git/gitconfig ~/.gitconfig
+
+    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" -i ~/.gitconfig
 
     success 'gitconfig'
   else
@@ -51,8 +53,11 @@ setup_gitconfig () {
 link_file () {
   local src=$1 dst=$2
 
-  local overwrite= backup= skip=
-  local action=
+  local overwrite=''
+  local backup=''
+  local skip=''
+  local action=''
+  local currentSrc=''
 
   if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
   then
@@ -60,7 +65,7 @@ link_file () {
     if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
     then
 
-      local currentSrc="$(readlink $dst)"
+      currentSrc="$(readlink "$dst")"
 
       if [ "$currentSrc" == "$src" ]
       then

@@ -2,7 +2,7 @@
         name = AUTHORNAME
         email = AUTHOREMAIL
 [credential]
-        helper = GIT_CREDENTIAL_HELPER
+        helper = cache
 [hub]
         protocol = https
 [alias]
