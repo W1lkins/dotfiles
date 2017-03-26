@@ -12,3 +12,17 @@ Installation instructions:
    run)
 6. ???
 7. Profit
+
+---
+
+Testing without installing (using Docker):
+
+1. Clone the repo as above
+2. Run `make build create start install attach`
+3. You'll now be in a Docker container running ubuntu with `zsh`, `vim`, & `shellcheck` installed
+4. If you want to run shellcheck on the `.sh` files run `testscripts` from the `/project` directory
+5. If you want to test without booting into a docker container just run `make test`
+
+---
+
+Enjoy
