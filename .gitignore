@@ -4,4 +4,3 @@ bin/speedtest.py
 .config/base16-shell
 .config/deluge
 vim.sym/tmp
-bin.sym/*.scpt
