@@ -27,7 +27,6 @@ set laststatus=2                                 " always show status line
 set history=1000                                 " remember 1000 lines of history
 set undofile                                     " save undo's after file closes
 set undoreload=10000                             " number of lines to save for undo
-set list                                         " shows tabs and eols
 set lazyredraw                                   " screen wont be redrawn while executing macros/registers
 set matchtime=3                                  " tenths of a second to show the matching brackets etc.
 set showbreak=↪                                  " string at start of lines that have been wrapped
@@ -161,8 +160,15 @@ endif
 " Color Scheme {{{
 
 syntax on
-set background=dark
-colorscheme goodwolf
+" change background colour depending on the time of day
+let hour = strftime("%H")
+if 6 <= hour && hour < 19
+  set background=light
+  colorscheme solarized
+else
+  set background=dark
+  colorscheme goodwolf
+endif
 
 " highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'

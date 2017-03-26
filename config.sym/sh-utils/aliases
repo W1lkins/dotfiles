@@ -36,7 +36,7 @@ alias vimupdate='vim +PluginInstall +qall'
 
 # --- git ---
 alias gs='git status'
-alias ga='git add --all'
+alias gaa='git add --all'
 alias gap='git add --patch'
 alias gpull='git pull'
 
@@ -47,7 +47,7 @@ alias tl='tmux list-sessions'
 source "$HOME/.docker/docker.alias"
 
 # --- misc ---
-alias torrent='deluged; deluge-web&;'
+alias starttorrent='deluged; deluge-web&;'
 alias stoptorrent='pkill deluge; pkill deluged; pkill deluge-web;'
 alias airvpn='sudo openvpn --config --mute-replay-warnings $HOME/vpn/AirVPN_United-Kingdom_UDP-443.ovpn'
 alias scp='sftp -p 999'
@@ -56,7 +56,7 @@ alias checkip='curl icanhazip.com'
 alias src='source ~/.zshrc'
 alias pls='sudo $(fc -ln -1)'
 alias irc='weechat'
-alias weather='curl wttr.in'
+alias weather='curl wttr.in/Edinburgh'
 alias wtf='dmesg | tail'
 
 # --- python ---
