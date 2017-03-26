@@ -21,13 +21,12 @@ set visualbell                                   " uses a visual bell instead of
 set ttyfast                                      " indicates a fast terminal connection
 set ruler                                        " shows the line and column number of the current cursor position
 set backspace=indent,eol,start                   " make backspace work like most other apps
-"set nonumber                                    " dont show line numbers
 set norelativenumber                             " dont show relative line numbers
 set laststatus=2                                 " always show status line
 set history=1000                                 " remember 1000 lines of history
 set undofile                                     " save undo's after file closes
 set undoreload=10000                             " number of lines to save for undo
-set lazyredraw                                   " screen wont be redrawn while executing macros/registers
+set lazyredraw                                   " screen wont be redrawn while executing macros/registers (only when we need to)
 set matchtime=3                                  " tenths of a second to show the matching brackets etc.
 set showbreak=↪                                  " string at start of lines that have been wrapped
 set splitbelow                                   " splitting a window will put the new window below current
@@ -478,7 +477,7 @@ vnoremap / /\v
 set ignorecase         " ignore case of normal letters
 set smartcase          " overrides ignorecase if search pattern contains upper case
 set incsearch          " match as you type
-set showmatch          " jump to matching brackets briefly when closing tag inserted
+set showmatch          " show matching brackets [{()}]
 set hlsearch           " highlight all the matches, can be cleared with <leader><space>
 set gdefault           " all matches in line substituted instead of one
 
