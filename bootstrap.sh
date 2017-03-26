@@ -5,25 +5,25 @@ set -e
 echo ''
 
 # util functions
-info () {
-  printf "\r  [ \033[00;34m..\033[0m ] %s\n" "$1"
+info() {
+  printf "\r  [ \033[00;34m...\033[0m ] %s\n" "$1"
 }
 
-user () {
-  printf "\r  [ \033[0;33m??\033[0m ] %s\n" "$1"
+user() {
+  printf "\r  [ \033[0;33m???\033[0m ] %s\n" "$1"
 }
 
-success () {
-  printf "\r\033[2K  [ \033[00;32mOK\033[0m ] %s\n" "$1"
+success() {
+  printf "\r\033[2K  [  \033[00;32m✔\033[0m  ] %s\n" "$1"
 }
 
-fail () {
-  printf "\r\033[2K  [\033[0;31mFAIL\033[0m] %s\n" "$1"
+fail() {
+  printf "\r\033[2K  [\033[0;31mFAIL\033[0m  ] %s\n" "$1"
   echo ''
   exit
 }
 
-setup_gitconfig () {
+setup_gitconfig() {
   if ! [ -f "$HOME/.gitconfig" ]
   then
     info 'setup gitconfig'
@@ -50,7 +50,7 @@ setup_gitconfig () {
 }
 
 
-link_file () {
+link_file() {
   local src=$1 dst=$2
 
   local overwrite=''
@@ -127,7 +127,7 @@ link_file () {
   fi
 }
 
-install_dotfiles () {
+install_dotfiles() {
   info 'installing dotfiles'
 
   local overwrite_all=false backup_all=false skip_all=false
@@ -139,16 +139,11 @@ install_dotfiles () {
   done
 }
 
-setup_gitconfig
-install_dotfiles
+attempt_setup_osx() {
+  user 'do you want to install brew & OSX dependencies? Your password will be needed (Y/n)'
+  read -rn 1 resp
 
-# if we're on a mac, let's install and setup homebrew
-if [ "$(uname -s)" == "Darwin" ]
-then
-  user "Do you want to install brew & OSX dependencies, your password may be requested? (y/n)"
-  read -rn 1 response
-
-  if [ "$response" == 'y' ]; then
+  if [ "$resp" == 'y' ] || [ -z "$resp" ]; then
     info 'installing dependencies'
     if source macos/osx-init > /tmp/osx-install.log 2>&1
     then
@@ -157,9 +152,18 @@ then
         fail 'error installing dependencies'
     fi
   else
-    info 'not installing dependencies'
+      info 'not installing dependencies'
   fi
+}
+
+
+setup_gitconfig
+install_dotfiles
+# if we're on a mac, let's install and setup homebrew
+if [ "$(uname -s)" == "Darwin" ]
+then
+  attempt_setup_osx
 fi
 
 echo ''
-echo ' all installed!'
+success 'all installed'
