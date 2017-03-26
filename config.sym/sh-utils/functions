@@ -10,22 +10,24 @@ command_exists () {
 
 # set the system profile theme to day or night mode
 setprof() {
-    # set the iTerm theme
-    echo -e "\033]50;SetProfile=$1\a";
 
-    # set dock and menubar theme depending on day or night
-    if [[ "$1" == "day" ]]; then
-        if [[ $(findcurrentos) == "OSX" ]]; then
+    # do things differently on osx and linux
+    if [[ $(findcurrentos) == "OSX" ]]; then
+        # set the iTerm theme
+        echo -e "\033]50;SetProfile=$1\a";
+
+        # set dock and menubar theme depending on day or night
+        if [[ "$1" == "day" ]]; then
             osascript -e 'tell application "System Events"
             tell appearance preferences to set dark mode to false
             end tell'
-        fi
-    else
-        if [[ $(findcurrentos) == "OSX" ]]; then
+        else
             osascript -e 'tell application "System Events"
             tell appearance preferences to set dark mode to true
             end tell'
         fi
+    else
+        echo "Not implemented for non-OSX systems yet!"
     fi
 }
 
