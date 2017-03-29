@@ -8,7 +8,7 @@ export VISUAL=vim
 export EDITOR=vim
 export TERM=xterm-256color
 export CLICOLOR=1
-export GOPATH=~/projects/go
+export GOPATH="$HOME"/go
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.bin:$HOME/bin"
 export PATH=$PATH:$GOPATH
 
