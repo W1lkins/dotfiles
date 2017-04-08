@@ -40,6 +40,10 @@ alias gaa='git add --all'
 alias gap='git add --patch'
 alias gpull='git pull'
 
+# --- npm && yarn ---
+alias yr='yarn run'
+alias nr='npm run'
+
 # --- tmux ---
 alias tl='tmux list-sessions'
 
