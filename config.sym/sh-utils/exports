@@ -9,10 +9,8 @@ export EDITOR=vim
 export TERM=xterm-256color
 export CLICOLOR=1
 export GOPATH="$HOME"/go
-export RUSTPATH="$HOME"/.cargo/env
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.bin:$HOME/bin"
 export PATH=$PATH:$GOPATH
-export PATH=$PATH:$RUSTPATH
 
 # ignore certain things in history
 export HISTIGNORE=" *:ls:cd:cd -:pwd:exit:date:* --help:* ";
