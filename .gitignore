@@ -11,4 +11,6 @@ config.sym/autostart
 config.sym/google-chrome
 config.sym/menus
 config.sym/xfce4/terminal/accels.scm
+config.sym/dconf
+config.sym/spotify
 vim.sym/.netrwhist
