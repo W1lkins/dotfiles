@@ -3,6 +3,7 @@
 " Plugin options {{{
 
 call pathogen#infect()                           " plugin handler
+filetype off
 filetype plugin indent on                        " useful for syntax highlighting, loads ftplugin.vim, loads indent.vim
 set nocompatible                                 " make vi actually improved
 

@@ -5,3 +5,8 @@ config.sym/base16-shell
 config.sym/deluge
 config.sym/yarn
 vim.sym/tmp
+config.sym/autostart
+config.sym/google-chrome
+config.sym/menus
+config.sym/xfce4/terminal/accels.scm
+vim.sym/.netrwhist
