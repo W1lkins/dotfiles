@@ -13,4 +13,7 @@ config.sym/menus
 config.sym/xfce4/terminal/accels.scm
 config.sym/dconf
 config.sym/spotify
+config.sym/Atom/
+config.sym/Slack/
+config.sym/sublime-text-3/
 vim.sym/.netrwhist
