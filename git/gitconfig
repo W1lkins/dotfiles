@@ -7,6 +7,17 @@
         protocol = https
 [alias]
         co = checkout
+
+        glog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+
+        # https://git-scm.com/docs/git-fetch#git-fetch--p
+        prune = fetch --prune
+
+        # https://git-scm.com/docs/git-reset#git-reset-emgitresetemltmodegtltcommitgt
+        undo = reset --soft HEAD^
+
+        # make sure we save untracked files
+        stash-all = stash save --include-untracked
 [color]
         diff = auto
         status = auto
@@ -19,9 +30,12 @@
         whitespace = nowarn
 [mergetool]
         keepBackup = false
+        conflictstyle = diff3
 [difftool]
         prompt = false
 [help]
         autocorrect = 1
+[status]
+        showUntrackedFiles = all
 [push]
         default = simple

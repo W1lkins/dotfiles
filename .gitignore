@@ -4,6 +4,8 @@ config.sym/pulse
 config.sym/base16-shell
 config.sym/deluge
 config.sym/yarn
+config.sym/configstore
+config.sym/heroku
 vim.sym/tmp
 config.sym/autostart
 config.sym/google-chrome
