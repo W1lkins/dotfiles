@@ -45,6 +45,7 @@ brew install shellcheck
 brew install tmux
 brew install sqlite
 brew install yarn
+brew install joe
 brew install youtube-dl
 brew install imagemagick --with-webp
 brew install tree
