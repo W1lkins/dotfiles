@@ -13,4 +13,4 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # source cargo for rust
-source "$HOME"/.cargo/env
+[ -f "$HOME"/.cargo/env ] && source "$HOME"/.cargo/env
