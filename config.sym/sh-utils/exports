@@ -11,7 +11,7 @@ export CLICOLOR=1
 export GOPATH="$HOME"/go
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.bin:$HOME/bin"
 export PATH=$PATH:$GOPATH
-export HISTFILE
+export HISTORIAN_SRC="$HOME"/.zsh_history
 
 # ignore certain things in history
 export HISTIGNORE=" *:ls:cd:cd -:pwd:exit:date:* --help:* ";
