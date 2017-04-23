@@ -14,3 +14,6 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # source cargo for rust
 [ -f "$HOME"/.cargo/env ] && source "$HOME"/.cargo/env
+
+# import hist into history if it exists
+[ -f "$HOME"/historian/hist ] && hist import &> /dev/null
