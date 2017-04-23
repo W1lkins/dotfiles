@@ -66,6 +66,7 @@ alias wtf='dmesg | tail'
 # --- python ---
 alias vv='virtualenv venv'
 alias svenv='source ./venv/bin/activate'
+alias preqs='pip freeze > requirements.txt'
 
 # --- arch specific ---
 if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDF_VTNR" -eq 1 ]; then
