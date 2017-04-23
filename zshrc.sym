@@ -5,3 +5,6 @@ for file in "$HOME/.config/sh-utils"/*
 do
     source "$file"
 done
+
+# source a system specific config if one exists
+[ -f "$HOME"/.extra ] && source "$HOME"/.extra
