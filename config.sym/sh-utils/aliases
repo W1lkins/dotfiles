@@ -75,5 +75,5 @@ if [ -z "$DISPLAY" ] && [ -n "$XDG_VTNR" ] && [ "$XDF_VTNR" -eq 1 ]; then
 fi
 
 if [ "$HOST" = "archie" ] || [ "$HOST" = "glados" ]; then
-   /opt/vc/bin/tvservice -o 
+   /opt/vc/bin/tvservice -o &> /dev/null
 fi
