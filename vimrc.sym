@@ -160,15 +160,8 @@ endif
 " Color Scheme {{{
 
 syntax on
-" change background colour depending on the time of day
-let hour = strftime("%H")
-if 6 <= hour && hour < 19
-  set background=light
-  colorscheme solarized
-else
-  set background=dark
-  colorscheme goodwolf
-endif
+set background=dark
+colorscheme goodwolf
 
 " highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
