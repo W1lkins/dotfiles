@@ -16,4 +16,5 @@ config.sym/spotify
 config.sym/Atom/
 config.sym/Slack/
 config.sym/sublime-text-3/
+config.sym/filezilla
 vim.sym/.netrwhist
