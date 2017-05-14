@@ -22,6 +22,9 @@ bindsym $mod+Shift+q kill
 # start rofi (a program launcher)
 bindsym $mod+r exec rofi -show run -lines 5 -width 100 -padding 645 -opacity "85" -bw 0 -font "Fira Mono 18" 
 
+# start rofi-lpass
+bindsym $mod+Shift+r exec rofi -modi lpass:rofi-lpass -show lpass
+
 # change focus
 bindsym $mod+j focus left
 bindsym $mod+k focus down
@@ -112,7 +115,7 @@ smart_gaps on
 bindsym $mod+Shift+c reload
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart
+bindsym $mod+Ctrl+r restart
 
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
