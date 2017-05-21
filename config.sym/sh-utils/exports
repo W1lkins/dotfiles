@@ -2,6 +2,7 @@
 
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_THEME=spaceship
+SPACESHIP_DOCKER_SHOW=false
 # shellcheck disable=SC2034
 plugins=(git nvm history jump extract gitignore)
 export VISUAL=vim
