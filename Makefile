@@ -30,7 +30,7 @@ install:
 
 test:
 	docker exec --interactive --tty dotfiles \
-		/bin/zsh -cli "./bin.sym/testscripts"
+		/bin/zsh -cli "./scripts.sym/testscripts"
 
 attach:
 	docker exec --interactive --tty dotfiles \

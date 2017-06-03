@@ -18,6 +18,8 @@
 
         # make sure we save untracked files
         stash-all = stash save --include-untracked
+
+        standup = !git log --all --author=$USER --since='9am yesterday' --format=%s
 [color]
         diff = auto
         status = auto
