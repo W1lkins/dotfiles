@@ -1,0 +1,4 @@
+#!/bin/bash
+SPACESHIP_DOCKER_SHOW=false
+# shellcheck disable=SC2034
+plugins=(git nvm history jump extract gitignore)
