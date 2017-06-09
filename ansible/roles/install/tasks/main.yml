@@ -1,5 +1,5 @@
-#- name: install applications
-#  include: apps.yml
+- name: install applications
+  include: apps.yml
 
 - name: configure shell and workspace settings
   include: shell.yml
