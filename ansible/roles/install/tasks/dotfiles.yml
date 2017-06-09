@@ -1,0 +1,10 @@
+---
+
+- name: run a script
+  script: '{{ home }}/dotfiles/bootstrap.sh'
+
+- name: zsh dot file
+  file:
+    src: '{{ home }}/dotfiles/zshrc.sym'
+    dest: '{{ home }}/.zshrc'
+    state: link

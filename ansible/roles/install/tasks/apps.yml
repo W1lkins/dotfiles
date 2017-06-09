@@ -1,0 +1,22 @@
+---
+# Install Homebrew if it is not installed already
+- name: install applications
+  include: homebrew.yml
+
+- name: grab downloads
+  get_url:
+      url: '{{ item.value.url }}'
+      dest: '{{ item.value.dest }}'
+  with_dict: '{{ downloads }}'
+
+- name: install Homebrew apps
+  homebrew:
+      name: '{{ item }}'
+      state: latest
+  with_items: '{{ applications }}'
+
+- name: install Homebrew cask apps
+  homebrew_cask:
+      name: '{{ item }}'
+      state: installed
+  with_items: '{{ cask_applications }}'
