@@ -46,6 +46,7 @@ cask_applications:
   - contexts # better alt-tab management
   - docker
   - dropbox
+  - evernote
   - fing
   - flux
   - github-desktop
@@ -65,6 +66,7 @@ cask_applications:
   - sublime-text
   - the-unarchiver
   - tunnelblick
+  - vagrant-manager
   - visual-studio-code
   - vlc
 
@@ -74,3 +76,4 @@ downloads:
         name: Yubikey
         url: https://developers.yubico.com/yubikey-piv-manager/Releases/yubikey-piv-manager-1.4.2b-mac.pkg
         dest: '{{ general.home }}/Downloads/Yubikey-piv.pkg'
+
