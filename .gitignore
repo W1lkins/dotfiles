@@ -27,5 +27,6 @@ config.sym/xfce4/terminal/accels.scm
 config.sym/xfce4/xfconf/
 config.sym/yarn
 i3.sym/.config.swp
+.gitmodules
 vim.sym/.netrwhist
 vim.sym/tmp

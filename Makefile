@@ -43,4 +43,7 @@ clean:
 remove: clean
 	docker rmi dotfiles > /dev/null 2>&1 ||:
 
+up:
+	./bootstrap
+
 .SILENT:

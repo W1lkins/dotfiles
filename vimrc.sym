@@ -161,7 +161,7 @@ endif
 
 syntax on
 set background=dark
-colorscheme goodwolf
+colorscheme dracula
 
 " highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
