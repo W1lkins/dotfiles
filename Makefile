@@ -1,6 +1,6 @@
 help:
 	echo "Usage:"
-	echo "    make build|create|start|stop|install|test|attach|clean|remove [APT_PROXY|APT_PROXY_SSL=url]"
+	echo "    make build|create|start|stop|install|test|attach|clean|remove|up [APT_PROXY|APT_PROXY_SSL=url]"
 
 build:
 	# Grab Dockerfile from the dotfiletest folder

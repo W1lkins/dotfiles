@@ -127,9 +127,9 @@ augroup END
 " }}}
 " Tabs, Spaces, Wrapping {{{
 
-set tabstop=4           " number of spaces a <Tab> counts for
-set shiftwidth=4
-set softtabstop=4       " number of spaces a <Tab> counts for while editing
+set tabstop=2           " number of spaces a <Tab> counts for
+set shiftwidth=2
+set softtabstop=2       " number of spaces a <Tab> counts for while editing
 set expandtab           " insert mode, uses spaces to insert <Tab>
 set wrap                " lines longer than the width of the window will wrap
 set textwidth=120       " marker on 80 chars
