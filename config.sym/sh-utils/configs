@@ -2,4 +2,4 @@
 SPACESHIP_DOCKER_SHOW=false
 SPACESHIP_PROMPT_ADD_NEWLINE=false
 # shellcheck disable=SC2034
-plugins=(git nvm history jump extract gitignore)
+plugins=(git npm history pip brew docker)
