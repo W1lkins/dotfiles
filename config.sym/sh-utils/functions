@@ -45,18 +45,6 @@ v() {
 	fi
 }
 
-# make a note with an argv filename, else note_$(time)
-mknote() {
-    filename=note_$(date +%H%M%S)
-    if [ $# -eq 0 ]; then
-        touch "$HOME"/.notes/"$filename"
-        $EDITOR "$HOME"/.notes/"$filename"
-    else
-        touch "$HOME"/.notes/"$1"
-        $EDITOR "$HOME"/.notes/"$1"
-    fi
-}
-
 # list users on the system
 listusers() {
     cut -d: -f1 /etc/passwd
@@ -134,7 +122,7 @@ ta() {
 calc() {
 	local result=""
 	result="$(printf "scale=10;%s\n" "$*" | bc --mathlib | tr -d '\\\n')"
-	#						└─ default (when `--mathlib` is used) is 20
+	#						V> default (when `--mathlib` is used) is 20
 
 	if [[ "$result" == *.* ]]; then
 		# improve the output for decimal numbers
@@ -235,4 +223,79 @@ findcurrentos() {
                 echo "UNKNOWN"
             } ;;
     esac;
+}
+
+# search Google
+gsearch() {
+  Q="$*"
+  GOOG_URL='https://www.google.co.uk/search?tbs=li:1&q='
+  AGENT="Mozilla/4.0"
+  stream=$(curl -A "$AGENT" -skLm 50 "${GOOG_URL}${Q//\ /+}" | grep -oP '\/url\?q=.+?&amp' | sed 's|/url?q=||; s|&amp||')
+  echo -e "${stream//\%/\x}"
+}
+
+# check if website is up
+down4me() {
+  curl -s "downforeveryoneorjustme.com/$1" | sed '/just you/!d;s/<[^>]*>//g';
+}
+
+# run $2 $1 times
+runx() {
+  n=$1
+  shift
+  while [ $(( n -= 1 )) -ge 0 ]
+  do
+    "$@"
+  done
+}
+
+# grep process (more verbose than pgrep)
+psgrep() { ps axuf | grep -v grep | grep "$@" -i --color=auto; }
+
+# search stackoverflow
+so() {
+  s=""
+  for term in "$@"; do
+    s="$s%20$term"
+  done
+  w3m "http://stackoverflow.com/search?q=$s"
+}
+
+# youtube-dl full 1080p video/audio
+ytdlhd() {
+  youtube-dl "$1" -f 137+140
+}
+
+# extract audio in mp3 format
+ytdlmp3() {
+  youtube-dl -v --no-mtime -o '%(stitle)s.%(ext)s' --extract-audio --audio-format mp3  "$1"
+}
+
+# stopwatch
+stopwatch(){
+  my_date=$(date +%s)
+  while true; do
+    days=$(( $(($(date +%s) - my_date)) / 86400 ))
+    echo -ne "$days day(s) and $(date -u --date @$(($(date +%s) - my_date)) +%H:%M:%S)\r"
+    sleep 0.1
+  done
+}
+
+# take a note
+note () {
+  # if file doesn't exist, create it
+  if [[ ! -f $HOME/.notes ]]; then
+    touch "$HOME/.notes"
+  fi
+
+  if ! (($#)); then
+    # no arguments, print file
+    cat "$HOME/.notes"
+  elif [[ "$1" == "-c" || "$1" == "--clear" ]]; then
+    # clear file
+    printf "%s" > "$HOME/.notes"
+  else
+    # add all arguments to file
+    printf "- %s\n" "$*" >> "$HOME/.notes"
+  fi
 }
