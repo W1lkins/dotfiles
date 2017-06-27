@@ -261,6 +261,11 @@ so() {
   w3m "http://stackoverflow.com/search?q=$s"
 }
 
+# open 1st argv in google chrome
+chrome() {
+  open -a "Google Chrome" "http://$1"
+}
+
 # youtube-dl full 1080p video/audio
 ytdlhd() {
   youtube-dl "$1" -f 137+140
