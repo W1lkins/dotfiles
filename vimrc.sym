@@ -675,7 +675,7 @@ nnoremap <leader>b :CtrlPBuffer<cr>
 
 " ignore list
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn)$',
+  \ 'dir':  '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$',
   \ 'file': '\v\.(exe|so|dll)$',
   \ }
 
@@ -707,6 +707,28 @@ command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>),
 
 " map `F` to rg_command
 nnoremap F :F
+
+" }}}
+"
+" PHP-Plugins {{{
+
+" path to ruleset xml for messdetector
+let g:phpqa_messdetector_ruleset = "/path/to/phpmd.xml"
+
+" args for codesniffer
+let g:phpqa_codesniffer_args = "--standard=/path/to/xml/file.xml --tab-width=4"
+
+" run messdetector on save (default = 1)
+let g:phpqa_messdetector_autorun = 1
+
+" run codesniffer on save (default = 1)
+let g:phpqa_codesniffer_autorun = 1
+
+" code coverage on load (default = 0)
+let g:phpqa_codecoverage_autorun = 0
+
+" stop the location list opening automatically
+let g:phpqa_open_loc = 0
 
 " }}}
 

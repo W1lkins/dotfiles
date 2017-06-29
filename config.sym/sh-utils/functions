@@ -298,9 +298,18 @@ note () {
     cat "$HOME/.notes"
   elif [[ "$1" == "-c" || "$1" == "--clear" ]]; then
     # clear file
-    printf "%s" > "$HOME/.notes"
+    printf "" > "$HOME/.notes"
   else
     # add all arguments to file
     printf "- %s\n" "$*" >> "$HOME/.notes"
+  fi
+}
+
+# open default tmux or attach
+tm() {
+  if (( $# )); then
+    tmux has-session -t "$*" && tmux attach -t "$*" || tmux new-session -s "$*"
+  else
+    tmux attach || tmux new-session -s default
   fi
 }
