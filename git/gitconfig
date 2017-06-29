@@ -1,43 +1,43 @@
 [user]
-        name = AUTHORNAME
-        email = AUTHOREMAIL
+  name = AUTHORNAME
+  email = AUTHOREMAIL
 [credential]
-        helper = GIT_CREDENTIAL_HELPER
+  helper = GIT_CREDENTIAL_HELPER
 [hub]
-        protocol = https
+  protocol = https
 [alias]
-        co = checkout
+  co = checkout
 
-        glog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+  glog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 
-        # https://git-scm.com/docs/git-fetch#git-fetch--p
-        prune = fetch --prune
+  # https://git-scm.com/docs/git-fetch#git-fetch--p
+  prune = fetch --prune
 
-        # https://git-scm.com/docs/git-reset#git-reset-emgitresetemltmodegtltcommitgt
-        undo = reset --soft HEAD^
+  # https://git-scm.com/docs/git-reset#git-reset-emgitresetemltmodegtltcommitgt
+  undo = reset --soft HEAD^
 
-        # make sure we save untracked files
-        stash-all = stash save --include-untracked
+  # make sure we save untracked files
+  stash-all = stash save --include-untracked
 
-        standup = !git log --all --author=$USER --since='9am yesterday' --format=%s
+  standup = !git log --all --author=$USER --since='9am yesterday' --format=%s
 [color]
-        diff = auto
-        status = auto
-        branch = auto
-        ui = true
+  diff = auto
+  status = auto
+  branch = auto
+  ui = true
 [core]
-        excludesfile = ~/.gitignore
-        editor = vim
+  excludesfile = ~/.gitignore
+  editor = vim
 [apply]
-        whitespace = nowarn
+  whitespace = nowarn
 [mergetool]
-        keepBackup = false
-        conflictstyle = diff3
+  keepBackup = false
+  conflictstyle = diff3
 [difftool]
-        prompt = false
+  prompt = false
 [help]
-        autocorrect = 1
+  autocorrect = 1
 [status]
-        showUntrackedFiles = all
+  showUntrackedFiles = all
 [push]
-        default = simple
+  default = simple
