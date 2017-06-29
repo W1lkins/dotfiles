@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# source our docker funcs
-source "$HOME/.docker/docker.functions"
-
 # check if an executable exists e.g. command_exists git
 command_exists () {
     type "$1" &> /dev/null ;
@@ -313,3 +310,4 @@ tm() {
     tmux attach || tmux new-session -s default
   fi
 }
+

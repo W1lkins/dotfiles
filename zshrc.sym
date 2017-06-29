@@ -1,10 +1,11 @@
 #!/bin/bash
 
 # source all the files in .config
-for file in "$HOME/.config/sh-utils"/*
+for file in $(find $HOME/.config/sh-utils -type f)
 do
     source "$file"
 done
 
 # source a system specific config if one exists
 [ -f "$HOME"/.extra ] && source "$HOME"/.extra
+

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+alias vv='virtualenv venv'
+alias svenv='source ./venv/bin/activate'
+alias preqs='pip freeze > requirements.txt'
+

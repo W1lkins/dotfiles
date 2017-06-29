@@ -1,0 +1,14 @@
+#!/bin/bash
+
+alias gs='git status'
+alias gaa='git add --all'
+alias gap='git add --patch'
+alias gpull='git pull'
+alias gshow='git show'
+alias gco='git co'
+alias glog='git log'
+alias gprune='git prune'
+alias gundo='git undo'
+alias gstash='git stash-all'
+alias gstandup='git standup'
+

@@ -3,3 +3,4 @@
 alias dstop='docker stop $(docker ps -a -q)'
 alias drma='docker rmi $(docker ps -a -q)'
 alias vm='docker run -it wilkins:latest zsh'
+

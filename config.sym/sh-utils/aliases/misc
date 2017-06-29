@@ -1,0 +1,12 @@
+#!/bin/bash
+
+alias starttorrent='deluged; deluge-web&;'
+alias stoptorrent='pkill deluge; pkill deluged; pkill deluge-web;'
+alias checkip='curl icanhazip.com'
+alias src='source ~/.zshrc'
+alias pls='sudo $(fc -ln -1)'
+alias irc='weechat'
+alias weather='curl wttr.in/Edinburgh'
+alias hist='"$HOME"/historian/hist'
+alias wtf='dmesg | tail'
+

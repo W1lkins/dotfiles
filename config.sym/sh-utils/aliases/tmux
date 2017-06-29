@@ -1,0 +1,4 @@
+#!/bin/bash
+
+alias tl='tmux list-sessions'
+

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+alias zshrc='$EDITOR ~/.zshrc'
+alias i3config='$EDITOR ~/.i3/config'
+alias terminalrc='$EDITOR $HOME/.config/xfce4/terminal/terminalrc'
+alias htoprc='$EDITOR $HOME/.config/htop/htoprc'
+alias vimrc='$EDITOR ~/.vimrc'
+alias sshconfig='$EDITOR ~/.ssh/config'
+
