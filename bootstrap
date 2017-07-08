@@ -139,6 +139,13 @@ install_dotfiles() {
   done
 }
 
+install_vim_submodules() {
+  cd ~/.vim || exit 1
+  git submodule init
+  info 'updating git submodules'
+  git submodule update && success 'finished installing git submodules'
+}
+
 attempt_setup_osx() {
   user 'do you want to install brew & OSX dependencies? Your password will be needed (Y/n)'
   read -rn 1 resp
@@ -159,6 +166,7 @@ attempt_setup_osx() {
 
 setup_gitconfig
 install_dotfiles
+install_vim_submodules
 # if we're on a mac, let's install and setup homebrew
 if [ "$(uname -s)" == "Darwin" ]
 then
