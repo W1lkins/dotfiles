@@ -31,12 +31,7 @@ setprof() {
 # `v` with no arguments opens `pwd` in vim otherwise opens location
 v() {
 	if [ $# -eq 0 ]; then
-        # if we have fzf installed, use it else open cwd
-        if command_exists fzf; then
-            vim "$(fzf)"
-        else
-            vim .
-        fi
+    vim
 	else
 		vim "$@"
 	fi
