@@ -19,3 +19,6 @@
 [submodule "vim.sym/bundle/vim-startify.vim"]
 	path = vim.sym/bundle/vim-startify.vim
 	url = git@github.com:mhinz/vim-startify.git
+[submodule "vim.sym/bundle/ctrlp.vim"]
+	path = vim.sym/bundle/ctrlp.vim
+	url = git@github.com:ctrlpvim/ctrlp.vim.git
