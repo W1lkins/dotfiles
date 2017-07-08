@@ -4,9 +4,6 @@
 [submodule "vim.sym/bundle/bufexplorer.vim"]
 	path = vim.sym/bundle/bufexplorer.vim
 	url = git@github.com:jlanzarotta/bufexplorer.git
-[submodule "vim.sym/bundle/ctrlp.vim"]
-	path = vim.sym/bundle/ctrlp.vim
-	url = git@github.com:kien/ctrlp.vim.git
 [submodule "vim.sym/bundle/dracule-theme.vim"]
 	path = vim.sym/bundle/dracule-theme.vim
 	url = git@github.com:dracula/vim.git
