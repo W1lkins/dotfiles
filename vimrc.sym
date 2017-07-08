@@ -27,7 +27,7 @@ set laststatus=2                                 " always show status line
 set history=1000                                 " remember 1000 lines of history
 set undofile                                     " save undo's after file closes
 set undoreload=10000                             " number of lines to save for undo
-set lazyredraw                                   " screen wont be redrawn while executing macros/registers (only when we need to)
+set lazyredraw                                   " screen wont be redrawn while executing macros/registers
 set matchtime=3                                  " tenths of a second to show the matching brackets etc.
 set showbreak=↪                                  " string at start of lines that have been wrapped
 set splitbelow                                   " splitting a window will put the new window below current
@@ -40,6 +40,8 @@ set linebreak                                    " vim will wrap long lines at c
 set colorcolumn=+1                               " highlight column after 'textwidth'
 set synmaxcol=800                                " don't try to highlight lines longer than 800 characters.
 set backupskip=/tmp/*,/private/tmp/*"            " make Vim able to edit crontab files again.
+set number                                       " turn on line numbers by default
+set mouse=a                                      " lets use the mouse
 
 " time out on key codes but not mappings
 " e.g. `ci` will not timeout until you press t or ( or ESC etc.
@@ -75,8 +77,8 @@ set spellfile=~/.vim/custom-dictionary.utf-8.add
 nnoremap zG 2zg
 
 "}}}
-
 " Cursorline {{{
+
 " Only show cursorline in the current window and in normal mode.
 set cursorline " required for cursorline on initial open
 augroup cline
@@ -87,6 +89,7 @@ augroup END
 
 " }}}
 " Trailing Whitespace {{{
+
 " only shown when not in insert mode
 augroup trailing
     au!
@@ -127,9 +130,9 @@ augroup END
 " }}}
 " Tabs, Spaces, Wrapping {{{
 
-set tabstop=2           " number of spaces a <Tab> counts for
-set shiftwidth=2
-set softtabstop=2       " number of spaces a <Tab> counts for while editing
+set tabstop=4           " number of spaces a <Tab> counts for
+set shiftwidth=4
+set softtabstop=4       " number of spaces a <Tab> counts for while editing
 set expandtab           " insert mode, uses spaces to insert <Tab>
 set wrap                " lines longer than the width of the window will wrap
 set textwidth=120       " marker on 80 chars
@@ -170,6 +173,7 @@ match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
 
 " }}}
 " Folding ----------------------------------------------------------------- {{{
+
 set foldmethod=marker " fold with {{{ }}}
 set foldlevelstart=0
 
@@ -239,20 +243,26 @@ function! EatChar(pat)
     return (c =~ a:pat) ? '' : c
 endfunction
 function! MakeSpacelessIabbrev(from, to)
-    execute "iabbrev <silent> ".a:from." ".a:to."<C-R>=EatChar('\\s')<CR>"
+    execute "iabbrev <silent> ".a:from." ".a:to."<C-R>=EatChar('\\s')<cr>"
 endfunction
 function! MakeSpacelessBufferIabbrev(from, to)
-    execute "iabbrev <silent> <buffer> ".a:from." ".a:to."<C-R>=EatChar('\\s')<CR>"
+    execute "iabbrev <silent> <buffer> ".a:from." ".a:to."<C-R>=EatChar('\\s')<cr>"
 endfunction
 
 " add new abbreviations with format below
 call MakeSpacelessIabbrev('wt/',  'https://wilkins.tech/')
 
 " to insert an abbrev --> i`abbrev` e.g. ildis<Enter>
-iabbrev ldis ಠ_ಠ
-iabbrev lsad ಥ_ಥ
-iabbrev lhap ಥ‿ಥ
-iabbrev lmis ಠ‿ಠ
+iab ldis ಠ_ಠ
+iab lsad ಥ_ಥ
+iab lhap ಥ‿ಥ
+iab lmis ಠ‿ಠ
+
+" date abbreviation
+iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
+
+" php abbreviations
+iab erlog error_log(
 
 " }}}
 " Mappings & Useful Functions --------------------------------------------- {{{
@@ -336,7 +346,7 @@ vnoremap gu u
 " nnoremap <leader><cr> :silent !myctags >/dev/null 2>&1 &<cr>:redraw!<cr>
 
 " clear trailing whitespace
-nnoremap <leader>wh mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+nnoremap <leader>ww mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
 " select entire buffer
 nnoremap vaa ggvGg_
@@ -381,14 +391,14 @@ nnoremap J mzJ`z
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
 " substitute
-nnoremap <c-s> :%s/
-vnoremap <c-s> :s/
+nnoremap <c-k> :%s/
+vnoremap <c-k> :s/
 
 " HTML tag closing
 inoremap <C-_> <space><bs><esc>:call InsertCloseTag()<cr>a
 
 " source
-vnoremap <leader>S y:@"<CR>
+vnoremap <leader>S y:@"<cr>
 nnoremap <leader>S ^vg_y:execute @@<cr>:echo 'Sourced line.'<cr>
 
 " select (charwise) the contents of the current line, excluding indentation.
@@ -406,7 +416,7 @@ command! -bang Wq wq<bang>
 command! -bang WQ wq<bang>
 
 " toggle paste
-nnoremap <F6> :set paste!<cr>
+nnoremap <F3> :set paste!<cr>
 
 " toggle [i]nvisible characters
 nnoremap <leader>i :set list!<cr>
@@ -432,13 +442,14 @@ nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
 nnoremap <leader>eg :vsplit ~/.gitconfig<cr>
 nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
+nnoremap <leader>ep :vsplit ~/.config<cr>
 
 " }}}
 " Tabs & Buffers ---------------------------------------------------------- {{{
 
 " Tabs {{{
 
-" ctrl-t to open a new tab
+" shift-t to open a new tab
 nnoremap T :tabnew<cr>
 
 " tl to tab-next and th to tab-prev
@@ -448,15 +459,22 @@ nnoremap th :tabp<cr>
 " }}}
 " Buffers {{{
 
-" show open buffers with Ls
-nnoremap <leader>l :ls!<cr>
+" close currently open buffer
+map <leader>bd :bd<cr>
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " mappings for switching buffer via `Ngb` where N 1-99
 let c = 1
 while c <= 99
-  execute "nnoremap <silent> " . c . "gb :" . c . "b\<CR>"
+  execute "nnoremap <silent> " . c . "gb :" . c . "b\<cr>"
   let c += 1
 endwhile
+
+" Ctrl-N/P for next/previous buffer
+nnoremap <C-N> :bnext<cr>
+nnoremap <C-P> :bprev<cr>
 
 
 " }}}
@@ -471,7 +489,7 @@ vnoremap / /\v
 set ignorecase         " ignore case of normal letters
 set smartcase          " overrides ignorecase if search pattern contains upper case
 set incsearch          " match as you type
-set showmatch          " show matching brackets [{()}]
+set showmatch          " jump to matching brackets briefly when closing tag inserted
 set hlsearch           " highlight all the matches, can be cleared with <leader><space>
 set gdefault           " all matches in line substituted instead of one
 
@@ -491,6 +509,7 @@ endif
 
 " move between brackets with tab
 map <tab> %
+noremap % :echo "use tab instead"<cr>
 
 silent! unmap [%
 silent! unmap ]%
@@ -558,8 +577,8 @@ function! s:VSetSearch()
   let @@ = temp
 endfunction
 
-vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
-vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
+vnoremap * :<C-u>call <SID>VSetSearch()<cr>//<cr><c-o>
+vnoremap # :<C-u>call <SID>VSetSearch()<cr>??<cr><c-o>
 
 " }}}
 " List Navigation {{{
@@ -649,7 +668,7 @@ let NERDTreeIgnore = ['\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
                     \ '^.*\.meta$',
                     \ '.*\.bcf$', '.*\.blg$', '.*\.fdb_latexmk$', '.*\.bbl$', '.*\.aux$', '.*\.run.xml$', '.*\.fls$',
                     \ '.*\.midi$']
-
+let g:NERDTreeWinPos = 'right'
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDChristmasTree = 1
@@ -671,7 +690,6 @@ let g:ctrlp_extensions = ['tag']
 " bindings
 let g:ctrlp_map = '<leader>,'
 nnoremap <leader>. :CtrlPTag<cr>
-nnoremap <leader>b :CtrlPBuffer<cr>
 
 " ignore list
 let g:ctrlp_custom_ignore = {
@@ -709,26 +727,89 @@ command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>),
 nnoremap F :F
 
 " }}}
-"
-" PHP-Plugins {{{
+" Bufexplorer {{{
 
-" path to ruleset xml for messdetector
-let g:phpqa_messdetector_ruleset = "/path/to/phpmd.xml"
+let g:bufExplorerDefaultHelp=0
+let g:bufExplorerShowRelativePath=1
+let g:bufExplorerFindActive=1
+let g:bufExplorerSortBy='name'
 
-" args for codesniffer
-let g:phpqa_codesniffer_args = "--standard=/path/to/xml/file.xml --tab-width=4"
+" explore the buffers with ,o
+map <leader>o :BufExplorer<cr>
 
-" run messdetector on save (default = 1)
-let g:phpqa_messdetector_autorun = 1
+" }}}
+" Lightline {{{
 
-" run codesniffer on save (default = 1)
-let g:phpqa_codesniffer_autorun = 1
+let g:lightline = {
+      \ 'colorscheme': 'darcula',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
 
-" code coverage on load (default = 0)
-let g:phpqa_codecoverage_autorun = 0
+" }}}
+" Goyo {{{
 
-" stop the location list opening automatically
-let g:phpqa_open_loc = 0
+nnoremap <leader>g :Goyo<cr>
+let g:goyo_width = 110
+let g:goyo_height = 80
+
+" }}}
+" SVN {{{
+
+function! s:svnBlame()
+   let line = line(".")
+   setlocal nowrap
+   " create a new window at the left-hand side
+   aboveleft 18vnew
+   " blame, ignoring white space changes
+   %!svn blame -x-w "#"
+   setlocal nomodified readonly buftype=nofile nowrap winwidth=1
+   setlocal nonumber
+   if has('&relativenumber') | setlocal norelativenumber | endif
+   " return to original line
+   exec "normal " . line . "G"
+   " synchronize scrolling, and return to original window
+   setlocal scrollbind
+   wincmd p
+   setlocal scrollbind
+   syncbind
+endfunction
+
+" }}}
+" Gutentags {{{
+
+let g:gutentags_ctags_exclude = ['*.css', '*.html', '*.js']
+let g:gutentags_cache_dir = '~/.vim/gutentags'
+
+" ,a jump to definition. ,t jump back
+nnoremap <leader>a <C-]>
+nnoremap <leader>t <C-t>
+nnoremap <leader>A :tselect<CR>
+
+" }}}
+" Code completion {{{
+
+" PHP
+autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
+set completeopt=longest,menuone
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+
+" }}}
+" SVNDiff {{{
+
+let g:svndiff_one_sign_delete = 1 
+noremap <F3> :call Svndiff("prev")<CR>
+noremap <F4> :call Svndiff("clear")<CR>
+
+" change the default colours
+hi DiffAdd      ctermfg=0 ctermbg=2 guibg='green' 
+hi DiffDelete   ctermfg=0 ctermbg=1 guibg='red' 
+hi DiffChange   ctermfg=0 ctermbg=3 guibg='yellow' 
 
 " }}}
 
