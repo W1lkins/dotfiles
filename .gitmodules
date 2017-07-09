@@ -28,3 +28,6 @@
 [submodule "vim.sym/bundle/vim-gutentags.vim"]
 	path = vim.sym/bundle/vim-gutentags.vim
 	url = https://github.com/ludovicchabant/vim-gutentags.git
+[submodule "vim.sym/bundle/supertab.vim"]
+	path = vim.sym/bundle/supertab.vim
+	url = https://github.com/ervandew/supertab.git
