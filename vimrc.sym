@@ -821,8 +821,8 @@ nnoremap <leader>gc :Gcommit -v -q<cr>
 nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gb :Git branch<Space>
 nnoremap <leader>go :Git checkout<Space>
-nnoremap <leader>gp :Git push<cr>
-nnoremap <leader>gpu :Git pull<cr>
+nnoremap <leader>gp :Gpush<cr>
+nnoremap <leader>gpu :Gpull<cr>
 
 " }}}
 
