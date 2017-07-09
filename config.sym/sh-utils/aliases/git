@@ -11,4 +11,5 @@ alias gprune='git prune'
 alias gundo='git undo'
 alias gstash='git stash-all'
 alias gstandup='git standup'
+alias gsubup'git submodule update --init --recursive'
 

@@ -1,6 +1,3 @@
-[submodule "vim.sym/bundle/dracula-theme"]
-	path = vim.sym/bundle/dracula-theme
-	url = git@github.com:dracula/vim.git
 [submodule "vim.sym/bundle/bufexplorer.vim"]
 	path = vim.sym/bundle/bufexplorer.vim
 	url = git@github.com:jlanzarotta/bufexplorer.git
@@ -28,3 +25,6 @@
 [submodule "vim.sym/bundle/phpcomplete.vim"]
 	path = vim.sym/bundle/phpcomplete.vim
 	url = git://github.com/shawncplus/phpcomplete.vim.git
+[submodule "vim.sym/bundle/vim-gutentags.vim"]
+	path = vim.sym/bundle/vim-gutentags.vim
+	url = https://github.com/ludovicchabant/vim-gutentags.git
