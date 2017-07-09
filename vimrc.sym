@@ -754,7 +754,7 @@ let g:lightline = {
 " }}}
 " Goyo {{{
 
-nnoremap <leader>g :Goyo<cr>
+nnoremap <leader>f :Goyo<cr>
 let g:goyo_width = 110
 let g:goyo_height = 80
 
@@ -810,6 +810,20 @@ noremap <F4> :call Svndiff("clear")<CR>
 hi DiffAdd      ctermfg=0 ctermbg=2 guibg='green' 
 hi DiffDelete   ctermfg=0 ctermbg=1 guibg='red' 
 hi DiffChange   ctermfg=0 ctermbg=3 guibg='yellow' 
+
+" }}}
+" Vim-Fugitive {{{
+
+nnoremap <leader>ga :Git add %:p<cr><cr>
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gc :Gcommit -v -q<cr>
+nnoremap <leader>gt :Gcommit -v -q %:p<cr>
+nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>gl :silent! Glog<cr>:bot copen<cr>
+nnoremap <leader>gb :Git branch<Space>
+nnoremap <leader>go :Git checkout<Space>
+nnoremap <leader>gps :Dispatch! git push<cr>
+nnoremap <leader>gpl :Dispatch! git pull<cr>
 
 " }}}
 
