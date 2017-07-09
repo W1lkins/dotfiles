@@ -12,7 +12,6 @@ set nocompatible                                 " make vi actually improved
 
 set encoding=utf-8                               " make stuff work
 set listchars=tab:>\ ,eol:¬                      " change tab/eol chars etc.
-set nocompatible
 set modelines=0                                  " sets the number of lines (at the beginning and end of each file) vim checks for initialisations
 set autoindent                                   " copy indent from current line when starting a new
 set showmode                                     " show whether we're in insert, visual, or replace mode etc.
@@ -803,8 +802,8 @@ let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 " SVNDiff {{{
 
 let g:svndiff_one_sign_delete = 1 
-noremap <F3> :call Svndiff("prev")<CR>
-noremap <F4> :call Svndiff("clear")<CR>
+noremap <F4> :call Svndiff("prev")<CR>
+noremap <F5> :call Svndiff("clear")<CR>
 
 " change the default colours
 hi DiffAdd      ctermfg=0 ctermbg=2 guibg='green' 
