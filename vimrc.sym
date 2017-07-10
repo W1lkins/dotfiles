@@ -830,7 +830,7 @@ nnoremap <leader>gd :Gdiff<cr>
 nnoremap <leader>gr :Git branch<Space>
 nnoremap <leader>go :Git checkout<Space>
 nnoremap <leader>gp :Gpush<cr>
-nnoremap <leader>gpu :Gpull<cr>
+nnoremap <leader>gu :Gpull<cr>
 
 " }}}
 
