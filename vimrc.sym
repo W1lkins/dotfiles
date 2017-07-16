@@ -793,7 +793,7 @@ nnoremap <leader>A :tselect<CR>
 " }}}
 " Code completion && Language Specific {{{
 
-" PHP
+" PHP {{{
 let php_sql_query = 1
 let php_htmlInStrings = 1
 
@@ -806,6 +806,12 @@ augroup END
 autocmd FileType php setlocal omnifunc=phpcomplete#CompletePHP
 set completeopt=longest,menuone
 let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+" }}}
+" Perl {{{
+au BufNewFile *.pl s-^-#!/usr/bin/perl\r\ruse warnings;\r\r-
+au FileType perl setlocal shiftwidth=2
+au FileType perl setlocal tabstop=2
+" }}}
 
 " }}}
 " SVNDiff {{{
