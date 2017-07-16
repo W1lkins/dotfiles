@@ -50,7 +50,7 @@ sub setup_gitconfig {
 
     # grab the file
     my $copy_gitconfig = system("cp git/gitconfig $file");
-    open(FILE, "<$file") || die "gitconfig not found";
+    open(FILE, "<$file") || die "gitconfig not found\n";
     my @lines = <FILE>;
     close(FILE);
 
@@ -62,7 +62,7 @@ sub setup_gitconfig {
     }
 
     # rewrite the file
-    open(FILE, ">$file") || die "gitconfig not found";
+    open(FILE, ">$file") || die "gitconfig not found\n";
     print FILE @lines;
     close(FILE);
 
