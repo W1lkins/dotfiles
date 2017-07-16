@@ -24,7 +24,7 @@ stop:
 
 install:
 	docker exec --interactive --tty dotfiles \
-		./bootstrap.sh \
+		./bootstrap.pl \
 			--config=zsh \
 			--minimal
 
@@ -44,6 +44,6 @@ remove: clean
 	docker rmi dotfiles > /dev/null 2>&1 ||:
 
 up:
-	git pull && ./bootstrap
+	git pull && ./bootstrap.pl
 
 .SILENT:
