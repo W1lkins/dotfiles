@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# first source our env variables
+source "$HOME/.env"
+
 # source all the files in .config
 for file in $(find "$HOME/.config/sh-utils" -type f)
 do
