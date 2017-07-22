@@ -163,7 +163,7 @@ endif
 
 syntax on
 set background=dark
-colorscheme dracula
+colorscheme gruvbox
 
 " highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
@@ -740,7 +740,7 @@ map <leader>o :BufExplorer<cr>
 " Lightline {{{
 
 let g:lightline = {
-      \ 'colorscheme': 'darcula',
+      \ 'colorscheme': 'seoul256',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
