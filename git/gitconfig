@@ -7,8 +7,12 @@
   protocol = https
 [alias]
   co = checkout
+  
+  # View abbreviated SHA, description, and history graph of the latest 20 commits
+  l = log --pretty=oneline -n 20 --graph --abbrev-commit
 
-  glog = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+  # coloured graph output of log
+  graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 
   # https://git-scm.com/docs/git-fetch#git-fetch--p
   prune = fetch --prune
@@ -19,7 +23,17 @@
   # make sure we save untracked files
   stash-all = stash save --include-untracked
 
-  standup = !git log --all --author=$USER --since='9am yesterday' --format=%s
+  # show all commits from 9am yesterday, useful for standup meetings
+  standup = !git log --all --author=$(git config --get user.email) --since='9am yesterday' --format="--> %s"
+
+  # short format status
+  s = status -s
+
+  # show the diff between the latest commit and the current state
+  d = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+
+  # switch to a branch, create it if necessary
+  go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 [color]
   diff = auto
   status = auto
