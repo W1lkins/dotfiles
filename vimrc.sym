@@ -41,6 +41,7 @@ set synmaxcol=800                                " don't try to highlight lines 
 set backupskip=/tmp/*,/private/tmp/*"            " make Vim able to edit crontab files again.
 set number                                       " turn on line numbers by default
 set mouse=a                                      " lets use the mouse
+set guicursor=a:block-blinkon0                   " use a real cursor in nvim
 
 " time out on key codes but not mappings
 " e.g. `ci` will not timeout until you press t or ( or ESC etc.
