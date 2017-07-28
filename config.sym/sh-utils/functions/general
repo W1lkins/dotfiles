@@ -90,7 +90,7 @@ aursearch() {
 # download from aur using cower to $HOME/tmp
 aurdl() {
     cd "$HOME"/tmp || exit;
-    cower -d "$1"
+    cower -d "$1" && cd "$1"
 }
 
 # pull from git, add everything, and commit with first argv

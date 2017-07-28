@@ -1,4 +1,3 @@
-.gitmodules
 bin.sym/speedtest.py
 config.sym/Atom/
 config.sym/autostart
@@ -13,10 +12,13 @@ config.sym/git
 config.sym/gocode
 config.sym/google-chrome
 config.sym/gtk-2.0/
+config.sym/gtk-3.0
 config.sym/heroku
 config.sym/menus
 config.sym/mimeapps.list
+config.sym/neofetch
 config.sym/pulse
+config.sym/ranger
 config.sym/Slack/
 config.sym/spotify
 config.sym/sublime-text-3/
@@ -28,6 +30,7 @@ config.sym/xfce4/xfconf/
 config.sym/yarn
 config.sym/Yubico/
 docker.sym/config.json
+.gitmodules
 i3.sym/.config.swp
 vim.sym/.netrwhist
 vim.sym/tmp
