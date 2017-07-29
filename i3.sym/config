@@ -1,7 +1,4 @@
-# i3 config file (jwilkins)
-# It is important that this file is edited as UTF-8.
-# # The following line should contain a sharp s:
-# # ß
+# wilkins i3 config file
 
 # gruvbox colours
 set $background  #1d2021
@@ -23,123 +20,104 @@ set $cyan        #8ec07c
 set $lightgrey   #a89984
 set $white       #ebdbb2
 
-# set modifier key
+# basic settings
 set $mod Mod1
-
-# font for window titles
 font pango:Tamzen 10
+set $term urxvt
+set $browser chromium
+set $mail thunderbird
+set $music spotify
+
+# gaps
+gaps inner 8
+gaps outer 5
+smart_gaps on
+for_window [class="^.*"] border pixel 0
+new_window 1pixel
 
 # use $mod and mouse to drag floating windows to their wanted position
 floating_modifier $mod
 
-# start a terminal
-bindsym $mod+t exec i3-sensible-terminal
+# start term
+bindsym $mod+t exec $term
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start rofi (a program launcher)
-bindsym $mod+r exec rofi -show run -lines 5 -width 100 -padding 350 -opacity "25" -bw 0 -font "Tamzen 12" 
+bindsym $mod+r exec rofi -show run -lines 5 -width 100 -padding 350 -opacity "85" -bw 0 -font "Tamzen 12" 
 
 # start rofi-lpass
 bindsym $mod+Shift+r exec rofi -modi lpass:rofi-lpass -show lpass
 
-# change focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-#bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
-# move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
-# split in horizontal orientation
+# split horizontal
 bindsym $mod+h split h
 
-# split in vertical orientation
+# split vertical
 bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
-bindsym $mod+e layout toggle split
+bindsym $mod+Ctrl+s layout stacking
+bindsym $mod+Ctrl+w layout tabbed
+bindsym $mod+Ctrl+e layout toggle split
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
-# change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
-
 # name workspaces
-set $workspace1 "1: "
-set $workspace2 "2: "
-set $workspace3 "3: "
-set $workspace4 "4: "
-set $workspace5 "5:  "
-set $workspace6 "6: "
-set $workspace7 "7: "
-set $workspace10 "10: "
+set $ws1 "1: "
+set $ws2 "2: "
+set $ws3 "3: "
+set $ws4 "4: "
+set $ws5 "5:  "
+set $ws6 "6: "
+set $ws7 "7: "
+set $ws8 "8: "
+set $ws9 "9: "
+set $ws10 "10: "
 
 # switch to workspace
-bindsym $mod+1 workspace $workspace1
-bindsym $mod+2 workspace $workspace2
-bindsym $mod+3 workspace $workspace3
-bindsym $mod+4 workspace $workspace4
-bindsym $mod+5 workspace $workspace5
-bindsym $mod+6 workspace $workspace6
-bindsym $mod+7 workspace $workspace7
-bindsym $mod+8 workspace 8
-bindsym $mod+9 workspace 9
-bindsym $mod+0 workspace $workspace10
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace $workspace1
-bindsym $mod+Shift+2 move container to workspace $workspace2
-bindsym $mod+Shift+3 move container to workspace $workspace3
-bindsym $mod+Shift+4 move container to workspace $workspace4
-bindsym $mod+Shift+5 move container to workspace $workspace5
-bindsym $mod+Shift+6 move container to workspace $workspace6
-bindsym $mod+Shift+7 move container to workspace $workspace7 
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace $workspace10
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7 
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
 
 # assign programs to windows
-assign [Class="google-chrome"] $workspace1
-assign [Class="Deluge"] $workspace5
-assign [Class="Gnome-twitch"] $workspace6
-assign [Class="Atom"] $workspace4
-for_window [class="Spotify"] move to workspace $workspace10
-for_window [class="^.*"] border pixel 0
-new_window 1pixel
-gaps inner 8
-gaps outer 5
-smart_gaps on
+assign [Class="Chromium"] $ws1
+for_window [class="Spotify"] move to workspace $ws10
+for_window [class="Thunderbird"] move to workspace $ws7
 
 # reload the configuration file
 bindsym $mod+Shift+c reload
 
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+# restart i3 inplace
 bindsym $mod+Ctrl+r restart
 
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+# exit i3
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# Start i3bar to display a workspace bar (plus i3blocks)
+# bar config
 bar {
     strip_workspace_numbers yes 
     height 20
@@ -159,7 +137,7 @@ bar {
     }
 }
 
-# ==== Startup fixes and stuff ====
+# startup programs
 exec_always xmodmap ~/.Xmodmap
 exec_always xrdb ~/.Xresources
 exec --no-startup-id redshift-gtk
@@ -170,18 +148,14 @@ exec_always set-x11-keymap gb
 exec_always setxkbmap gb
 #exec_always setxkbmap -option caps:swapescape # make caps lock esc
 
-# pulse Audio controls
+# pulseaudio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo -5% #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle # mute sound
 
-# screen brightness controls
+# brightness controls
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
-
-# keyboard brightness controls
-bindsym XF86KbdBrightnessUp exec "kbd_backlight up"
-bindsym XF86KbdBrightnessDown exec "bash /usr/local/lightsoff.sh"
 
 # media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
@@ -189,11 +163,10 @@ bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
 # screenshot full screen
-bindsym $mod+Shift+s exec scrot && notify-send 'Screenshot stored in: ' $HOME
+bindsym $mod+Shift+s exec scrot '%Y-%m-%d-%H-%M.png' -e 'mv $f ~/media/screenshots'
 
 # lock screen
-bindsym $mod+l exec /home/jonathan/.i3/lock/lock
-
+bindsym $mod+space exec $HOME/.i3/lock/lock
 
 # window colors
 #                             BORDER           BACKGROUND      TEXT         INDICATOR
@@ -205,8 +178,9 @@ client.urgent                 $red             $red            $background  $red
 # hide borders
 hide_edge_borders both
 
-# open editor
-bindsym $mod+p exec atom
-
-# open file manager
-bindsym $mod+O exec thunar
+# keyboard shortcuts
+bindsym $mod+o exec $term -e ranger
+bindsym $mod+b exec --no-startup-id $browser
+bindsym $mod+i exec $term -e htop
+bindsym $mod+m exec --no-startup-id $music
+bindsym $mod+e exec --no-startup-id $mail
