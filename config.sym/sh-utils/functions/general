@@ -28,12 +28,12 @@ setprof() {
     fi
 }
 
-# `v` with no arguments opens `pwd` in vim otherwise opens location
+# `v` with no arguments opens `pwd` in nvim otherwise opens location
 v() {
 	if [ $# -eq 0 ]; then
-    vim
+      nvim
 	else
-		vim "$@"
+	  nvim "$@"
 	fi
 }
 
