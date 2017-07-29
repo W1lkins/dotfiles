@@ -141,7 +141,7 @@ bar {
 exec_always xmodmap ~/.Xmodmap
 exec_always xrdb ~/.Xresources
 exec --no-startup-id redshift-gtk
-exec_always feh --bg-fill --no-fehbg --randomize $HOME/media/pictures/wallpapers
+exec_always feh --bg-fill --no-fehbg ~/.config/wall.png
 exec compton -f --config ~/.compton.conf
 exec_always set-keymap --no-convert uk
 exec_always set-x11-keymap gb

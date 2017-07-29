@@ -7,6 +7,7 @@ config.sym/configstore
 config.sym/dconf
 config.sym/deluge
 config.sym/filezilla
+config.sym/gconf
 config.sym/gedit/
 config.sym/git
 config.sym/gocode
@@ -18,13 +19,16 @@ config.sym/menus
 config.sym/mimeapps.list
 config.sym/neofetch
 config.sym/pulse
-config.sym/ranger
+config.sym/ranger/bookmarks
+config.sym/ranger/history
+config.sym/ranger/tagged
 config.sym/Slack/
 config.sym/spotify
 config.sym/sublime-text-3/
 config.sym/Thunar/
 config.sym/Trolltech.conf
 config.sym/vlc/
+config.sym/wall.png
 config.sym/xfce4/terminal/accels.scm
 config.sym/xfce4/xfconf/
 config.sym/yarn
