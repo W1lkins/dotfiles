@@ -1,5 +1,4 @@
 #!/bin/bash
-ZSH_THEME=pure
 
 # shellcheck disable=SC2034
 plugins=(git npm history pip brew docker zsh-autosuggestions)

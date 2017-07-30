@@ -31,9 +31,9 @@ setprof() {
 # `v` with no arguments opens `pwd` in vim otherwise opens location
 v() {
 	if [ $# -eq 0 ]; then
-    vim
-	else
-		vim "$@"
+	    vim
+        else
+	    vim "$@"
 	fi
 }
 
