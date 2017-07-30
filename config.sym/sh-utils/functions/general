@@ -319,3 +319,14 @@ extract() {
     *) echo "Nothing to do";;
   esac
 }
+
+monitor() {
+  if [[ $1 == 'off' ]]; then
+    xrandr --output LVDS1 --auto && xrandr --output HDMI1 --off
+  elif [[ $1 == 'on' ]]; then
+    pkill compton && xrandr --output LVDS1 --off && xrandr --output HDMI1 --auto
+  else
+    echo "Unrecognised option" && exit 1
+  fi
+}
+
