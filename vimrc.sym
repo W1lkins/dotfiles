@@ -813,6 +813,11 @@ au FileType perl setlocal shiftwidth=2
 au FileType perl setlocal tabstop=2
 " }}}
 
+" Bash {{{
+au FileType sh setlocal shiftwidth=2
+au FileType sh setlocal tabstop=2
+" }}}
+
 " }}}
 " SVNDiff {{{
 
