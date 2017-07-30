@@ -34,7 +34,13 @@ URxvt.scrollBar: false
 *color15: #ebdbb2
 
 ! extensions (tabbed for tabs)
-URxvt.perl-ext-common: fullscreen
+URxvt.perl-ext-common: fullscreen,keyboard-select,default,matcher
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
 
 ! fullscreen binding
 URxvt.keysym.F11: perl:fullscreen:switch
+
+! opening links
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+URxvt.matcher.rend.0: Uline Bold fg5
