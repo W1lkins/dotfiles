@@ -38,4 +38,5 @@ docker.sym/config.json
 .gitmodules
 i3.sym/.config.swp
 vim.sym/.netrwhist
+vim.sym/gutentags
 vim.sym/tmp
