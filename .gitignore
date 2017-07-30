@@ -24,6 +24,7 @@ config.sym/ranger/history
 config.sym/ranger/tagged
 config.sym/Slack/
 config.sym/spotify
+config.sym/streamlink-twitch-gui
 config.sym/sublime-text-3/
 config.sym/Thunar/
 config.sym/Trolltech.conf
