@@ -24,4 +24,5 @@ alias mpack='makepkg -s'
 alias ipack='makepkg -i'
 alias cupdate='find .-name PKGBUILD -execdir makepkg -si \;'
 alias watchdmesg="watch -n1 'dmesg | tail'"
+alias lpl='lpass login wilkinsphysics@gmail.com'
 
