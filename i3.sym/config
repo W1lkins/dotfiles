@@ -1,6 +1,4 @@
-# wilkins i3 config file
-
-# gruvbox colours
+# colourscheme {{{
 set $background  #1d2021
 set $foreground  #ebdbb2
 set $black       #282828
@@ -20,54 +18,25 @@ set $cyan        #8ec07c
 set $lightgrey   #a89984
 set $white       #ebdbb2
 
-# basic settings
+# window colors
+client.focused                $foreground      $foreground     $bacground   $foreground
+client.focused_inactive       $darkgrey        $darkgrey       $foreground  $darkgrey
+client.unfocused              $darkgrey        $darkgrey       $foreground  $darkgrey
+client.urgent                 $red             $red            $background  $red
+# }}}
+
+# basic settings {{{
 set $mod Mod1
-font pango:Tamzen 10
 set $term urxvt
 set $browser chromium
 set $mail thunderbird
 set $music spotify
 
-# gaps
-gaps inner 8
-gaps outer 5
-smart_gaps on
-for_window [class="^.*"] border pixel 0
-new_window 1pixel
-
-# use $mod and mouse to drag floating windows to their wanted position
+font pango:Tamzen 10
 floating_modifier $mod
+hide_edge_borders both
 
-# start term
-bindsym $mod+t exec $term
-
-# kill focused window
-bindsym $mod+Shift+q kill
-
-# start rofi (a program launcher)
-bindsym $mod+r exec rofi -show run -lines 5 -width 100 -padding 350 -opacity "85" -bw 0 -font "Tamzen 12" 
-
-# start rofi-lpass
-bindsym $mod+Shift+r exec rofi -modi lpass:rofi-lpass -show lpass
-
-# split horizontal
-bindsym $mod+h split h
-
-# split vertical
-bindsym $mod+v split v
-
-# enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen toggle
-
-# change container layout (stacked, tabbed, toggle split)
-bindsym $mod+Ctrl+s layout stacking
-bindsym $mod+Ctrl+w layout tabbed
-bindsym $mod+Ctrl+e layout toggle split
-
-# toggle tiling / floating
-bindsym $mod+Shift+space floating toggle
-
-# name workspaces
+# workspace icons
 set $ws1 "1: "
 set $ws2 "2: "
 set $ws3 "3: "
@@ -79,7 +48,7 @@ set $ws8 "8: "
 set $ws9 "9: "
 set $ws10 "10: "
 
-# switch to workspace
+# workspace bindings
 bindsym $mod+1 workspace $ws1
 bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
@@ -98,31 +67,65 @@ bindsym $mod+Shift+3 move container to workspace $ws3
 bindsym $mod+Shift+4 move container to workspace $ws4
 bindsym $mod+Shift+5 move container to workspace $ws5
 bindsym $mod+Shift+6 move container to workspace $ws6
-bindsym $mod+Shift+7 move container to workspace $ws7 
+bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
-# assign programs to windows
+
+#}}}
+
+# i3-gaps {{{
+gaps inner 8
+gaps outer 5
+smart_gaps on
+for_window [class="^.*"] border pixel 0
+new_window 1pixel
+#}}}
+
+# basic key bindings {{{
+bindsym $mod+f fullscreen toggle
+bindsym $mod+h split h
+bindsym $mod+Shift+q kill
+bindsym $mod+t exec $term
+bindsym $mod+v split v
+
+bindsym $mod+Ctrl+s layout stacking
+bindsym $mod+Ctrl+w layout tabbed
+bindsym $mod+Ctrl+e layout toggle split
+
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+Shift+c reload
+bindsym $mod+Ctrl+r restart
+
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
+
+bindsym $mod+o exec $term -e ranger
+bindsym $mod+b exec --no-startup-id $browser
+bindsym $mod+i exec $term -e htop
+bindsym $mod+m exec --no-startup-id $music
+bindsym $mod+e exec --no-startup-id $mail
+# }}}
+
+# external bindings {{{
+bindsym $mod+r exec rofi -show run -lines 5 -width 100 -padding 350 -opacity "85" -bw 0 -font "Tamzen 12"
+bindsym $mod+Shift+r exec rofi -modi lpass:rofi-lpass -show lpass
+bindsym $mod+Shift+s exec scrot '%Y-%m-%d-%H-%M.png' -e 'mv $f ~/media/screenshots'
+bindsym $mod+space exec $HOME/.i3/lock/lock
+# }}}
+
+# window assignments {{{
 assign [Class="Chromium"] $ws1
 for_window [class="Spotify"] move to workspace $ws10
 for_window [class="Thunderbird"] move to workspace $ws7
 for_window [class="streamlink-twitch-gui"] move to workspace $ws5
 for_window [class="mpv"] move to workspace $ws6
 for_window [instance="twitch.+(chat)"] move to workspace $ws6
+# }}}
 
-# reload the configuration file
-bindsym $mod+Shift+c reload
-
-# restart i3 inplace
-bindsym $mod+Ctrl+r restart
-
-# exit i3
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
-
-# bar config
+# i3 bar {{{
 bar {
-    strip_workspace_numbers yes 
+    strip_workspace_numbers yes
     height 20
     position top
     status_command i3blocks -c ~/.i3/i3blocks.conf
@@ -139,8 +142,9 @@ bar {
         urgent_workspace   $background $background $red
     }
 }
+# }}}
 
-# startup programs
+# startup programs {{{
 exec_always xmodmap ~/.Xmodmap
 exec --no-startup-id nm-applet
 exec_always xrdb ~/.Xresources
@@ -150,7 +154,7 @@ exec compton -f --config ~/.compton.conf
 exec_always set-keymap --no-convert uk
 exec_always set-x11-keymap gb
 exec_always setxkbmap gb
-#exec_always setxkbmap -option caps:swapescape # make caps lock esc
+# }}}
 
 # Scratchpad Window {{{
 for_window [instance="dropdown"] floating enable
@@ -161,44 +165,21 @@ exec --no-startup-id $term -name dropdown -e tmux
 bindsym $mod+u [instance="dropdown"] scratchpad show; move position center
 #}}}
 
+# XF86 {{{
+
 # audio controls
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
 bindsym XF86AudioLowerVolume exec amixer -q set Master 2dB- unmute
 bindsym XF86AudioMute exec amixer -q set Master toggle
 
-# pulseaudio controls
-#bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo +5% #increase sound volume
-#bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo -5% #decrease sound volume
-#bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle # mute sound
-
 # brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
+bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 # media player controls
 bindsym XF86AudioPlay exec playerctl play-pause
 bindsym XF86AudioNext exec playerctl next
 bindsym XF86AudioPrev exec playerctl previous
 
-# screenshot full screen
-bindsym $mod+Shift+s exec scrot '%Y-%m-%d-%H-%M.png' -e 'mv $f ~/media/screenshots'
+# }}}
 
-# lock screen
-bindsym $mod+space exec $HOME/.i3/lock/lock
-
-# window colors
-#                             BORDER           BACKGROUND      TEXT         INDICATOR
-client.focused                $foreground      $foreground     $bacground   $foreground
-client.focused_inactive       $darkgrey        $darkgrey       $foreground  $darkgrey
-client.unfocused              $darkgrey        $darkgrey       $foreground  $darkgrey
-client.urgent                 $red             $red            $background  $red
-
-# hide borders
-hide_edge_borders both
-
-# keyboard shortcuts
-bindsym $mod+o exec $term -e ranger
-bindsym $mod+b exec --no-startup-id $browser
-bindsym $mod+i exec $term -e htop
-bindsym $mod+m exec --no-startup-id $music
-bindsym $mod+e exec --no-startup-id $mail
