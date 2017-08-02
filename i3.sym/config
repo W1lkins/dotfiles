@@ -142,6 +142,7 @@ bar {
 
 # startup programs
 exec_always xmodmap ~/.Xmodmap
+exec --no-startup-id nm-applet
 exec_always xrdb ~/.Xresources
 exec --no-startup-id redshift-gtk
 exec_always feh --bg-fill --no-fehbg ~/.config/wall.png
@@ -150,6 +151,15 @@ exec_always set-keymap --no-convert uk
 exec_always set-x11-keymap gb
 exec_always setxkbmap gb
 #exec_always setxkbmap -option caps:swapescape # make caps lock esc
+
+# Scratchpad Window {{{
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] resize set 625 400
+for_window [instance="dropdown"] move position center
+for_window [instance="dropdown"] move scratchpad
+exec --no-startup-id $term -name dropdown -e tmux
+bindsym $mod+u [instance="dropdown"] scratchpad show; move position center
+#}}}
 
 # audio controls
 bindsym XF86AudioRaiseVolume exec amixer -q set Master 2dB+ unmute
