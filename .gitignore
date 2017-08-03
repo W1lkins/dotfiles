@@ -1,5 +1,6 @@
 bin.sym/speedtest.py
 config.sym/Atom/
+config.sym/systemd/user/default.target.wants
 config.sym/autostart
 config.sym/base16-shell
 config.sym/chromium/
