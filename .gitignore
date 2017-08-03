@@ -1,7 +1,5 @@
 bin.sym/speedtest.py
 config.sym/Atom/
-config.sym/systemd/user/default.target.wants
-ncmpcpp.sym/error.log
 config.sym/autostart
 config.sym/base16-shell
 config.sym/chromium/
@@ -29,7 +27,9 @@ config.sym/Slack/
 config.sym/spotify
 config.sym/streamlink-twitch-gui
 config.sym/sublime-text-3/
+config.sym/systemd/user/default.target.wants
 config.sym/Thunar/
+config.sym/transmission
 config.sym/Trolltech.conf
 config.sym/vlc/
 config.sym/wall.png
@@ -40,6 +40,7 @@ config.sym/Yubico/
 docker.sym/config.json
 .gitmodules
 i3.sym/.config.swp
+ncmpcpp.sym/error.log
 vim.sym/gutentags
 vim.sym/.netrwhist
 vim.sym/tmp
