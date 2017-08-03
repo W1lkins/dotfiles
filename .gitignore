@@ -17,6 +17,7 @@ config.sym/gtk-3.0
 config.sym/heroku
 config.sym/menus
 config.sym/mimeapps.list
+config.sym/mopidy
 config.sym/neofetch
 config.sym/pulse
 config.sym/ranger/bookmarks
@@ -37,6 +38,6 @@ config.sym/Yubico/
 docker.sym/config.json
 .gitmodules
 i3.sym/.config.swp
-vim.sym/.netrwhist
 vim.sym/gutentags
+vim.sym/.netrwhist
 vim.sym/tmp

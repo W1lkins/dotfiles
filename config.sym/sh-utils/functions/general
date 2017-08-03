@@ -310,6 +310,7 @@ tm() {
 extract() {
   case $1 in
     *.tar.gz) tar -xf $1 ;;
+    *.tgz) tar -xzf $1 ;;
     *.bz2) tar jxf $1 ;;
     *.tar) tar 0xvf $1;;
     *.zip) unzip $1;;
