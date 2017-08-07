@@ -135,7 +135,7 @@ for_window [class="streamlink-twitch-gui"] move to workspace $ws5
 for_window [class="mpv"] move to workspace $ws6
 for_window [class="Vlc"] move to workspace $ws6
 for_window [instance="twitch.+(chat)"] move to workspace $ws6
-for_window [title="^ncmpcpp"] move to workspace $ws10
+for_window [title="^ncmpcpp\s+\d"] move to workspace $ws10
 
 # }}}
 

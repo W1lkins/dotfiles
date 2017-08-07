@@ -29,3 +29,6 @@
 [submodule "vim.sym/bundle/supertab.vim"]
 	path = vim.sym/bundle/supertab.vim
 	url = https://github.com/ervandew/supertab.git
+[submodule "vim.sym/bundle/ale.vim"]
+	path = vim.sym/bundle/ale.vim
+	url = https://github.com/w0rp/ale.git
