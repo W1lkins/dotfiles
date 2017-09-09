@@ -340,7 +340,12 @@ listjails() {
 }
 
 f2bstatus() {
-  sudo fail2ban-client status "$1"
+  jail_name="$1"
+  if [[ -n "$jail_name" ]]; then
+    sudo fail2ban-client status "$jail_name"
+  else
+    echo -e "Missing param - Usage:\n - f2bstatus [jail name]"
+  fi
 }
 
 f2bunban() {
