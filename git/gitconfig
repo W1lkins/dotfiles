@@ -34,6 +34,9 @@
 
   # switch to a branch, create it if necessary
   go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+
+  # push to two remotes
+  pushall = "!git push origin $1; git push github $1"
 [color]
   diff = auto
   status = auto
