@@ -19,3 +19,4 @@
 - name: tap caskroom/cask
   homebrew_tap:
       tap: 'caskroom/cask'
+

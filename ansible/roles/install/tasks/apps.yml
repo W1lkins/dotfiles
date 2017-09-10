@@ -20,3 +20,4 @@
       name: '{{ item }}'
       state: installed
   with_items: '{{ cask_applications }}'
+

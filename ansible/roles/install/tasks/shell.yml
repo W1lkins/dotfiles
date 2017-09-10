@@ -4,20 +4,10 @@
 - name: set up oh-my-zsh
   git:
       repo: https://github.com/robbyrussell/oh-my-zsh.git
-      dest: '{{  home  }}/.oh-my-zsh'
-
-- name: download dracula theme for zsh
-  git:
-    repo: https://github.com/dracula/zsh.git
-    dest: '{{ home }}/.oh-my-zsh_dracula_theme'
-
-- name: sym link dracula to oh-my-zsh/themes directory
-  file:
-    src: '{{ home }}/.oh-my-zsh_dracula_theme/dracula.zsh-theme'
-    dest: '{{ home }}/.oh-my-zsh/themes/dracula.zsh-theme'
-    state: link
+      dest: '{{ home }}/.oh-my-zsh'
 
 - name: create workspace directory
   file:
     path: '{{ home }}/workspace'
     state: directory
+

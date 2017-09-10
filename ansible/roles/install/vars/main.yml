@@ -41,12 +41,15 @@ applications:
 # homebrew cask
 cask_applications:
   - alfred
+  - appcleaner
   - battle-net
   - captain # manage docker from taskbar
   - contexts # better alt-tab management
   - docker
   - dropbox
   - evernote
+  - figma
+  - filezilla
   - fing
   - flux
   - github-desktop
