@@ -1,4 +1,5 @@
 bin.sym/speedtest.py
+config.sym/.mono
 config.sym/Atom/
 config.sym/autostart
 config.sym/base16-shell
@@ -28,6 +29,7 @@ config.sym/spotify
 config.sym/streamlink-twitch-gui
 config.sym/sublime-text-3/
 config.sym/systemd/user/default.target.wants
+config.sym/thefuck
 config.sym/Thunar/
 config.sym/transmission
 config.sym/Trolltech.conf
@@ -38,9 +40,8 @@ config.sym/xfce4/xfconf/
 config.sym/yarn
 config.sym/Yubico/
 docker.sym/config.json
-.gitmodules
 i3.sym/.config.swp
 ncmpcpp.sym/error.log
-vim.sym/gutentags
 vim.sym/.netrwhist
+vim.sym/gutentags
 vim.sym/tmp
