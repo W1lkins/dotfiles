@@ -8,7 +8,7 @@ config.sym/configstore
 config.sym/dconf
 config.sym/deluge
 config.sym/filezilla
-config.sym/gcloud/.last_update_check.json
+config.sym/gcloud
 config.sym/gconf
 config.sym/gedit/
 config.sym/git
