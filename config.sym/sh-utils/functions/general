@@ -297,13 +297,13 @@ note () {
   fi
 }
 
-# open default tmux or attach
+# open default tmux or attach, if we're in a session already then use fzf to switch between them
 tm() {
-  if (( $# )); then
-    tmux has-session -t "$*" && tmux attach -t "$*" || tmux new-session -s "$*"
-  else
-    tmux attach || tmux new-session -s default
+  [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
+  if [ "$1" ]; then
+     tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s "$1" && tmux $change -t "$1"); return
   fi
+  session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
 }
 
 # generic extract
