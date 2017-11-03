@@ -29,8 +29,7 @@ install:
 			--minimal
 
 test:
-	docker exec --interactive --tty dotfiles \
-		/bin/zsh -cli "./scripts.sym/testscripts"
+	./scripts.sym/testscripts
 
 attach:
 	docker exec --interactive --tty dotfiles \
