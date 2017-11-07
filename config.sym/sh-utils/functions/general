@@ -314,7 +314,7 @@ extract() {
     *.bz2) tar jxf $1 ;;
     *.tar) tar 0xvf $1;;
     *.zip) unzip $1;;
-    *.rar) unar $1;;
+    *.rar) unrar e $1;;
     *.7z) 7z x $1 ;;
     *.gz) tar -xvzf $1;;
     *) echo "Nothing to do";;
