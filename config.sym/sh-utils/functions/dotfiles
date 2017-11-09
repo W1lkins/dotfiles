@@ -1,0 +1,26 @@
+#!/bin/bash
+
+function zshrc() {
+  $EDITOR ~/.zshrc
+}
+
+function i3config() {
+  $EDITOR ~/.i3/config
+}
+
+function terminalrc() {
+  $EDITOR $HOME/.config/xfce4/terminal/terminalrc
+}
+
+function htoprc() {
+  $EDITOR $HOME/.config/htop/htoprc
+}
+
+function vimrc() {
+  $EDITOR ~/.vimrc
+}
+
+function sshconfig() {
+  $EDITOR ~/.ssh/config
+}
+

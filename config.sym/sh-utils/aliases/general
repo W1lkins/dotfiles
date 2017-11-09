@@ -16,12 +16,4 @@ alias tarup='tar -zcf'
 alias tardown='tar -zxf'
 alias shutdown='sudo shutdown now'
 alias restart='sudo shutdown -r now'
-alias listcron='sudo $HOME/.scripts/listcron'
-alias listservices='service --status-all | grep +'
-alias listservicesctl='sudo systemctl -r --type service --all | grep " active"'
-alias mpack='makepkg -s'
-alias ipack='makepkg -i'
-alias cupdate='find .-name PKGBUILD -execdir makepkg -si \;'
-alias watchdmesg="watch -n1 'dmesg | tail'"
-alias lpl='lpass login wilkinsphysics@gmail.com'
 

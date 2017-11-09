@@ -1,0 +1,38 @@
+#!/bin/bash
+
+function start-torrent() {
+  deluged; deluge-web&;
+}
+
+function stop-torrent() {
+  pkill deluge; pkill deluged; pkill deluge-web;
+}
+
+function check-ip() {
+  curl icanhazip.com
+}
+
+function src() {
+  source ~/.zshrc
+}
+
+function pls() {
+  sudo $(fc -ln -1)
+}
+
+function irc() {
+  weechat
+}
+
+function weather() {
+  curl wttr.in/Edinburgh
+}
+
+function hist() {
+  "$HOME"/historian/hist
+}
+
+function wtf() {
+  dmesg | tail
+}
+

@@ -92,6 +92,11 @@ aur-dl() {
   cower -d "$1" && cd "$1"
 }
 
+# list tmux sessions
+tl() {
+  tmux list-sessions
+}
+
 # create a tmux session with a name corresponding to 1st argv
 tc() {
   tmux new -s "$1"
@@ -359,5 +364,30 @@ f2b-unban() {
 # watch TCP/UDP etc. connections every 2 seconds
 watch-connections() {
   watch ss -stplu
+}
+
+# list running services if we have `service` available, otherwise use systemctl
+list-running-services() {
+  command-exists service && sudo service --status-all | grep + || sudo systemctl -r --type service --all | grep " active"
+}
+
+# make a package from aur
+mpack() {
+  makepkg -s
+}
+
+# install a package that has already been built from aur
+ipack() {
+  makepkg -i
+}
+
+# look at dmesg output every second
+watch-dmesg() {
+  watch -n1 'dmesg | tail'
+}
+
+# log into lastpass via command-line tool lpass
+lpl() {
+  lpass login wilkinsphysics@gmail.com
 }
 

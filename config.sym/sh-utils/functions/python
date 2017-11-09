@@ -1,0 +1,18 @@
+#!/bin/bash
+
+function simple-server() {
+  python3 -m http.server
+}
+
+function vv() {
+  virtualenv venv
+}
+
+function svenv() {
+  source ./venv/bin/activate
+}
+
+function preqs() {
+  pip freeze > requirements.txt
+}
+
