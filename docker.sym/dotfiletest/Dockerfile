@@ -7,3 +7,4 @@ RUN git clone git://github.com/robbyrussell/oh-my-zsh.git /root/.oh-my-zsh
 RUN chsh -s /bin/zsh
 
 WORKDIR /project
+
