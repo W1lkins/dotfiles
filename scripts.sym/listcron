@@ -45,10 +45,18 @@ function lookup_run_parts() {
 temp=$(mktemp) || exit 1
 
 # Add all of the jobs from the system-wide crontab file.
-clean_cron_lines < "${CRONTAB}" | lookup_run_parts >"${temp}" 
+if [ -f "$CRONTAB" ]; then
+  clean_cron_lines < "$CRONTAB" | lookup_run_parts > "$temp"
+else
+  echo "$CRONTAB not found!" && exit 1
+fi
 
 # Add all of the jobs from the system-wide cron directory.
-cat "${CRONDIR}"/* | clean_cron_lines >>"${temp}"  # */ <not a comment>
+if [ -d "$CRONDIR" ]; then
+  cat "${CRONDIR}"/* | clean_cron_lines >>"${temp}"  # */ <not a comment>
+else
+  echo "$CRONDIR not found!" && exit 1
+fi
 
 # Add each user's crontab (if it exists). Insert the user's name between the
 # five time fields and the command.

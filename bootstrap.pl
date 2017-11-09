@@ -5,12 +5,14 @@ use Term::ANSIColor qw(:constants);
 use File::Compare;
 use File::Spec;
 
+$Term::ANSIColor::AUTORESET = 1;
+
 sub info {
-  print YELLOW, "[ ... ] @_\n";
+  print YELLOW "[ ... ] @_\n";
 }
 
 sub user {
-  print WHITE, "[ ??? ] @_\n";
+  print WHITE "[ ??? ] @_\n";
 }
 
 sub success {
