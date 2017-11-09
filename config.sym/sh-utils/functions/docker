@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # find the ip of a docker container via id|name
-docker_ip() {
+docker-ip() {
     docker inspect --format '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$1"
 }
 
@@ -19,7 +19,7 @@ da() {
 }
 
 # clean up containers volumes and images
-docker_cleanup() {
+docker-cleanup() {
 	local containers
 	containers=( $(docker ps -aq 2>/dev/null) )
 	docker rm "${containers[@]}" 2>/dev/null
@@ -32,7 +32,7 @@ docker_cleanup() {
 }
 
 # delete container if it's not running
-del_stopped() {
+del-stopped() {
 	local name=$1
 	local state
 	state=$(docker inspect --format "{{.State.Running}}" "$name" 2>/dev/null)

@@ -1,79 +1,78 @@
 #!/bin/bash
 
 # check if an executable exists e.g. command_exists git
-command_exists () {
-    type "$1" &> /dev/null ;
+command-exists() {
+  type "$1" &> /dev/null ;
 }
 
 # set the system profile theme to day or night mode
 setprof() {
+  # do things differently on osx and linux
+  if [[ $(findcurrentos) == "OSX" ]]; then
+    # set the iTerm theme
+    echo -e "\033]50;SetProfile=$1\a";
 
-    # do things differently on osx and linux
-    if [[ $(findcurrentos) == "OSX" ]]; then
-        # set the iTerm theme
-        echo -e "\033]50;SetProfile=$1\a";
-
-        # set dock and menubar theme
-        if [[ "$1" == "day" ]]; then
-            osascript -e 'tell application "System Events"
-            tell appearance preferences to set dark mode to false
-            end tell'
-        else
-            osascript -e 'tell application "System Events"
-            tell appearance preferences to set dark mode to true
-            end tell'
-        fi
+    # set dock and menubar theme
+    if [[ "$1" == "day" ]]; then
+      osascript -e 'tell application "System Events"
+      tell appearance preferences to set dark mode to false
+      end tell'
     else
-        echo "Not implemented for non-OSX systems yet!"
+      osascript -e 'tell application "System Events"
+      tell appearance preferences to set dark mode to true
+      end tell'
     fi
+  else
+    echo "Not implemented for non-OSX systems yet!"
+  fi
 }
 
 # `v` with no arguments opens `pwd` in vim otherwise opens location
 v() {
-	if [ $# -eq 0 ]; then
-	    vim
-        else
-	    vim "$@"
-	fi
+  if [ $# -eq 0 ]; then
+    vim
+  else
+    vim "$@"
+  fi
 }
 
 # list users on the system
 listusers() {
-    cut -d: -f1 /etc/passwd
+  cut -d: -f1 /etc/passwd
 }
 
 # htop current user, else htop 1st argv
 utop() {
-    if [ $# -eq 0 ]; then
-        htop -u "$USER"
-    else
-        htop -u "$1"
-    fi
+  if [ $# -eq 0 ]; then
+    htop -u "$USER"
+  else
+    htop -u "$1"
+  fi
 }
 
 # disable crontab -r
 crontab() {
-    # replace -r with -e
-    /usr/bin/crontab "${@/-r/-e}"
+  # replace -r with -e
+  /usr/bin/crontab "${@/-r/-e}"
 }
 
 # add current user to specified groups
-joingroup() {
-    for group in "$@"; do
-        sudo gpasswd -a "$USER" "$group"
-    done
+join-group() {
+  for group in "$@"; do
+    sudo gpasswd -a "$USER" "$group"
+  done
 }
 
 # del user from specified groups
-leavegroup() {
-    for group in "$@"; do
-        sudo gpasswd -d "$USER" "$group"
-    done
+leave-group() {
+  for group in "$@"; do
+    sudo gpasswd -d "$USER" "$group"
+  done
 }
 
 # coloured man pages
 man() {
-    LESS_TERMCAP_md=$'\e[01;31m' \
+  LESS_TERMCAP_md=$'\e[01;31m' \
     LESS_TERMCAP_me=$'\e[0m' \
     LESS_TERMCAP_se=$'\e[0m' \
     LESS_TERMCAP_so=$'\e[01;44;33m' \
@@ -83,142 +82,134 @@ man() {
 }
 
 # search the aur for a pkg using cower
-aursearch() {
-    cower -s "$1"
+aur-search() {
+  cower -s "$1"
 }
 
 # download from aur using cower to $HOME/tmp
-aurdl() {
-    cd "$HOME"/tmp || exit;
-    cower -d "$1" && cd "$1"
-}
-
-# pull from git, add everything, and commit with first argv
-gitshove() {
-    gpull;
-    ga;
-    git commit -m "$1";
+aur-dl() {
+  cd "$HOME"/tmp || exit;
+  cower -d "$1" && cd "$1"
 }
 
 # create a tmux session with a name corresponding to 1st argv
 tc() {
-    tmux new -s "$1"
+  tmux new -s "$1"
 }
 
 # attach to tmux session with name corresponding to 1st argv
 ta() {
-    tmux attach -t "$1"
+  tmux attach -t "$1"
 }
 
 # simple calculator
 calc() {
-	local result=""
-	result="$(printf "scale=10;%s\n" "$*" | bc --mathlib | tr -d '\\\n')"
-	#						V> default (when `--mathlib` is used) is 20
+  local result=""
+  result="$(printf "scale=10;%s\n" "$*" | bc --mathlib | tr -d '\\\n')"
 
-	if [[ "$result" == *.* ]]; then
-		# improve the output for decimal numbers
-		# add "0" for cases like ".5"
-		# add "0" for cases like "-.5"
-		# remove trailing zeros
-		printf "%s" "$result" |
-		sed -e 's/^\./0./'  \
-			-e 's/^-\./-0./' \
-			-e 's/0*$//;s/\.$//'
-	else
-		printf "%s" "$result"
-	fi
-	printf "\n"
+  if [[ "$result" == *.* ]]; then
+    # improve the output for decimal numbers
+    # add "0" for cases like ".5"
+    # add "0" for cases like "-.5"
+    # remove trailing zeros
+    printf "%s" "$result" |
+    sed -e 's/^\./0./'  \
+      -e 's/^-\./-0./' \
+      -e 's/0*$//;s/\.$//'
+  else
+    printf "%s" "$result"
+  fi
+  printf "\n"
 }
 
 # create a new directory and enter it
 mkd() {
-	mkdir -p "$@"
-	cd "$@" || exit
+  mkdir -p "$@"
+  cd "$@" || exit
 }
 
 # make a temporary directory and enter it
 tmpd() {
-	local dir
-	if [ $# -eq 0 ]; then
-		dir=$(mktemp -d)
-	else
-		dir=$(mktemp -d -t "${1}.XXXXXXXXXX")
-	fi
-	cd "$dir" || exit
+  local dir
+  if [ $# -eq 0 ]; then
+    dir=$(mktemp -d)
+  else
+    dir=$(mktemp -d -t "${1}.XXXXXXXXXX")
+  fi
+  cd "$dir" || exit
 }
 
 # determine size of a file or total size of a directory
 fs() {
-	if du -b /dev/null > /dev/null 2>&1; then
-		local arg=-sbh
-	else
-		local arg=-sh
-	fi
-	if [[ -n "$@" ]]; then
-		du $arg -- "$@"
-	else
-		du $arg -- .[^.]* *
-	fi
+  if du -b /dev/null > /dev/null 2>&1; then
+    local arg=-sbh
+  else
+    local arg=-sh
+  fi
+  if [[ -n "$@" ]]; then
+    du $arg -- "$@"
+  else
+    du $arg -- .[^.]* *
+  fi
 }
 
 # shorthand for `tree` hiddenfiles and colour enabled, ignores .git, directories first, piped into less if output too big
 tre() {
-	tree -aC -I '.git' --dirsfirst "$@" | less -FRNX
+  tree -aC -I '.git' --dirsfirst "$@" | less -FRNX
 }
 
 # check if website is up
 isup() {
-	local uri=$1
+  local uri=$1
 
-	if curl -s --head  --request GET "$uri" | grep "200 OK" > /dev/null ; then
-		notify-send --urgency=critical "$uri is down"
-	else
-		notify-send --urgency=low "$uri is up"
-	fi
+  if curl -s --head  --request GET "$uri" | grep "200 OK" > /dev/null ; then
+    notify-send --urgency=critical "$uri is down"
+  else
+    notify-send --urgency=low "$uri is up"
+  fi
 }
 
 # open a new sh file in vim and +x it
 mksh() {
-    filename=sh_$(date +%H%M%S)
-    if [ $# -eq 0 ]; then
-        echo "#!/bin/bash" >> "$filename"
-        chmod +x "$filename"
-        vi "$filename"
-	else
-        echo "#!/bin/bash" >> "$1"
-        chmod +x "$1";
-        vi "$1"
-	fi
+  filename=sh_$(date +%H%M%S)
+  if [ $# -eq 0 ]; then
+    echo "#!/bin/bash" >> "$filename"
+    chmod +x "$filename"
+    vi "$filename"
+  else
+    echo "#!/bin/bash" >> "$1"
+    chmod +x "$1";
+    vi "$1"
+  fi
 }
 
 # attempt find the current operating system
 findcurrentos() {
-    local DISTRO="";
-    local os_type="";
+  local DISTRO="";
+  local os_type="";
 
-    os_type=$(uname);
-    case "$os_type" in
-            "Darwin") {
-                echo "OSX"
-            } ;;
-            "Linux") {
-                # If available, use LSB to identify distribution
-                if [ -f /etc/lsb-release ] || [ -d /etc/lsb-release.d ]; then
-                    DISTRO=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
-                else
-                    DISTRO=$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
-                fi
-                echo "$DISTRO" | tr '[:lower:]' '[:upper:]'
-            } ;;
-            *) {
-                echo "UNKNOWN"
-            } ;;
-    esac;
+  os_type=$(uname);
+  case "$os_type" in
+    "Darwin") {
+      echo "OSX"
+    } ;;
+  "Linux") {
+    # If available, use LSB to identify distribution
+    if [ -f /etc/lsb-release ] || [ -d /etc/lsb-release.d ]; then
+      DISTRO=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
+    else
+      DISTRO=$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
+    fi
+    echo "$DISTRO" | tr '[:lower:]' '[:upper:]'
+  } ;;
+*) {
+  echo "UNKNOWN"
+} ;;
+  esac;
 }
 
 # search Google
-gsearch() {
+google-search() {
   Q="$*"
   GOOG_URL='https://www.google.co.uk/search?tbs=li:1&q='
   AGENT="Mozilla/4.0"
@@ -242,10 +233,12 @@ runx() {
 }
 
 # grep process (more verbose than pgrep)
-psgrep() { ps axuf | grep -v grep | grep "$@" -i --color=auto; }
+psgrep() {
+  ps axuf | grep -v grep | grep "$@" -i --color=auto;
+}
 
 # search stackoverflow
-so() {
+stack-overflow() {
   s=""
   for term in "$@"; do
     s="$s%20$term"
@@ -254,22 +247,22 @@ so() {
 }
 
 # open 1st argv in google chrome
-chrome() {
+open-chrome() {
   open -a "Google Chrome" "http://$1"
 }
 
 # youtube-dl full 1080p video/audio
-ytdlhd() {
+youtube-dl-hd() {
   youtube-dl "$1" -f 137+140
 }
 
 # extract audio in mp3 format
-ytdlmp3() {
+youtube-dl-mp3() {
   youtube-dl -v --no-mtime -o '%(stitle)s.%(ext)s' --extract-audio --audio-format mp3  "$1"
 }
 
 # stopwatch
-stopwatch(){
+stopwatch() {
   my_date=$(date +%s)
   while true; do
     days=$(( $(($(date +%s) - my_date)) / 86400 ))
@@ -279,7 +272,7 @@ stopwatch(){
 }
 
 # take a note
-note () {
+create-note() {
   # if file doesn't exist, create it
   if [[ ! -f $HOME/.notes ]]; then
     touch "$HOME/.notes"
@@ -301,7 +294,7 @@ note () {
 tm() {
   [[ -n "$TMUX" ]] && change="switch-client" || change="attach-session"
   if [ "$1" ]; then
-     tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s "$1" && tmux $change -t "$1"); return
+    tmux $change -t "$1" 2>/dev/null || (tmux new-session -d -s "$1" && tmux $change -t "$1"); return
   fi
   session=$(tmux list-sessions -F "#{session_name}" 2>/dev/null | fzf --exit-0) &&  tmux $change -t "$session" || echo "No sessions found."
 }
@@ -321,7 +314,8 @@ extract() {
   esac
 }
 
-monitor() {
+# connect external monitor
+connect-monitor() {
   if [[ $1 == 'off' ]]; then
     xrandr --output LVDS1 --size 1366x768 && xrandr --output HDMI1 --off
   elif [[ $1 == 'on' ]]; then
@@ -331,15 +325,18 @@ monitor() {
   fi
 }
 
+# create a paste
 pastebin() {
   curl -F c=@- https://ptpb.pw
 }
 
-listjails() {
+# list current jails in fail2ban
+list-jails() {
   sudo fail2ban-client status
 }
 
-f2bstatus() {
+# list status of jail in fail2ban
+f2b-status() {
   jail_name="$1"
   if [[ -n "$jail_name" ]]; then
     sudo fail2ban-client status "$jail_name"
@@ -348,7 +345,8 @@ f2bstatus() {
   fi
 }
 
-f2bunban() {
+# unban an ip banned by fail2ban
+f2b-unban() {
   jail_name="$1"
   ip="$2"
   if [[ -n "$jail_name" || -n "$ip" ]]; then
@@ -357,3 +355,9 @@ f2bunban() {
     echo -e "Missing param - Usage:\n- f2bunban [jail name] [ip]\nUse listjails and f2bstatus to see bans and jails"
   fi
 }
+
+# watch TCP/UDP etc. connections every 2 seconds
+watch-connections() {
+  watch ss -stplu
+}
+
