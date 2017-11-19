@@ -5,6 +5,7 @@ use Term::ANSIColor qw(:constants);
 use File::Compare;
 use File::Spec;
 
+# Reset the terminal back to the original colour after we're done
 $Term::ANSIColor::AUTORESET = 1;
 
 sub info {
@@ -30,9 +31,9 @@ sub get_os {
   return $my_os;
 }
 
-
 sub setup_gitconfig {
   my $file = $ENV{"HOME"}."/.gitconfig";
+  my ($github_name, $github_email) = @ARGV;
 
   # check if gitconfig already exists
   if (! -f $file) {
@@ -43,11 +44,11 @@ sub setup_gitconfig {
     my $credential = ($os eq "Darwin") ? "osxkeychain" : "cache";
 
     user("what is your github author name?");
-    my $name = <STDIN>;
+    my $name = $github_name || <STDIN>;
     chomp $name;
 
     user("what is your github author email?");
-    my $email = <STDIN>;
+    my $email = $github_email || <STDIN>;
     chomp $email;
 
     # grab the file

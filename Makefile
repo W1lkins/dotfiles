@@ -39,7 +39,7 @@ clean:
 	docker stop dotfiles > /dev/null 2>&1 ||:
 	docker rm dotfiles > /dev/null 2>&1 ||:
 
-remove: clean
+destroy: clean
 	docker rmi dotfiles > /dev/null 2>&1 ||:
 
 up:
