@@ -24,3 +24,7 @@ function sshconfig() {
   $EDITOR ~/.ssh/config
 }
 
+function scripts() {
+  cd ~/.scripts
+}
+
