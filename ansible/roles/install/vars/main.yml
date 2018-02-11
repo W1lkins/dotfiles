@@ -7,6 +7,7 @@ applications:
   - blueutil # bluetooth from cmd line
   - coreutils # GNU coreutils
   - curl
+  - dialog
   - ffmpeg
   - findutils # find,locate,updatedb,xargs
   - fish # fish shell
