@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function simple-server() {
+function simpleserver() {
   python3 -m http.server
 }
 

@@ -1,14 +1,14 @@
 #!/bin/bash
 
-function start-torrent() {
+function starttorrent() {
   deluged; deluge-web&;
 }
 
-function stop-torrent() {
+function stoptorrent() {
   pkill deluge; pkill deluged; pkill deluge-web;
 }
 
-function check-ip() {
+function checkip() {
   curl icanhazip.com
 }
 

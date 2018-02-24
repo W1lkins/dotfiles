@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # check if an executable exists e.g. command_exists git
-command-exists() {
+commandexists() {
   type "$1" &> /dev/null ;
 }
 
@@ -57,14 +57,14 @@ crontab() {
 }
 
 # add current user to specified groups
-join-group() {
+joingroup() {
   for group in "$@"; do
     sudo gpasswd -a "$USER" "$group"
   done
 }
 
 # del user from specified groups
-leave-group() {
+leavegroup() {
   for group in "$@"; do
     sudo gpasswd -d "$USER" "$group"
   done
@@ -82,12 +82,12 @@ man() {
 }
 
 # search the aur for a pkg using cower
-aur-search() {
+aursearch() {
   cower -s "$1"
 }
 
 # download from aur using cower to $HOME/tmp
-aur-dl() {
+aurdl() {
   cd "$HOME"/tmp || exit;
   cower -d "$1" && cd "$1"
 }
@@ -214,7 +214,7 @@ findcurrentos() {
 }
 
 # search Google
-google-search() {
+googlesearch() {
   Q="$*"
   GOOG_URL='https://www.google.co.uk/search?tbs=li:1&q='
   AGENT="Mozilla/4.0"
@@ -243,7 +243,7 @@ psgrep() {
 }
 
 # search stackoverflow
-stack-overflow() {
+stackoverflow() {
   s=""
   for term in "$@"; do
     s="$s%20$term"
@@ -252,17 +252,17 @@ stack-overflow() {
 }
 
 # open 1st argv in google chrome
-open-chrome() {
+openchrome() {
   open -a "Google Chrome" "http://$1"
 }
 
 # youtube-dl full 1080p video/audio
-youtube-dl-hd() {
+youtubedlhd() {
   youtube-dl "$1" -f 137+140
 }
 
 # extract audio in mp3 format
-youtube-dl-mp3() {
+youtubedlmp3() {
   youtube-dl -v --no-mtime -o '%(stitle)s.%(ext)s' --extract-audio --audio-format mp3  "$1"
 }
 
@@ -277,7 +277,7 @@ stopwatch() {
 }
 
 # take a note
-create-note() {
+createnote() {
   # if file doesn't exist, create it
   if [[ ! -f $HOME/.notes ]]; then
     touch "$HOME/.notes"
@@ -320,7 +320,7 @@ extract() {
 }
 
 # connect external monitor
-connect-monitor() {
+connectmonitor() {
   if [[ $1 == 'off' ]]; then
     xrandr --output LVDS1 --size 1366x768 && xrandr --output HDMI1 --off
   elif [[ $1 == 'on' ]]; then
@@ -336,12 +336,12 @@ pastebin() {
 }
 
 # list current jails in fail2ban
-list-jails() {
+listjails() {
   sudo fail2ban-client status
 }
 
 # list status of jail in fail2ban
-f2b-status() {
+f2bstatus() {
   jail_name="$1"
   if [[ -n "$jail_name" ]]; then
     sudo fail2ban-client status "$jail_name"
@@ -351,7 +351,7 @@ f2b-status() {
 }
 
 # unban an ip banned by fail2ban
-f2b-unban() {
+f2bunban() {
   jail_name="$1"
   ip="$2"
   if [[ -n "$jail_name" || -n "$ip" ]]; then
@@ -362,13 +362,13 @@ f2b-unban() {
 }
 
 # watch TCP/UDP etc. connections every 2 seconds
-watch-connections() {
+watchconnections() {
   watch ss -stplu
 }
 
 # list running services if we have `service` available, otherwise use systemctl
-list-running-services() {
-  command-exists service && sudo service --status-all | grep + || sudo systemctl -r --type service --all | grep " active"
+listrunningservices() {
+  commandexists service && sudo service --status-all | grep + || sudo systemctl -r --type service --all | grep " active"
 }
 
 # make a package from aur
@@ -382,12 +382,12 @@ ipack() {
 }
 
 # look at dmesg output every second
-watch-dmesg() {
+watchkern() {
   watch -n1 'dmesg | tail'
 }
 
 # log into lastpass via command-line tool lpass
 lpl() {
-  lpass login wilkinsphysics@gmail.com
+  lpass login "$1"
 }
 

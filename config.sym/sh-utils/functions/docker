@@ -32,7 +32,7 @@ docker-cleanup() {
 }
 
 # delete container if it's not running
-del-stopped() {
+docker-del-stopped() {
 	local name=$1
 	local state
 	state=$(docker inspect --format "{{.State.Running}}" "$name" 2>/dev/null)
