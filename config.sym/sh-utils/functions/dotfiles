@@ -9,22 +9,22 @@ function i3config() {
 }
 
 function terminalrc() {
-  $EDITOR $HOME/.config/xfce4/terminal/terminalrc
+  $EDITOR "$HOME/.config/xfce4/terminal/terminalrc"
 }
 
 function htoprc() {
-  $EDITOR $HOME/.config/htop/htoprc
+  $EDITOR "$HOME/.config/htop/htoprc"
 }
 
 function vimrc() {
-  $EDITOR ~/.vimrc
+  $EDITOR "$HOME/.vimrc"
 }
 
 function sshconfig() {
-  $EDITOR ~/.ssh/config
+  $EDITOR "$HOME/.ssh/config"
 }
 
 function scripts() {
-  cd ~/.scripts
+  cd "$HOME/.scripts" || exit
 }
 

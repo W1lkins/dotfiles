@@ -10,7 +10,7 @@ setprof() {
   # do things differently on osx and linux
   if [[ $(findcurrentos) == "OSX" ]]; then
     # set the iTerm theme
-    echo -e "\033]50;SetProfile=$1\a";
+    echo -e "\\033]50;SetProfile=$1\\a";
 
     # set dock and menubar theme
     if [[ "$1" == "day" ]]; then
@@ -88,8 +88,8 @@ aursearch() {
 
 # download from aur using cower to $HOME/tmp
 aurdl() {
-  cd "$HOME"/tmp || exit;
-  cower -d "$1" && cd "$1"
+  cd "$HOME"/tmp || exit
+  cower -d "$1" && cd "$1" || exit
 }
 
 # list tmux sessions
@@ -110,7 +110,7 @@ ta() {
 # simple calculator
 calc() {
   local result=""
-  result="$(printf "scale=10;%s\n" "$*" | bc --mathlib | tr -d '\\\n')"
+  result="$(printf "scale=10;%s\\n" "$*" | bc --mathlib | tr -d '\\\n')"
 
   if [[ "$result" == *.* ]]; then
     # improve the output for decimal numbers
@@ -124,7 +124,7 @@ calc() {
   else
     printf "%s" "$result"
   fi
-  printf "\n"
+  printf "\\n"
 }
 
 # create a new directory and enter it
@@ -151,7 +151,7 @@ fs() {
   else
     local arg=-sh
   fi
-  if [[ -n "$@" ]]; then
+  if [[ -n "$*" ]]; then
     du $arg -- "$@"
   else
     du $arg -- .[^.]* *
@@ -203,7 +203,7 @@ findcurrentos() {
     if [ -f /etc/lsb-release ] || [ -d /etc/lsb-release.d ]; then
       DISTRO=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
     else
-      DISTRO=$(ls -d /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
+      DISTRO=$(echo /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
     fi
     echo "$DISTRO" | tr '[:lower:]' '[:upper:]'
   } ;;
@@ -237,11 +237,6 @@ runx() {
   done
 }
 
-# grep process (more verbose than pgrep)
-psgrep() {
-  ps axuf | grep -v grep | grep "$@" -i --color=auto;
-}
-
 # search stackoverflow
 stackoverflow() {
   s=""
@@ -271,7 +266,7 @@ stopwatch() {
   my_date=$(date +%s)
   while true; do
     days=$(( $(($(date +%s) - my_date)) / 86400 ))
-    echo -ne "$days day(s) and $(date -u --date @$(($(date +%s) - my_date)) +%H:%M:%S)\r"
+    echo -ne "$days day(s) and $(date -u --date @$(($(date +%s) - my_date)) +%H:%M:%S)\\r"
     sleep 0.1
   done
 }
@@ -291,7 +286,7 @@ createnote() {
     printf "" > "$HOME/.notes"
   else
     # add all arguments to file
-    printf "- %s\n" "$*" >> "$HOME/.notes"
+    printf "- %s\\n" "$*" >> "$HOME/.notes"
   fi
 }
 
@@ -307,14 +302,14 @@ tm() {
 # generic extract
 extract() {
   case $1 in
-    *.tar.gz) tar -xf $1 ;;
-    *.tgz) tar -xzf $1 ;;
-    *.bz2) tar jxf $1 ;;
-    *.tar) tar 0xvf $1;;
-    *.zip) unzip $1;;
-    *.rar) unrar e $1;;
-    *.7z) 7z x $1 ;;
-    *.gz) tar -xvzf $1;;
+    *.tar.gz) tar -xf "$1";;
+    *.tgz) tar -xzf "$1";;
+    *.bz2) tar jxf "$1";;
+    *.tar) tar 0xvf "$1";;
+    *.zip) unzip "$1";;
+    *.rar) unrar e "$1";;
+    *.7z) 7z x "$1";;
+    *.gz) tar -xvzf "$1";;
     *) echo "Nothing to do";;
   esac
 }
@@ -346,7 +341,7 @@ f2bstatus() {
   if [[ -n "$jail_name" ]]; then
     sudo fail2ban-client status "$jail_name"
   else
-    echo -e "Missing param - Usage:\n - f2bstatus [jail name]"
+    echo -e "Missing param - Usage:\\n - f2bstatus [jail name]"
   fi
 }
 
@@ -357,7 +352,7 @@ f2bunban() {
   if [[ -n "$jail_name" || -n "$ip" ]]; then
     sudo fail2ban-client set "$jail_name" unbanip "$ip"
   else
-    echo -e "Missing param - Usage:\n- f2bunban [jail name] [ip]\nUse listjails and f2bstatus to see bans and jails"
+    echo -e "Missing param - Usage:\\n- f2bunban [jail name] [ip]\\nUse listjails and f2bstatus to see bans and jails"
   fi
 }
 
@@ -368,7 +363,11 @@ watchconnections() {
 
 # list running services if we have `service` available, otherwise use systemctl
 listrunningservices() {
-  commandexists service && sudo service --status-all | grep + || sudo systemctl -r --type service --all | grep " active"
+  if commandexists service; then
+    sudo service --status-all | grep '+'
+  else
+    sudo systemctl -r --type service --all | grep " active"
+  fi
 }
 
 # make a package from aur

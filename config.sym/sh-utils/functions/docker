@@ -44,11 +44,11 @@ docker-del-stopped() {
 
 # stop all running containers
 docker-stop-all() {
-  docker stop $(docker ps -a -q)
+  docker stop "$(docker ps -a -q)"
 }
 
 # remove all stopped docker containers
 docker-remove-all() {
-  docker rm $(docker ps -a -q)
+  docker rm "$(docker ps -a -q)"
 }
 
