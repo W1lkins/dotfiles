@@ -4,17 +4,16 @@ set -o pipefail
 
 ERRORS=()
 
-# find all executables and run `shellcheck`
-for f in $(find config.sym/sh-utils scripts.sym -type f ); do
+while IFS= read -r -d '' f
+do
   if file "$f" | grep --quiet shell; then
   {
-    shellcheck "$f" && echo "[OK]: sucessfully linted $f"
+    shellcheck "$f" && echo "[OK]: successfully linted $f"
   } || {
-    # add to errors
     ERRORS+=("$f")
   }
   fi
-done
+done < <(find config.sym/sh-utils scripts.sym -type f -print0)
 
 if [ ${#ERRORS[@]} -eq 0 ]; then
 	echo "No errors!"
