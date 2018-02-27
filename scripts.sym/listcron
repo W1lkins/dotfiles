@@ -74,8 +74,4 @@ sort --numeric-sort --field-separator="${tab}" --key=2,1 |
 sed "1i\\mi\\th\\td\\tm\\tw\\tuser\\tcommand" |
 column -s"${tab}" -t
 
-for file in $(ls); do
-  echo $file;
-done
-
 rm --force "${temp}"
