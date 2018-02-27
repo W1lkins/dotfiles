@@ -1,5 +1,7 @@
 # W1lkins dotfiles
 
+[![Build Status](https://travis-ci.org/W1lkins/dotfiles.svg?branch=master)](https://travis-ci.org/W1lkins/dotfiles)
+
 Installation instructions:
 
 ---
