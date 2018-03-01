@@ -1,6 +1,9 @@
 help:
 	echo "Usage:"
-	echo "    make build|create|start|stop|install|test|attach|clean|remove|up [APT_PROXY|APT_PROXY_SSL=url]"
+	echo "    make build|create|setup|start|stop|install|test|attach|clean|remove|up"
+
+setup:
+	git pull github master && ./bootstrap.pl
 
 build:
 	# Grab Dockerfile from the dotfiletest folder
