@@ -114,6 +114,7 @@ bindsym $mod+b exec --no-startup-id $browser
 bindsym $mod+i exec $term -e htop
 bindsym $mod+m exec --no-startup-id $music
 bindsym $mod+e exec --no-startup-id $mail
+bindsym $mod+g exec $term -e weechat
 
 # }}}
 
