@@ -58,6 +58,8 @@ cask_applications:
   - iterm2
   - lastpass
   - paw
+  - pinentry
+  - pinentry-mac
   - postico
   - postman
   - royal-tsx
@@ -72,6 +74,8 @@ cask_applications:
   - vagrant-manager
   - visual-studio-code
   - vlc
+  - ykman
+  - ykpers
 
 # external downloads that cannot be done with brew
 downloads:
