@@ -6,3 +6,6 @@
     - docker
   script:
     - make test
+  git:
+    submodules: false
+
