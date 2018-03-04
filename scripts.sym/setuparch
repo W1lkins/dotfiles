@@ -1,0 +1,106 @@
+#!/bin/bash
+set -e
+
+warn() {
+  read -rp "[WARNING]: This is a potentially dangerous script, are you sure? [y/N] " warning
+  case "$warning" in
+    y|Y) echo "Okay continuing...";;
+    n|N|*) echo "Exiting..." && exit 1;;
+  esac
+}
+warn
+
+read -rp "What is the path to your primary drive? " primary
+read -rp "What hostname would you like to use? " hostname
+read -rp "What username would you like to use? " user
+read -rp "How much swap? " swap
+read -rp "Country? e.g. UK" country
+read -rp "Keymap? " keymap
+
+initialize() {
+  loadkeys "$1"
+  timedatectl set-ntp true
+  pacman -Sy --noconfirm reflector
+  reflector -c "$2" -p http --sort score --save /etc/pacman.d/mirrorlist
+}
+
+partition() {
+  read -rn "Using disk $1 and swap $2... is this correct? [y/N] " correct
+  case "$correct" in
+    y|Y) echo "Continuing...";;
+    n|N|*) echo "Exiting..." && exit 1;;
+  esac
+
+  dd if=/dev/zero of="$1" bs=2k count=1
+  parted -s -- "$1" mkl msdos mkp p ext4 2048s -"$2" mkp p linux-swap -"$2" -0
+  mkfs.ext4 "$1"1
+  mkswap "$1"2
+  swapon "$1"2
+}
+
+mount_drive() {
+  mount "$1"1 /mnt
+}
+
+init_image() {
+  pacstrap /mnt base base-devel
+  genfstab -U /mnt >> /mnt/etc/fstab
+}
+
+init_chroot() {
+  ln -s /mnt/usr/share/zoneinfo/Europe/London /mnt/etc/localtime
+  arch-chroot /mnt hwclock --systohc
+  sed -i -e 's/^#\(en_GB.UTF-8 UTF-8\)/\1/' /mnt/etc/locale.gen
+  arch-chroot /mnt locale-gen
+  echo "LANG=en_GB.UTF-8" > /mnt/etc/locale.conf
+  arch-chroot /mnt localectl set-keymap --no-convert "$1"
+  echo "$2" > /mnt/etc/hostname
+  echo -e "127.0.0.1\\t$2.localdomain\\t$2" >> /mnt/etc/hosts
+  echo -e "::1\\t$2.localdomain\\t$2" >> /mnt/etc/hosts
+  arch-chroot /mnt mkinitcpio -p linux
+}
+
+setup_applications() {
+  dir=$(mktemp -d)
+  cd "$dir" || exit 1
+
+  wget https://aur.archlinux.org/cgit/aur.git/snapshot/packer.tar.gz
+  tar xvzf packer.tar.gz
+
+  cd packer || exit 1
+  makepkg
+  cp packer-*.pkg.tar.gz /mnt/root/packer.pkg.tar.gz
+  arch-chroot /mnt pacman -U --noconfirm /root/packer.pkg.tar.gz
+
+  rm /mnt/root/packer.tar.gz
+  cd /tmp || exit 1
+
+  arch-chroot /mnt packer -S reflector
+  arch-chroot /mnt reflector -c "$1" -p http --sort score --save /etc/pacman.d/mirrorlist
+}
+
+init_bootloader() {
+  arch-chroot /mnt grub-install --target=i386-pc "$1"
+  arch-chroot /mnt grub-mkconfig -o /boot/grub/grub.cfg
+}
+
+init_user() {
+  arch-chroot /mnt useradd -m -G wheel,audio -s /bin/bash "$1"
+  arch-chroot /mnt passwd "$1"
+  arch-chroot /mnt sed -i -e 's/^# \(%wheel ALL=(ALL) ALL\)/\1/' /etc/sudoers
+}
+
+initialize "$keymap" "$country"
+partition "$primary" "$swap"
+mount_drive "$primary"
+init_chroot "$keymap" "$hostname"
+setup_applications "$country"
+init_bootloader "$primary"
+init_user "$user"
+
+read -rp "Done... would you like to reboot now? [y/N] " should_reboot
+case "$should_reboot" in
+  y|Y) echo "Rebooting..." && reboot;;
+  n|N|*) echo "Not rebooting" && exit 0;;
+esac
+
