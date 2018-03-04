@@ -32,7 +32,7 @@ install:
 			--minimal
 
 test:
-	./scripts.sym/testscripts
+	perl -cw bootstrap.pl && ./scripts.sym/testscripts
 
 attach:
 	docker exec --interactive --tty dotfiles \
