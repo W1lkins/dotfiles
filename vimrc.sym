@@ -3,6 +3,7 @@
 " Plugin options {{{
 
 call pathogen#infect()                           " plugin handler
+
 filetype off
 filetype plugin indent on                        " useful for syntax highlighting, loads ftplugin.vim, loads indent.vim
 set nocompatible                                 " make vi actually improved
@@ -10,37 +11,37 @@ set nocompatible                                 " make vi actually improved
 " }}}
 " Set options {{{
 
-set encoding=utf-8                               " make stuff work
-set listchars=tab:>\ ,eol:¬                      " change tab/eol chars etc.
-set modelines=0                                  " sets the number of lines (at the beginning and end of each file) vim checks for initialisations
 set autoindent                                   " copy indent from current line when starting a new
-set showmode                                     " show whether we're in insert, visual, or replace mode etc.
-set showcmd                                      " show partial command in last line of screen, e.g. when selecting chars shows number of chars
-set hidden                                       " buffer becomes hidden when it is abandoned
-set visualbell                                   " uses a visual bell instead of beeping noise
-set ttyfast                                      " indicates a fast terminal connection
-set ruler                                        " shows the line and column number of the current cursor position
+set autoread                                     " when a file has been changed outside of vim read it again
+set autowrite                                    " write contents of file when modified and certain sequences occur e.g. :start
 set backspace=indent,eol,start                   " make backspace work like most other apps
-set norelativenumber                             " dont show relative line numbers
-set laststatus=2                                 " always show status line
+set backupskip=/tmp/*,/private/tmp/*"            " make Vim able to edit crontab files again.
+set colorcolumn=+1                               " highlight column after 'textwidth'
+set encoding=utf-8                               " make stuff work
+set hidden                                       " buffer becomes hidden when it is abandoned
 set history=1000                                 " remember 1000 lines of history
-set undofile                                     " save undo's after file closes
-set undoreload=10000                             " number of lines to save for undo
+set laststatus=2                                 " always show status line
 set lazyredraw                                   " screen wont be redrawn while executing macros/registers
+set linebreak                                    " vim will wrap long lines at char `breakat`
+set listchars=tab:>\ ,eol:¬                      " change tab/eol chars etc.
 set matchtime=3                                  " tenths of a second to show the matching brackets etc.
+set modelines=0                                  " sets the number of lines (at the beginning and end of each file) vim checks for initialisations
+set mouse=a                                      " lets use the mouse
+set norelativenumber                             " dont show relative line numbers
+set number                                       " turn on line numbers by default
+set ruler                                        " shows the line and column number of the current cursor position
+set shiftround                                   " round indent to multiple of `shiftwidth`
 set showbreak=↪                                  " string at start of lines that have been wrapped
+set showcmd                                      " show partial command in last line of screen, e.g. when selecting chars shows number of chars
+set showmode                                     " show whether we're in insert, visual, or replace mode etc.
 set splitbelow                                   " splitting a window will put the new window below current
 set splitright                                   " splitting a window will put the new window right of current
-set autowrite                                    " write contents of file when modified and certain sequences occur e.g. :start
-set autoread                                     " when a file has been changed outside of vim read it again
-set shiftround                                   " round indent to multiple of `shiftwidth`
-set title                                        " title of the window will be set to value of `titlestring`
-set linebreak                                    " vim will wrap long lines at char `breakat`
-set colorcolumn=+1                               " highlight column after 'textwidth'
 set synmaxcol=800                                " don't try to highlight lines longer than 800 characters.
-set backupskip=/tmp/*,/private/tmp/*"            " make Vim able to edit crontab files again.
-set number                                       " turn on line numbers by default
-set mouse=a                                      " lets use the mouse
+set title                                        " title of the window will be set to value of `titlestring`
+set ttyfast                                      " indicates a fast terminal connection
+set undofile                                     " save undo's after file closes
+set undoreload=10000                             " number of lines to save for undo
+set visualbell                                   " uses a visual bell instead of beeping noise
 
 " time out on key codes but not mappings
 " e.g. `ci` will not timeout until you press t or ( or ESC etc.
@@ -102,17 +103,17 @@ augroup END
 set wildmenu " completion e.g. :color <TAB>
 set wildmode=list:longest
 
-set wildignore+=.hg,.git,.svn                    " Version control
 set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
+set wildignore+=*.DS_Store                       " macOS bullshit
 set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
+set wildignore+=*.luac                           " Lua byte code
 set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
+set wildignore+=*.orig                           " Merge resolution files
+set wildignore+=*.pyc                            " Python byte code
 set wildignore+=*.spl                            " compiled spelling word lists
 set wildignore+=*.sw?                            " Vim swap files
-set wildignore+=*.DS_Store                       " OSX bullshit
-set wildignore+=*.luac                           " Lua byte code
+set wildignore+=.hg,.git,.svn                    " Version control
 set wildignore+=migrations                       " Django migrations
-set wildignore+=*.pyc                            " Python byte code
-set wildignore+=*.orig                           " Merge resolution files
 
 " }}}
 " Line Return {{{
@@ -129,13 +130,13 @@ augroup END
 " }}}
 " Tabs, Spaces, Wrapping {{{
 
-set tabstop=4           " number of spaces a <Tab> counts for
+set expandtab           " insert mode, uses spaces to insert <Tab>
+set formatoptions=qrn1j " how vim will auto format
 set shiftwidth=4
 set softtabstop=4       " number of spaces a <Tab> counts for while editing
-set expandtab           " insert mode, uses spaces to insert <Tab>
+set tabstop=4           " number of spaces a <Tab> counts for
+set textwidth=80        " marker on 80 chars
 set wrap                " lines longer than the width of the window will wrap
-set textwidth=120       " marker on 80 chars
-set formatoptions=qrn1j " how vim will auto formar
 
 " }}}
 " Backups {{{
@@ -143,9 +144,9 @@ set formatoptions=qrn1j " how vim will auto formar
 set backup                        " enable backups
 set noswapfile                    " stop creating swapfiles
 
-set undodir=~/.vim/tmp/undo//     " undo files
 set backupdir=~/.vim/tmp/backup// " backups
 set directory=~/.vim/tmp/swap//   " swap files
+set undodir=~/.vim/tmp/undo//     " undo files
 
 " make above folders automatically if they don't already exist
 if !isdirectory(expand(&undodir))
@@ -253,9 +254,9 @@ call MakeSpacelessIabbrev('wt/',  'https://wilkins.tech/')
 
 " to insert an abbrev --> i`abbrev` e.g. ildis<Enter>
 iab ldis ಠ_ಠ
-iab lsad ಥ_ಥ
 iab lhap ಥ‿ಥ
 iab lmis ಠ‿ಠ
+iab lsad ಥ_ಥ
 
 " date abbreviation
 iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
@@ -267,12 +268,12 @@ iab erlog error_log(
 " Mappings & Useful Functions --------------------------------------------- {{{
 
 " no help key
-noremap  <F1> <Nop>
 inoremap <F1> <Nop>
+noremap  <F1> <Nop>
 
 " stop it, hash key.
-noremap # <Nop>
 inoremap # X<BS>#
+noremap # <Nop>
 
 " kill window
 nnoremap K :q<cr>
@@ -355,7 +356,7 @@ nnoremap Vaa ggVG
 nnoremap zz z=
 nnoremap z= :echo "remapped to zz"<cr>
 
-" <C-u will uppercase a word in insert mode, e.g. upper<C-u> --> UPPER
+" <C-u will uppercase a word in insert mode
 inoremap <C-u> <esc>mzgUiw`za
 
 " panic button (reverse all text on screen)
@@ -392,9 +393,6 @@ nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 " substitute
 nnoremap <c-k> :%s/
 vnoremap <c-k> :s/
-
-" HTML tag closing
-inoremap <C-_> <space><bs><esc>:call InsertCloseTag()<cr>a
 
 " source
 vnoremap <leader>S y:@"<cr>
@@ -439,9 +437,9 @@ inoremap <c-l> <c-x><c-l>
 
 nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
 nnoremap <leader>eg :vsplit ~/.gitconfig<cr>
+nnoremap <leader>ep :vsplit ~/.config<cr>
 nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
 nnoremap <leader>ev :vsplit ~/.vimrc<cr>
-nnoremap <leader>ep :vsplit ~/.config<cr>
 
 " }}}
 " Tabs & Buffers ---------------------------------------------------------- {{{
@@ -485,12 +483,12 @@ nnoremap <C-P> :bprev<cr>
 nnoremap / /\v
 vnoremap / /\v
 
+set gdefault           " all matches in line substituted instead of one
+set hlsearch           " highlight all the matches, can be cleared with <leader><space>
 set ignorecase         " ignore case of normal letters
-set smartcase          " overrides ignorecase if search pattern contains upper case
 set incsearch          " match as you type
 set showmatch          " jump to matching brackets briefly when closing tag inserted
-set hlsearch           " highlight all the matches, can be cleared with <leader><space>
-set gdefault           " all matches in line substituted instead of one
+set smartcase          " overrides ignorecase if search pattern contains upper case
 
 set scrolloff=5        " number of lines to keep above cursor before moving screen
 set sidescroll=1       " min number of columns to scroll horizontally
@@ -648,12 +646,11 @@ hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 " }}}
 " NERD Tree {{{
 
-noremap  <F2> :NERDTreeToggle<cr>
+noremap <F2> :NERDTreeToggle<cr>
 inoremap <F2> <esc>:NERDTreeToggle<cr>
 
 augroup ps_nerdtree
     au!
-
     au Filetype nerdtree setlocal nolist
     au Filetype nerdtree nnoremap <buffer> H :vertical resize -10<cr>
     au Filetype nerdtree nnoremap <buffer> L :vertical resize +10<cr>
@@ -668,23 +665,23 @@ let NERDTreeIgnore = ['\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
                     \ '.*\.bcf$', '.*\.blg$', '.*\.fdb_latexmk$', '.*\.bbl$', '.*\.aux$', '.*\.run.xml$', '.*\.fls$',
                     \ '.*\.midi$']
 let g:NERDTreeWinPos = 'right'
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
 let NERDChristmasTree = 1
 let NERDTreeChDirMode = 2
+let NERDTreeDirArrows = 1
 let NERDTreeMapJumpFirstChild = 'gK'
+let NERDTreeMinimalUI = 1
 
 " }}}
 " Ctrl-P {{{
 
 " initial setup
 let g:ctrlp_dont_split = 'NERD_tree_2'
-let g:ctrlp_jump_to_buffer = 0
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_match_window_reversed = 1
-let g:ctrlp_split_window = 0
-let g:ctrlp_max_height = 10
 let g:ctrlp_extensions = ['tag']
+let g:ctrlp_jump_to_buffer = 0
+let g:ctrlp_match_window_reversed = 1
+let g:ctrlp_max_height = 10
+let g:ctrlp_split_window = 0
+let g:ctrlp_working_path_mode = 0
 
 " bindings
 let g:ctrlp_map = '<leader>,'
@@ -708,7 +705,7 @@ let g:ctrlp_prompt_mappings = {
 let g:ctrlp_user_command = 'find %s -type f'
 
 " }}}
-" Fzf & Ripegrep {{{
+" Fzf & Ripgrep {{{
 
 " initialise fzf
 set rtp+=/usr/local/opt/fzf
@@ -723,14 +720,14 @@ let g:rg_command = '
 command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
 
 " map `F` to rg_command
-nnoremap F :F
+nnoremap F :F<space>
 
 " }}}
 " Bufexplorer {{{
 
 let g:bufExplorerDefaultHelp=0
-let g:bufExplorerShowRelativePath=1
 let g:bufExplorerFindActive=1
+let g:bufExplorerShowRelativePath=1
 let g:bufExplorerSortBy='name'
 
 " explore the buffers with ,o
@@ -756,28 +753,6 @@ let g:lightline = {
 nnoremap <leader>f :Goyo<cr>
 let g:goyo_width = 110
 let g:goyo_height = 80
-
-" }}}
-" SVN {{{
-
-function! s:svnBlame()
-   let line = line(".")
-   setlocal nowrap
-   " create a new window at the left-hand side
-   aboveleft 18vnew
-   " blame, ignoring white space changes
-   %!svn blame -x-w "#"
-   setlocal nomodified readonly buftype=nofile nowrap winwidth=1
-   setlocal nonumber
-   if has('&relativenumber') | setlocal norelativenumber | endif
-   " return to original line
-   exec "normal " . line . "G"
-   " synchronize scrolling, and return to original window
-   setlocal scrollbind
-   wincmd p
-   setlocal scrollbind
-   syncbind
-endfunction
 
 " }}}
 " Gutentags {{{
@@ -812,23 +787,10 @@ au BufNewFile *.pl s-^-#!/usr/bin/perl\r\ruse warnings;\r\r-
 au FileType perl setlocal shiftwidth=2
 au FileType perl setlocal tabstop=2
 " }}}
-
 " Bash {{{
 au FileType sh setlocal shiftwidth=2
 au FileType sh setlocal tabstop=2
 " }}}
-
-" }}}
-" SVNDiff {{{
-
-let g:svndiff_one_sign_delete = 1 
-noremap <F4> :call Svndiff("prev")<CR>
-noremap <F5> :call Svndiff("clear")<CR>
-
-" change the default colours
-hi DiffAdd      ctermfg=0 ctermbg=2 guibg='green' 
-hi DiffDelete   ctermfg=0 ctermbg=1 guibg='red' 
-hi DiffChange   ctermfg=0 ctermbg=3 guibg='yellow' 
 
 " }}}
 " Vim-Fugitive {{{
