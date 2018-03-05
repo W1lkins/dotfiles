@@ -1,6 +1,7 @@
 [user]
   name = AUTHORNAME
   email = AUTHOREMAIL
+  signingkey = AUTHORGPGKEY
 [credential]
   helper = GIT_CREDENTIAL_HELPER
 [hub]
@@ -58,3 +59,5 @@
   showUntrackedFiles = all
 [push]
   default = simple
+[commit]
+  gpgsign = true
