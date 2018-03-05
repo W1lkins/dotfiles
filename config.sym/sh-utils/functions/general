@@ -390,3 +390,8 @@ lpl() {
   lpass login "$1"
 }
 
+# restart gpg-agent
+resgpg() {
+  gpg-connect-agent reloadagent /bye
+}
+
