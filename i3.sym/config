@@ -93,8 +93,21 @@ bindsym $mod+d gaps inner all set 10; gaps outer all set 5;
 
 # basic key bindings {{{
 
+# movement between/of windows
+bindsym $mod+h focus left
+bindsym $mod+Shift+h move left 30
+
+bindsym $mod+j focus down
+bindsym $mod+Shift+j move down 30
+
+bindsym $mod+k focus up
+bindsym $mod+Shift+k move up 30
+
+bindsym $mod+l focus right
+bindsym $mod+Shift+l move right 30
+
 bindsym $mod+f fullscreen toggle
-bindsym $mod+h split h
+bindsym $mod+slash split h
 bindsym $mod+Shift+q kill
 bindsym $mod+t exec $term
 bindsym $mod+v split v
