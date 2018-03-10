@@ -405,3 +405,8 @@ glsk() {
   gpg --list-secret-keys
 }
 
+# pin utils, e.g. unblock pin after failed attempts
+gcp() {
+  gpg --change-pin
+}
+
