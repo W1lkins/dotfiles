@@ -395,3 +395,13 @@ resgpg() {
   gpg-connect-agent reloadagent /bye
 }
 
+# list gpg keys
+glk() {
+  gpg --list-keys
+}
+
+# list secret gpg keys
+glsk() {
+  gpg --list-secret-keys
+}
+
