@@ -392,7 +392,7 @@ lpl() {
 
 # restart gpg-agent
 resgpg() {
-  gpg-connect-agent reloadagent /bye
+  sudo killall gpg-agent; gpg-connect-agent reloadagent /bye
 }
 
 # list gpg keys
