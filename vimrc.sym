@@ -782,5 +782,10 @@ nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gd :Gdiff<cr>
 
 " }}}
+" Deoplete {{{
+
+let g:deoplete#enable_at_startup = 1
+
+" }}}
 
 " }}}
