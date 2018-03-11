@@ -1,11 +1,19 @@
 " Basic Options ----------------------------------------------------------- {{{
 
-" Plugin options {{{
+" Plugins {{{
 
-call pathogen#infect()                           " plugin handler
-filetype off
-filetype plugin indent on                        " useful for syntax highlighting, loads ftplugin.vim, loads indent.vim
-set nocompatible                                 " make vi actually improved
+call plug#begin('~/.vim/bundle')
+Plug 'w0rp/ale'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'wincent/command-t'
+Plug 'Shougo/deoplete.nvim'
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/goyo.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-fugitive'
+Plug 'ludovicchabant/vim-gutentags'
+call plug#end()
 
 " }}}
 " Set options {{{
