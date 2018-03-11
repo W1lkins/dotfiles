@@ -30,9 +30,9 @@ setprof() {
 # `v` with no arguments opens `pwd` in vim otherwise opens location
 v() {
   if [ $# -eq 0 ]; then
-    vim
+    $EDITOR
   else
-    vim "$@"
+    $EDITOR "$@"
   fi
 }
 
@@ -392,7 +392,7 @@ lpl() {
 
 # restart gpg-agent
 resgpg() {
-  sudo killall gpg-agent; gpg-connect-agent reloadagent /bye
+  sudo killall gpg-agent && gpg-connect-agent reloadagent /bye
 }
 
 # list gpg keys
@@ -403,10 +403,5 @@ glk() {
 # list secret gpg keys
 glsk() {
   gpg --list-secret-keys
-}
-
-# pin utils, e.g. unblock pin after failed attempts
-gcp() {
-  gpg --change-pin
 }
 
