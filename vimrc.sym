@@ -3,16 +3,16 @@
 " Plugins {{{
 
 call plug#begin('~/.vim/bundle')
-Plug 'w0rp/ale'
+Plug 'itchyny/lightline.vim'
 Plug 'jlanzarotta/bufexplorer'
-Plug 'wincent/command-t', {'do':':UpdateRemotePlugins'}
-Plug 'Shougo/deoplete.nvim', has('nvim') ? {} : { 'on': [] }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'
-Plug 'itchyny/lightline.vim'
-Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-fugitive'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'scrooloose/nerdtree'
+Plug 'Shougo/deoplete.nvim', has('nvim') ? {} : { 'on': [] }
+Plug 'tpope/vim-fugitive'
+Plug 'w0rp/ale'
+Plug 'wincent/command-t', {'do':':UpdateRemotePlugins'}
 call plug#end()
 
 " }}}
