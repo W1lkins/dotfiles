@@ -34,6 +34,7 @@ sub get_os {
 sub setup_gitconfig {
   my $file = $ENV{"HOME"}."/.gitconfig";
   my ($github_name, $github_email, $gpg_key) = @ARGV;
+  my $gpg;
 
   # check if gitconfig already exists
   if (! -f $file) {
@@ -51,9 +52,17 @@ sub setup_gitconfig {
     my $email = $github_email || <STDIN>;
     chomp $email;
 
-    user("which gpg key would you like to use?");
-    system("gpg --list-secret-keys --keyid-format LONG");
-    my $gpg = $gpg_key || <STDIN>;
+    user("do you want to use GPG with git? [y/N]");
+    my $use_gpg = <STDIN>;
+    chomp $use_gpg;
+    my $setup_gpg = $use_gpg =~ '^y|Y';
+
+    if ($setup_gpg) {
+      user("which gpg key would you like to use?");
+      system("gpg --list-secret-keys --keyid-format LONG");
+      $gpg = $gpg_key || <STDIN>;
+      chomp $gpg;
+    }
 
     # grab the file
     my $copy_gitconfig = system("cp git/gitconfig $file");
@@ -65,7 +74,10 @@ sub setup_gitconfig {
     foreach (@lines) {
       $_ =~ s/AUTHORNAME/$name/g;
       $_ =~ s/AUTHOREMAIL/$email/g;
-      $_ =~ s/AUTHORGPGKEY/$gpg/g;
+      if ($setup_gpg) {
+        $_ =~ s/AUTHORGPGKEY/$gpg/g;
+        $_ =~ s/gpgsign = false/gpgsign = true/g;
+      }
       $_ =~ s/GIT_CREDENTIAL_HELPER/$credential/g;
     }
 
