@@ -3,7 +3,6 @@
 " Plugin options {{{
 
 call pathogen#infect()                           " plugin handler
-
 filetype off
 filetype plugin indent on                        " useful for syntax highlighting, loads ftplugin.vim, loads indent.vim
 set nocompatible                                 " make vi actually improved
@@ -103,17 +102,20 @@ augroup END
 set wildmenu " completion e.g. :color <TAB>
 set wildmode=list:longest
 
-set wildignore+=*.aux,*.out,*.toc                " LaTeX intermediate files
-set wildignore+=*.DS_Store                       " macOS bullshit
-set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg   " binary images
-set wildignore+=*.luac                           " Lua byte code
-set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest " compiled object files
-set wildignore+=*.orig                           " Merge resolution files
-set wildignore+=*.pyc                            " Python byte code
-set wildignore+=*.spl                            " compiled spelling word lists
-set wildignore+=*.sw?                            " Vim swap files
-set wildignore+=.hg,.git,.svn                    " Version control
-set wildignore+=migrations                       " Django migrations
+set wildignore+=*.aux,*.out,*.toc                      " LaTeX intermediate files
+set wildignore+=*.DS_Store                             " macOS bullshit
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg,*.ico   " binary images
+set wildignore+=*.luac                                 " Lua byte code
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest       " compiled object files
+set wildignore+=*.orig                                 " Merge resolution files
+set wildignore+=*.pyc                                  " Python byte code
+set wildignore+=*.spl                                  " compiled spelling word lists
+set wildignore+=*.sw?                                  " Vim swap files
+set wildignore+=.hg,.git,.svn                          " Version control
+set wildignore+=migrations                             " Django migrations
+set wildignore+=node_modules                           " JavaScript node_modules
+set wildignore+=target                                 " dist/target
+set wildignore+=dist                                   " dist/target
 
 " }}}
 " Line Return {{{
@@ -500,7 +502,7 @@ set virtualedit+=block " allow virtual editing in visual block mode
 noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
 
 " load matchit.vim, but only if the user hasn't installed a newer version.
-if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+if !exists('g:loaded_matchit') && findfile('bundle/matchit.vim', &rtp) ==# ''
   runtime! macros/matchit.vim
 endif
 
@@ -672,37 +674,17 @@ let NERDTreeMapJumpFirstChild = 'gK'
 let NERDTreeMinimalUI = 1
 
 " }}}
-" Ctrl-P {{{
-
-" initial setup
-let g:ctrlp_dont_split = 'NERD_tree_2'
-let g:ctrlp_extensions = ['tag']
-let g:ctrlp_jump_to_buffer = 0
-let g:ctrlp_match_window_reversed = 1
-let g:ctrlp_max_height = 10
-let g:ctrlp_split_window = 0
-let g:ctrlp_working_path_mode = 0
+" Command-T {{{
 
 " bindings
-let g:ctrlp_map = '<leader>,'
-nnoremap <leader>. :CtrlPTag<cr>
+nnoremap <leader>, :CommandT<cr>
+nnoremap <leader>. :CommandTBuffer<cr>
 
-" ignore list
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/](node_modules|target|dist)|(\.(swp|ico|git|svn))$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ }
-
-let g:ctrlp_prompt_mappings = {
-\ 'PrtSelectMove("j")':   ['<c-j>', '<down>', '<s-tab>'],
-\ 'PrtSelectMove("k")':   ['<c-k>', '<up>', '<tab>'],
-\ 'PrtHistory(-1)':       ['<c-n>'],
-\ 'PrtHistory(1)':        ['<c-p>'],
-\ 'ToggleFocus()':        ['<c-tab>'],
-\ }
-
-" custom find command
-let g:ctrlp_user_command = 'find %s -type f'
+" options
+let g:CommandTMaxFiles = 20000
+let g:CommandTSuppressMaxFilesWarning = 1
+let g:CommandTMatchWindowAtTop = 1
+let g:CommandTWildIgnore=&wildignore . ",*/tmp/*,*/node_modules/*,*/bundle/*"
 
 " }}}
 " Fzf & Ripgrep {{{
