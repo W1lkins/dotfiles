@@ -163,17 +163,25 @@ sub install_dotfiles {
   }
 }
 
-sub install_vim_submodules {
-  # if we have submodule updates to do, do them now
+sub setup_vim {
   chdir("vim.sym") or die "$!\n";
-  system("git submodule init");
-  info("updating git submodules");
-  my $sub_up = system("git submodule update");
-  if ($sub_up == 0) {
-    success("finished installing git submodules");
+  info("setting up vim");
+  my $plug_install = system("vim +PlugInstall +qa");
+  if ($plug_install == 0) {
+    success("plugins installed");
   } else {
-    fail("failed installing git submodules");
+    fail("failed installing vim plugins");
   }
+
+  my $command_t_dir = "bundle/command-t";
+  if (-e $command_t_dir and -d $command_t_dir) {
+    chdir("bundle/command-t") or die "$!\n";
+    # we don't care if this command fails..
+    # check if we have built already
+    my $is_built = -f "ruby/command-t/ext/command-t/ext.bundle";
+    !$is_built and system("rake make > /dev/null 2>&1");
+  }
+  success("vim setup complete");
 }
 
 sub attempt_setup_osx {
@@ -196,7 +204,7 @@ sub attempt_setup_osx {
 
 setup_gitconfig();
 install_dotfiles();
-install_vim_submodules();
+setup_vim();
 
 $os = get_os();
 if ($os eq "Darwin") {
