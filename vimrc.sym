@@ -5,7 +5,7 @@
 call plug#begin('~/.vim/bundle')
 Plug 'w0rp/ale'
 Plug 'jlanzarotta/bufexplorer'
-Plug 'wincent/command-t'
+Plug 'wincent/command-t', {'do':':UpdateRemotePlugins'}
 Plug 'Shougo/deoplete.nvim'
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/goyo.vim'

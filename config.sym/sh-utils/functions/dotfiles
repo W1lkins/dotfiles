@@ -29,6 +29,10 @@ sshconfig() {
 }
 
 scripts() {
-  cd "$HOME/.scripts" || exit
+  cd "$HOME/.scripts" || exit 1
+}
+
+vimplugins() {
+  cd "$HOME/.vim/bundle" || exit 1
 }
 
