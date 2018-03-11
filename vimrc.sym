@@ -3,16 +3,114 @@
 " Plugins {{{
 
 call plug#begin('~/.vim/bundle')
+
 Plug 'itchyny/lightline.vim'
+" {{{
+let g:lightline = {
+      \ 'colorscheme': 'seoul256',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ },
+      \ }
+" }}}
 Plug 'jlanzarotta/bufexplorer'
+" {{{
+let g:bufExplorerDefaultHelp=0
+let g:bufExplorerFindActive=1
+let g:bufExplorerShowRelativePath=1
+let g:bufExplorerSortBy='name'
+
+" explore the buffers with ,o
+map <leader>o :BufExplorer<cr>
+" }}}
 Plug 'junegunn/fzf.vim'
+" {{{
+" initialise fzf
+set rtp+=/usr/local/opt/fzf
+
+" set up the ripgrep command
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
+  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
+  \ -g "!{.git,node_modules,vendor}/*" '
+
+" make :F call rg_command
+command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+
+" map `F` to rg_command
+nnoremap F :F<space>
+" }}}
 Plug 'junegunn/goyo.vim'
+" {{{
+nnoremap <leader>f :Goyo<cr>
+let g:goyo_width = 110
+let g:goyo_height = 80
+" }}}
 Plug 'ludovicchabant/vim-gutentags'
+" {{{
+let g:gutentags_ctags_exclude = ['*.css', '*.html', '*.js']
+let g:gutentags_cache_dir = '~/.vim/gutentags'
+
+" ,a jump to definition. ,t jump back
+nnoremap <leader>a <C-]>
+nnoremap <leader>t <C-t>
+nnoremap <leader>A :tselect<CR>
+" }}}
 Plug 'scrooloose/nerdtree'
+" {{{
+noremap <F2> :NERDTreeToggle<cr>
+inoremap <F2> <esc>:NERDTreeToggle<cr>
+
+augroup ps_nerdtree
+    au!
+    au Filetype nerdtree setlocal nolist
+    au Filetype nerdtree nnoremap <buffer> H :vertical resize -10<cr>
+    au Filetype nerdtree nnoremap <buffer> L :vertical resize +10<cr>
+augroup END
+
+let NERDTreeHighlightCursorline = 1
+let NERDTreeIgnore = ['\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
+                    \ 'xapian_index', '.*.pid', '.*-fixtures-.*.json',
+                    \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
+                    \ '^tags$',
+                    \ '^.*\.meta$',
+                    \ '.*\.bcf$', '.*\.blg$', '.*\.fdb_latexmk$', '.*\.bbl$', '.*\.aux$', '.*\.run.xml$', '.*\.fls$',
+                    \ '.*\.midi$']
+let g:NERDTreeWinPos = 'right'
+let NERDChristmasTree = 1
+let NERDTreeChDirMode = 2
+let NERDTreeDirArrows = 1
+let NERDTreeMapJumpFirstChild = 'gK'
+let NERDTreeMinimalUI = 1
+" }}}
 Plug 'Shougo/deoplete.nvim', has('nvim') ? {} : { 'on': [] }
+" {{{
+let g:deoplete#enable_at_startup = 1
+" }}}
 Plug 'tpope/vim-fugitive'
+" {{{
+nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gb :Gblame<cr>
+nnoremap <leader>gd :Gdiff<cr>
+" }}}
 Plug 'w0rp/ale'
 Plug 'wincent/command-t', {'do':':UpdateRemotePlugins'}
+" {{{
+" bindings
+nnoremap <leader>, :CommandT<cr>
+nnoremap <leader>. :CommandTBuffer<cr>
+
+" options
+let g:CommandTMaxFiles = 20000
+let g:CommandTSuppressMaxFilesWarning = 1
+let g:CommandTMatchWindowAtTop = 1
+let g:CommandTWildIgnore=&wildignore . ",*/tmp/*,*/node_modules/*,*/bundle/*"
+" }}}
+
 call plug#end()
 
 " }}}
@@ -593,7 +691,7 @@ nnoremap <down>  :lnext<cr>zvzz
 " }}}
 
 " }}}
-" Plugin Configs ---------------------------------------------------------- {{{
+" Extra Configs ---------------------------------------------------------- {{{
 
 " Highlight Word {{{
 "
@@ -649,108 +747,6 @@ hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 
 " }}}
 " }}}
-" NERD Tree {{{
-
-noremap <F2> :NERDTreeToggle<cr>
-inoremap <F2> <esc>:NERDTreeToggle<cr>
-
-augroup ps_nerdtree
-    au!
-    au Filetype nerdtree setlocal nolist
-    au Filetype nerdtree nnoremap <buffer> H :vertical resize -10<cr>
-    au Filetype nerdtree nnoremap <buffer> L :vertical resize +10<cr>
-augroup END
-
-let NERDTreeHighlightCursorline = 1
-let NERDTreeIgnore = ['\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
-                    \ 'xapian_index', '.*.pid', '.*-fixtures-.*.json',
-                    \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
-                    \ '^tags$',
-                    \ '^.*\.meta$',
-                    \ '.*\.bcf$', '.*\.blg$', '.*\.fdb_latexmk$', '.*\.bbl$', '.*\.aux$', '.*\.run.xml$', '.*\.fls$',
-                    \ '.*\.midi$']
-let g:NERDTreeWinPos = 'right'
-let NERDChristmasTree = 1
-let NERDTreeChDirMode = 2
-let NERDTreeDirArrows = 1
-let NERDTreeMapJumpFirstChild = 'gK'
-let NERDTreeMinimalUI = 1
-
-" }}}
-" Command-T {{{
-
-" bindings
-nnoremap <leader>, :CommandT<cr>
-nnoremap <leader>. :CommandTBuffer<cr>
-
-" options
-let g:CommandTMaxFiles = 20000
-let g:CommandTSuppressMaxFilesWarning = 1
-let g:CommandTMatchWindowAtTop = 1
-let g:CommandTWildIgnore=&wildignore . ",*/tmp/*,*/node_modules/*,*/bundle/*"
-
-" }}}
-" Fzf & Ripgrep {{{
-
-" initialise fzf
-set rtp+=/usr/local/opt/fzf
-
-" set up the ripgrep command
-let g:rg_command = '
-  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
-  \ -g "!{.git,node_modules,vendor}/*" '
-
-" make :F call rg_command
-command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
-
-" map `F` to rg_command
-nnoremap F :F<space>
-
-" }}}
-" Bufexplorer {{{
-
-let g:bufExplorerDefaultHelp=0
-let g:bufExplorerFindActive=1
-let g:bufExplorerShowRelativePath=1
-let g:bufExplorerSortBy='name'
-
-" explore the buffers with ,o
-map <leader>o :BufExplorer<cr>
-
-" }}}
-" Lightline {{{
-
-let g:lightline = {
-      \ 'colorscheme': 'seoul256',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
-
-" }}}
-" Goyo {{{
-
-nnoremap <leader>f :Goyo<cr>
-let g:goyo_width = 110
-let g:goyo_height = 80
-
-" }}}
-" Gutentags {{{
-
-let g:gutentags_ctags_exclude = ['*.css', '*.html', '*.js']
-let g:gutentags_cache_dir = '~/.vim/gutentags'
-
-" ,a jump to definition. ,t jump back
-nnoremap <leader>a <C-]>
-nnoremap <leader>t <C-t>
-nnoremap <leader>A :tselect<CR>
-
-" }}}
 " Code completion && Language Specific {{{
 
 " PHP {{{
@@ -776,18 +772,6 @@ au FileType perl setlocal tabstop=2
 au FileType sh setlocal shiftwidth=2
 au FileType sh setlocal tabstop=2
 " }}}
-
-" }}}
-" Vim-Fugitive {{{
-
-nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gb :Gblame<cr>
-nnoremap <leader>gd :Gdiff<cr>
-
-" }}}
-" Deoplete {{{
-
-let g:deoplete#enable_at_startup = 1
 
 " }}}
 
