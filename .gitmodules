@@ -17,15 +17,9 @@
 [submodule "vim.sym/bundle/vim-fugitive.vim"]
 	path = vim.sym/bundle/vim-fugitive.vim
 	url = https://github.com/tpope/vim-fugitive.git
-[submodule "vim.sym/bundle/phpcomplete.vim"]
-	path = vim.sym/bundle/phpcomplete.vim
-	url = https://github.com/shawncplus/phpcomplete.vim.git
 [submodule "vim.sym/bundle/vim-gutentags.vim"]
 	path = vim.sym/bundle/vim-gutentags.vim
 	url = https://github.com/ludovicchabant/vim-gutentags.git
-[submodule "vim.sym/bundle/supertab.vim"]
-	path = vim.sym/bundle/supertab.vim
-	url = https://github.com/ervandew/supertab.git
 [submodule "vim.sym/bundle/ale.vim"]
 	path = vim.sym/bundle/ale.vim
 	url = https://github.com/w0rp/ale.git
@@ -35,3 +29,6 @@
 [submodule "vim.sym/bundle/command-t.vim"]
 	path = vim.sym/bundle/command-t.vim
 	url = https://github.com/wincent/command-t.git
+[submodule "vim.sym/bundle/deoplete.vim"]
+	path = vim.sym/bundle/deoplete.vim
+	url = https://github.com/Shougo/deoplete.nvim.git
