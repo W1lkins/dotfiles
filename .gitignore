@@ -46,5 +46,6 @@ docker.sym/daemon.json
 i3.sym/.config.swp
 ncmpcpp.sym/error.log
 vim.sym/.netrwhist
+vim.sym/bundle
 vim.sym/gutentags
 vim.sym/tmp
