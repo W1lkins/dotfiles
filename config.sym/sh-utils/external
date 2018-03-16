@@ -19,6 +19,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # import shell history into historian if it exists
 [ -f "$HOME"/historian/hist ] && hist import &> /dev/null
 
+# google cloud SDK
 [ -f "$HOME"/google-cloud-sdk/ ] && source "$HOME"/google-cloud-sdk/completion.zsh.inc && source "$HOME"/google-cloud-sdk/path.zsh.inc
 
 # add global npm modules to path
