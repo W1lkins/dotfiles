@@ -1,5 +1,9 @@
 " Basic Options ----------------------------------------------------------- {{{
 
+" leader
+let mapleader = ","
+let maplocalleader = "\\"
+
 " Plugins {{{
 
 call plug#begin('~/.vim/bundle')
@@ -90,6 +94,16 @@ let NERDTreeMinimalUI = 1
 Plug 'Shougo/deoplete.nvim', has('nvim') ? {} : { 'on': [] }
 " {{{
 let g:deoplete#enable_at_startup = 1
+
+inoremap <silent><expr> <TAB>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ deoplete#mappings#manual_complete()
+function! s:check_back_space() abort " {{{
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction " }}}
+
 " }}}
 Plug 'tpope/vim-fugitive'
 " {{{
@@ -109,6 +123,10 @@ let g:CommandTMaxFiles = 20000
 let g:CommandTSuppressMaxFilesWarning = 1
 let g:CommandTMatchWindowAtTop = 1
 let g:CommandTWildIgnore=&wildignore . ",*/tmp/*,*/node_modules/*,*/bundle/*"
+" }}}
+Plug 'vimwiki/vimwiki'
+" {{{
+let g:vimwiki_list = [{'path':'~/.wiki/', 'path_html':'~/.wiki/html/'}]
 " }}}
 
 call plug#end()
@@ -132,7 +150,7 @@ set listchars=tab:>\ ,eol:¬                      " change tab/eol chars etc.
 set matchtime=3                                  " tenths of a second to show the matching brackets etc.
 set modelines=0                                  " sets the number of lines (at the beginning and end of each file) vim checks for initialisations
 set mouse=a                                      " lets use the mouse
-set norelativenumber                             " dont show relative line numbers
+set relativenumber                               " show relative line numbers
 set number                                       " turn on line numbers by default
 set ruler                                        " shows the line and column number of the current cursor position
 set shiftround                                   " round indent to multiple of `shiftwidth`
@@ -164,9 +182,6 @@ au FocusLost * :silent! wall
 " resize splits when the window is resized
 au VimResized * :wincmd =
 
-" leader
-let mapleader = ","
-let maplocalleader = "\\"
 
 " }}}
 " Spelling {{{
@@ -358,7 +373,8 @@ function! MakeSpacelessBufferIabbrev(from, to)
 endfunction
 
 " add new abbreviations with format below
-call MakeSpacelessIabbrev('wt/',  'https://wilkins.tech/')
+call MakeSpacelessIabbrev('wt/', 'https://wilkins.tech/')
+call MakeSpacelessIabbrev('w@', 'wilkins@linux.com')
 
 " to insert an abbrev --> i`abbrev` e.g. ildis<Enter>
 iab ldis ಠ_ಠ
@@ -454,7 +470,7 @@ vnoremap gu u
 nnoremap <leader><cr> :silent !myctags >/dev/null 2>&1 &<cr>:redraw!<cr>
 
 " clear trailing whitespace
-nnoremap <leader>ww mz:%s/\s\+$//<cr>:let @/=''<cr>`z
+nnoremap <leader>rw mz:%s/\s\+$//<cr>:let @/=''<cr>`z
 
 " select entire buffer
 nnoremap vaa ggvGg_
@@ -464,14 +480,14 @@ nnoremap Vaa ggVG
 nnoremap zz z=
 nnoremap z= :echo "remapped to zz"<cr>
 
-" <C-u will uppercase a word in insert mode
+" <C-u> will uppercase a word in insert mode
 inoremap <C-u> <esc>mzgUiw`za
 
 " panic button (reverse all text on screen)
 nnoremap <f9> mzggg?G`z
 
 " `zh` is "zoom to head level" e.g. put text under cursor at top of screen
-nnoremap zh mzzt10<c-u>`z
+nnoremap zh mzzt5<c-u>`z
 
 " diffoff
 nnoremap <leader>D :diffoff!<cr>
@@ -499,8 +515,8 @@ nnoremap J mzJ`z
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
 " substitute
-nnoremap <c-k> :%s/
-vnoremap <c-k> :s/
+nnoremap <C-r> :%s/
+vnoremap <C-r> :s/
 
 " source
 vnoremap <leader>S y:@"<cr>
@@ -528,9 +544,6 @@ nnoremap <leader>i :set list!<cr>
 
 " unfuck the screen
 nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
-
-" jump (see the J mini-plugin later on)
-nnoremap <leader>J :J<space>
 
 " Insert Mode Completion {{{
 
@@ -606,13 +619,6 @@ set virtualedit+=block " allow virtual editing in visual block mode
 
 " ,<space> to clear all highlighted search matches
 noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
-
-" move between brackets with tab
-map <tab> %
-noremap % :echo "use tab instead"<cr>
-
-silent! unmap [%
-silent! unmap ]%
 
 " D deletes to the end of a line
 nnoremap D d$
