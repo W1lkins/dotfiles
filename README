@@ -1,0 +1,19 @@
+Dotfiles
+========
+
+To install:
+
+1. clone - ``git clone https://github.com/W1lkins/dotfiles.git``
+2. ``cd dotfiles``
+3. ``./bootstrap.pl``
+4. you will be asked for your github username/email and optionally PGP key if $HOME/.gitconfig doesn't exist
+5. on macos the script will install Homebrew and some sane defaults (macos folder for details)
+6. ``source ~/.zshrc``
+
+To test using Docker:
+
+1. Clone
+2. ``make build create start install attach``
+3. creates alpine container with zsh, vim, git, and tmux
+4. optionally ``make test`` will call ``perl -cw bootstrap.pl`` and `shellcheck` on ~/.bin, ~/.config/sh-utils, and ~/.scripts
+
