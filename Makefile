@@ -1,9 +1,13 @@
+default: setup
+
+docker: build create start install attach
+
 help:
 	echo "Usage:"
-	echo "    make build|create|setup|start|stop|install|test|attach|clean|remove|up"
+	echo "    make build|create|docker|setup|start|stop|install|test|attach|clean|remove|up"
 
 setup:
-	git pull github master && ./bootstrap.pl
+	git pull origin master && ./bootstrap.pl
 
 build:
 	# Grab Dockerfile from the dotfiletest folder
@@ -45,7 +49,6 @@ clean:
 destroy: clean
 	docker rmi dotfiles > /dev/null 2>&1 ||:
 
-up:
-	git pull && ./bootstrap.pl
+up: setup
 
 .SILENT:
