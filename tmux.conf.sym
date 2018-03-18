@@ -1,150 +1,101 @@
-# remap prefix from 'C-b' to 'C-a'
-unbind C-b
+# Init {{{
+
+unbind-key C-b
 set-option -g prefix C-a
 bind-key C-a send-prefix
 
-# tweak wait time between key sequences
-set -s escape-time 0
+# }}}
 
-# make windows count upward from 1 rather than 0
-set -g base-index 1
+# Set options {{{
 
-# sane splitting
-bind | split-window -h
-bind - split-window -v
-unbind '"'
-unbind %
+# basic options
+set-option -g default-terminal "screen-256color"
 
-# easy config reload
-bind r source-file ~/.tmux.conf
+set-option -g mouse on              # use the mouse for resizing etc.
+set-option -s escape-time 0         # no wait time between key sequences
+set-option -g base-index 1          # windows are one-indexed
+set-option -g allow-rename off      # don't rename windows automatically
 
-# switch panes using Alt-arrow without prefix
-bind -n M-Left select-pane -L
-bind -n M-Right select-pane -R
-bind -n M-Up select-pane -U
-bind -n M-Down select-pane -D
+# left and right status
+set-option -g status-left ''
+set-option -g status-right "%l:%M %p ⁝ #[fg=colour208,italics]#(spotify-info-mac)"
 
-# shift+up shows/hides the status bar
-bind-key -n S-Up set-option -g status
-
-# don't rename windows automatically
-set-option -g allow-rename off
-
-# name windows when creating them via prefix-C
-bind-key C new-window
-bind-key c command-prompt -p "Name of new window: " "new-window -n '%%'"
-
-# zoom with prefix-o
-bind o resize-pane -Z
-
-######################
-### DESIGN CHANGES ###
-######################
-
-# panes
-set -g pane-border-fg black
-set -g pane-active-border-fg brightred
-
-## Status bar design
-# status line
-#set -g status-utf8 on
-set -g status-justify left
-set -g status-bg default
-set -g status-fg colour12
-set -g status-interval 2
-
-# messaging
-set -g message-fg black
-set -g message-bg yellow
-set -g message-command-fg blue
-set -g message-command-bg black
-
-#window mode
-setw -g mode-bg colour6
-setw -g mode-fg colour0
-
-# window status
-setw -g window-status-format " #F#I:#W#F "
-setw -g window-status-current-format " #F#I:#W#F "
-setw -g window-status-format "#[fg=magenta]#[bg=black] #I #[bg=cyan]#[fg=colour8] #W "
-setw -g window-status-current-format "#[bg=brightmagenta]#[fg=colour8] #I #[fg=colour8]#[bg=colour14] #W "
-setw -g window-status-current-bg colour0
-setw -g window-status-current-fg colour11
-setw -g window-status-current-attr dim
-setw -g window-status-bg green
-setw -g window-status-fg black
-setw -g window-status-attr reverse
-
-# Info on left (I don't have a session display for now)
-set -g status-left ''
-
-# loud or quiet?
+# make tmux quiet
 set-option -g visual-activity off
 set-option -g visual-bell off
 set-option -g visual-silence off
 set-window-option -g monitor-activity off
 set-option -g bell-action none
 
-set -g default-terminal "screen-256color"
+# automatically renumber window numbers on closing a pane (tmux >= 1.7)
+set-option -g renumber-windows on
 
-# The modes {
-setw -g clock-mode-colour colour135
-setw -g mode-attr bold
-setw -g mode-fg colour196
-setw -g mode-bg colour238
+# }}}
 
-# }
-# The panes {
+# Bindings {{{
 
-set -g status-justify centre
-set -g pane-border-bg colour235
-set -g pane-border-fg colour238
-set -g pane-active-border-bg colour236
-set -g pane-active-border-fg colour51
+# split using | and -
+unbind-key '"'
+unbind-key %
+bind-key | split-window -h
+bind-key - split-window -v
 
-# }
-# The statusbar {
+# reload config with <C-a>r
+bind-key r source-file ~/.tmux.conf
 
-set -g status-position bottom
-set -g status-bg colour234
-set -g status-fg colour137
-set -g status-attr dim
-set -g status-left ''
-set -g status-right '#[fg=colour233,bg=colour241,bold] %d/%m #[fg=colour233,bg=colour245,bold] %H:%M:%S '
-set -g status-right-length 50
-set -g status-left-length 20
+# allow alt+arrow to switch pane
+bind-key -n M-Down select-pane -D
+bind-key -n M-Left select-pane -L
+bind-key -n M-Right select-pane -R
+bind-key -n M-Up select-pane -U
 
-setw -g window-status-current-fg colour81
-setw -g window-status-current-bg colour238
-setw -g window-status-current-attr bold
-setw -g window-status-current-format ' #I#[fg=colour250]:#[fg=colour255]#W#[fg=colour50]#F '
+# pane resizing
+bind-key h resize-pane -L 5
+bind-key j resize-pane -D 5
+bind-key k resize-pane -U 5
+bind-key l resize-pane -R 5
 
-setw -g window-status-fg colour138
-setw -g window-status-bg colour235
-setw -g window-status-attr none
-setw -g window-status-format ' #I#[fg=colour237]:#[fg=colour250]#W#[fg=colour244]#F '
+# <Shift>up show/hide the status bar
+bind-key -n S-Up set-option -g status
 
-setw -g window-status-bell-attr bold
-setw -g window-status-bell-fg colour255
-setw -g window-status-bell-bg colour1
+# <C-a>c name new windows
+bind-key C new-window
+bind-key c command-prompt -p "Name:" "new-window -n '%%'"
 
-# }
-# The messages {
+# <Shift>right/left window switching
+bind-key -n S-Left previous-window
+bind-key -n S-Right next-window
 
-set -g message-attr bold
-set -g message-fg colour232
-set -g message-bg colour166
+# }}}
 
-# }
+# Layout/Colors {{{
 
-# List of plugins
-set -g @plugin 'tmux-plugins/tpm'
-set -g @plugin 'tmux-plugins/tmux-sensible'
+# bar colours outwith middle pane
+set-option -g status-bg colour235
+set-option -g status-fg colour208
+set-option -g status-attr bold
 
-# Other examples:
-# set -g @plugin 'github_username/plugin_name'
-# set -g @plugin 'git@github.com/user/plugin'
-# set -g @plugin 'git@bitbucket.com/user/plugin'
+# pane border (| - colors)
+set-option -g pane-border-fg colour240
+set-option -g pane-active-border-fg colour208
 
-# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
-#run '~/.tmux/plugins/tpm/tpm'
+# message text (displays when prefix pressed and typing begins)
+set-option -g message-bg colour235
+set-option -g message-fg colour208
+
+# pane number display <C-a>:display-panes
+set-option -g display-panes-active-colour colour33
+set-option -g display-panes-colour colour208
+
+# clock <C-a>t
+set-window-option -g clock-mode-colour colour208
+
+# bell (test with sleep 5; echo -en "\a")
+set-window-option -g window-status-bell-style fg=colour240,bg=colour208
+
+# window formatting s/current/active/g
+set-window-option -g window-status-format '#[bg=black]#[fg=black,bold] #I #[bg=default] #[fg=black]#W  '
+set-window-option -g window-status-current-format '#[fg=black]#[bg=colour208] #I #[fg=colour208]#[bg=colour240] #W  '
+
+# }}}
+

@@ -1,0 +1,11 @@
+#!/usr/bin/env osascript
+tell application "Spotify"
+  if it is running then
+    if player state is playing then
+        " ♫ " & artist of current track & " - " & name of current track
+    else if player state is paused then
+        " ♫ [paused] " & artist of current track & " - " & name of current track
+    end if
+  end if
+end tell
+
