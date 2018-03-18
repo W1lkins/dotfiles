@@ -36,3 +36,7 @@ vimplugins() {
   cd "$HOME/.vim/bundle" || exit 1
 }
 
+tmuxconf() {
+  $EDITOR "$HOME/.tmux.conf"
+}
+
