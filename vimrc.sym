@@ -113,7 +113,9 @@ nnoremap <leader>gd :Gdiff<cr>
 " }}}
 Plug 'w0rp/ale'
 Plug 'wincent/command-t', {'do':':UpdateRemotePlugins'}
-Plug 'fatih/vim-go', {'do':':GoInstallBinaries'}
+if has('nvim')
+    Plug 'fatih/vim-go', {'do':':GoInstallBinaries'}
+endif
 " {{{
 let g:go_fmt_command = "goimports"
 " }}}
