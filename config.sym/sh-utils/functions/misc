@@ -1,48 +1,52 @@
 #!/bin/bash
 # shellcheck source=/dev/null
 
-function starttorrent() {
+starttorrent() {
   deluged && deluge-web&
 }
 
-function stoptorrent() {
+stoptorrent() {
   pkill deluge; pkill deluged; pkill deluge-web;
 }
 
-function checkip() {
+checkip() {
   curl icanhazip.com
 }
 
-function src() {
+src() {
   source ~/.zshrc
 }
 
-function pls() {
+pls() {
   sudo "$(fc -ln -1)"
 }
 
-function irc() {
+irc() {
   weechat
 }
 
-function weather() {
+weather() {
   curl wttr.in/Edinburgh
 }
 
-function hist() {
+hist() {
   "$HOME"/historian/hist
 }
 
-function wtf() {
+wtf() {
   dmesg | tail
 }
 
 # Make CTRL-Z background things and unbackground them.
-function fg-bg() {
+fg-bg() {
   if [[ $#BUFFER -eq 0 ]]; then
     fg
   else
     zle push-input
   fi
+}
+
+pb() {
+  curl -F "c=@${1:--}" "https://p.wilkins.cloud/?u=1";
 }
 

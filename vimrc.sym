@@ -521,8 +521,8 @@ nnoremap J mzJ`z
 nnoremap S i<cr><esc>^mwgk:silent! s/\v +$//<cr>:noh<cr>`w
 
 " substitute
-nnoremap <C-r> :%s/
-vnoremap <C-r> :s/
+nnoremap <C-s> :%s/
+vnoremap <C-s> :s/
 
 " source
 vnoremap <leader>S y:@"<cr>
