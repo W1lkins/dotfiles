@@ -1,0 +1,13 @@
+#!/bin/bash
+
+gog() {
+    go get -u -v "$1"
+}
+
+gogo() {
+  cd "$(find "$GOPATH/src" -depth 3 -type d -iname "$1" | head -n1)" || return
+}
+
+gopath() {
+  cd "$GOPATH" || return
+}
