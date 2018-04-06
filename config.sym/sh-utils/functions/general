@@ -81,15 +81,9 @@ man() {
     command man "$@"
 }
 
-# search the aur for a pkg using cower
+# search the aur for a pkg using `yay`
 aursearch() {
-  cower -s "$1"
-}
-
-# download from aur using cower to $HOME/tmp
-aurdl() {
-  cd "$HOME"/tmp || exit
-  cower -d "$1" && cd "$1" || exit
+  yay -Ss "$1"
 }
 
 # list tmux sessions
@@ -130,7 +124,7 @@ calc() {
 # create a new directory and enter it
 mkd() {
   mkdir -p "$@"
-  cd "$@" || exit
+  cd "$@" || return
 }
 
 # make a temporary directory and enter it
@@ -141,7 +135,7 @@ tmpd() {
   else
     dir=$(mktemp -d -t "${1}.XXXXXXXXXX")
   fi
-  cd "$dir" || exit
+  cd "$dir" || return
 }
 
 # determine size of a file or total size of a directory
@@ -321,7 +315,7 @@ connectmonitor() {
   elif [[ $1 == 'on' ]]; then
     xrandr --output LVDS1 --off && xrandr --output HDMI1 --size 3440x1440
   else
-    echo "Unrecognised option" && exit 1
+    echo "Unrecognised option" && return
   fi
 }
 
