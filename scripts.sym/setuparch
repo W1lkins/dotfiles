@@ -43,7 +43,7 @@ mount_drive() {
 }
 
 init_image() {
-  pacstrap /mnt base base-devel
+  pacstrap /mnt base base-devel vim wpa_supplicant wireless_tools
   genfstab -U /mnt >> /mnt/etc/fstab
 }
 
