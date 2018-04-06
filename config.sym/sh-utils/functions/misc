@@ -29,10 +29,6 @@ weather() {
   curl wttr.in/Edinburgh
 }
 
-hist() {
-  "$HOME"/historian/hist
-}
-
 wtf() {
   dmesg | tail
 }
