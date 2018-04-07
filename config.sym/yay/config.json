@@ -1,6 +1,6 @@
 {
-	"buildDir": "$HOME/.cache/yay/",
-	"editor": "$EDITOR",
+	"buildDir": ".cache/yay/",
+	"editor": "vim",
 	"makepkgbin": "makepkg",
 	"pacmanbin": "pacman",
 	"pacmanconf": "/etc/pacman.conf",
