@@ -81,9 +81,20 @@ man() {
     command man "$@"
 }
 
+# use the `yay` built-in search for aur
+aur() {
+  yay "$1"
+}
+
 # search the aur for a pkg using `yay`
 aursearch() {
-  yay "$1"
+  yay -Ss "$1"
+}
+
+# download PKGBUILD from aur
+aurdl() {
+  cd /tmp || return
+  yay -G "$1" && cd "$1" || return
 }
 
 # list tmux sessions
