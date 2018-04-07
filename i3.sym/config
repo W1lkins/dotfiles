@@ -38,18 +38,19 @@ set $music $term -name ncmpcpp -e ncmpcpp
 font pango:Tamzen 10
 floating_modifier $mod
 hide_edge_borders both
+focus_follows_mouse no
 
 # workspace icons
-set $ws1 "1: "
-set $ws2 "2: "
-set $ws3 "3: "
-set $ws4 "4: "
-set $ws5 "5: "
-set $ws6 "6: "
-set $ws7 "7: "
-set $ws8 "8: "
-set $ws9 "9: "
-set $ws10 "10: "
+set $ws1 "1:web"
+set $ws2 "2:term"
+set $ws3 "3:chat"
+set $ws4 "4:code"
+set $ws5 "5:misc"
+set $ws6 "6:video"
+set $ws7 "7:mail"
+set $ws8 "8:misc2"
+set $ws9 "9:misc3"
+set $ws10 "10:music"
 
 # workspace bindings
 bindsym $mod+1 workspace $ws1
@@ -137,6 +138,7 @@ bindsym $mod+r exec --no-startup-id rofi -show run -lines 5 -width 100 -padding 
 bindsym $mod+Shift+r exec --no-startup-id rofi -modi lpass:rofi-lpass -show lpass
 bindsym $mod+Shift+s exec --no-startup-id scrot '%Y-%m-%d-%H-%M.png' -e 'mv $f ~/media/screenshots'
 bindsym $mod+space exec --no-startup-id $HOME/.i3/lock/lock
+bindsym $mod+a exec --no-startup-id unclutter
 
 # }}}
 
@@ -153,31 +155,10 @@ for_window [title="^ncmpcpp\s+\d"] move to workspace $ws10
 
 # }}}
 
-# i3 bar {{{
-
-bar {
-    strip_workspace_numbers yes
-    height 20
-    position top
-    status_command i3blocks -c ~/.i3/i3blocks.conf
-    separator_symbol "⁝"
-    font pango: Tamzen, FontAwesome 12
-    colors {
-        background $background
-        statusline $foreground
-        separator $darkgrey
-
-        focused_workspace  $background $background $foreground
-        active_workspace   $background $background $foreground
-        inactive_workspace $background $background $darkgrey
-        urgent_workspace   $background $background $red
-    }
-}
-
-# }}}
-
 # startup programs {{{
 
+# start polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 # turn off beeping
 exec --no-startup-id xset b off
 # fix the keyboard layout
