@@ -1,8 +1,4 @@
-! ------------------------------------------------------------------------------
-! URxvt Color theme
-! ------------------------------------------------------------------------------
-URxvt.font: xft:Tamzen:size=12
-URxvt.scrollBar: false
+! Colors {{{
 
 ! hard contrast: *background: #1d2021
 *background: #282828
@@ -33,6 +29,13 @@ URxvt.scrollBar: false
 *color7:  #a89984
 *color15: #ebdbb2
 
+! }}}
+
+! URxvt {{{
+
+URxvt.font: xft:Tamzen:size=12
+URxvt.scrollBar: false
+
 ! extensions (tabbed for tabs)
 URxvt.perl-ext-common: fullscreen,keyboard-select,default,matcher
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
@@ -45,3 +48,10 @@ URxvt.url-launcher: /usr/bin/xdg-open
 URxvt.matcher.button: 1
 URxvt.matcher.rend.0: Uline Bold fg5
 
+! }}}
+
+! Cursor {{{
+
+Xcursor.size: 14
+
+! }}}
