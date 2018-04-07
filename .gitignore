@@ -1,5 +1,4 @@
 bin.sym/speedtest.py
-config.sym/.mono
 config.sym/Atom/
 config.sym/autostart
 config.sym/base16-shell
@@ -19,6 +18,7 @@ config.sym/gtk-3.0
 config.sym/heroku
 config.sym/menus
 config.sym/mimeapps.list
+config.sym/.mono
 config.sym/mopidy
 config.sym/neofetch
 config.sym/pulse
@@ -45,7 +45,9 @@ docker.sym/config.json
 docker.sym/daemon.json
 i3.sym/.config.swp
 ncmpcpp.sym/error.log
-vim.sym/.netrwhist
+suckless.sym/st/*
+!suckless.sym/st/config.h
 vim.sym/bundle
 vim.sym/gutentags
+vim.sym/.netrwhist
 vim.sym/tmp

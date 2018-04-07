@@ -30,7 +30,7 @@ client.urgent                 $red             $red            $background  $red
 # basic settings {{{
 
 set $mod Mod1
-set $term urxvt
+set $term st
 set $browser chromium
 set $mail thunderbird
 set $music $term -name ncmpcpp -e ncmpcpp
