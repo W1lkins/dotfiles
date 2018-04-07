@@ -83,7 +83,7 @@ man() {
 
 # search the aur for a pkg using `yay`
 aursearch() {
-  yay -Ss "$1"
+  yay "$1"
 }
 
 # list tmux sessions
