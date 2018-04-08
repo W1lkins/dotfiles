@@ -1,5 +1,5 @@
 {
-	"buildDir": ".cache/yay/",
+	"buildDir": "~/.cache/yay/",
 	"editor": "vim",
 	"makepkgbin": "makepkg",
 	"pacmanbin": "pacman",

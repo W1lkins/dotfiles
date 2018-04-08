@@ -1,4 +1,3 @@
-bin.sym/speedtest.py
 config.sym/Atom/
 config.sym/autostart
 config.sym/base16-shell
@@ -40,6 +39,7 @@ config.sym/xfce4/terminal/accels.scm
 config.sym/xfce4/xfconf/
 config.sym/yarn
 config.sym/Yubico/
+config.sym/Bitwarden
 docker.sym/.buildNodeID
 docker.sym/config.json
 docker.sym/daemon.json

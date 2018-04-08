@@ -49,7 +49,7 @@ set $ws5 "5:misc"
 set $ws6 "6:video"
 set $ws7 "7:mail"
 set $ws8 "8:misc2"
-set $ws9 "9:misc3"
+set $ws9 "9:passwd"
 set $ws10 "10:music"
 
 # workspace bindings
@@ -152,6 +152,7 @@ for_window [class="mpv"] move to workspace $ws6
 for_window [class="Vlc"] move to workspace $ws6
 for_window [instance="twitch.+(chat)"] move to workspace $ws6
 for_window [title="^ncmpcpp\s+\d"] move to workspace $ws10
+for_window [class="Bitwarden"] move to workspace $ws9
 
 # }}}
 
