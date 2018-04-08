@@ -48,14 +48,13 @@ padding-left = 0
 padding-right = 2
 
 module-margin-left = 1
-module-margin-right = 2
+module-margin-right = 0
 
-font-0 = "Fira Code:size=11:weight=regular;"
-font-1 = "Hack:size=11:weight=regular;"
-font-2 = "Source Code Pro:size=11:weight=regular;"
-font-3 = "Font Awesome 5 Free:style=Regular;"
-font-4 = "Font Awesome 5 Free:style=Solid;"
-font-5 = "Font Awesome 5 Brands:style=Regular;"
+font-0 = DejaVu Sans Mono:size=11:weight=regular;1
+font-1 = Fira Code:size=11:weight=regular;1
+font-2 = Font Awesome 5 Free:style=Regular;3
+font-3 = Font Awesome 5 Free:style=Solid;3
+font-4 = Font Awesome 5 Brands:style=Regular;3
 
 modules-left = i3
 modules-center = xwindow
@@ -162,7 +161,7 @@ interval = 60
 mount-0 = /home
 mount-1 = /
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -172,30 +171,16 @@ label-unmounted-foreground = ${colors.foreground-alt}
 [module/alsa]
 type = internal/alsa
 
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+format-volume = <ramp-volume> <label-volume>
+label-volume = %percentage%
 label-volume-foreground = ${root.foreground}
 
-format-muted-prefix = " "
 format-muted-foreground = ${colors.foreground-alt}
-label-muted = sound muted
-
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
+label-muted =  %percentage%
 
 ; }}}
 ; xkeyboard {{{
@@ -221,19 +206,9 @@ label-indicator-underline = ${colors.secondary}
 [module/xbacklight]
 type = internal/xbacklight
 
-format = <label> <bar>
-label = BL
-
-bar-width = 10
-bar-indicator = |
-bar-indicator-foreground = #ff
-bar-indicator-font = 2
-bar-fill = ─
-bar-fill-font = 2
-bar-fill-foreground = #9f78e1
-bar-empty = ─
-bar-empty-font = 2
-bar-empty-foreground = ${colors.foreground-alt}
+format-prefix = 
+format = <label>
+label = %percentage:2%
 
 ; }}}
 ; backlight-acpi {{{
@@ -252,7 +227,7 @@ interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #4bffdc
-label = %percentage_used%%
+label = %percentage_used%
 
 ; }}}
 ; CPU {{{
@@ -263,7 +238,7 @@ interval = 2
 format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #f90000
-label = %percentage:2%%
+label = %percentage:2%
 
 ; }}}
 ; wlan {{{
@@ -298,28 +273,28 @@ battery = BAT0
 adapter = AC
 full-at = 98
 
-format-charging = <animation-charging> <label-charging>
+; charging
+format-charging-prefix = " "
 format-charging-underline = #ffb52a
+label-charging = ${self.label-discharging}
+format-charging = <label-charging>
 
+; discharging
+label-discharging = %percentage%
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
-format-full-prefix = " "
-format-full-prefix-foreground = ${colors.foreground-alt}
-format-full-underline = ${self.format-charging-underline}
-
+ramp-capacity-0-foreground = #FF0000
 ramp-capacity-0 =  
 ramp-capacity-1 =  
 ramp-capacity-2 =  
 ramp-capacity-3 =  
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 =  
-animation-charging-1 =  
-animation-charging-2 =  
-animation-charging-3 =  
-animation-charging-foreground = ${colors.foreground-alt}
-animation-charging-framerate = 750
+; battery full
+format-full-prefix = " "
+format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-underline = ${self.format-charging-underline}
 
 ; }}}
 ; temperature {{{
@@ -383,31 +358,7 @@ format-disconnected =
 ; pulseaudio {{{
 
 [module/pulseaudio]
-type = internal/pulseaudio
-
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
-label-volume-foreground = ${root.foreground}
-
-label-muted = 🔇 muted
-label-muted-foreground = #66
-
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
+inherit = module/alsa
 
 ; }}}
 ; power {{{
