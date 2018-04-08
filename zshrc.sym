@@ -10,5 +10,5 @@ do
 done
 
 # source a system specific config if one exists
-[ -f "$HOME"/.extra ] && source "$HOME"/.extra
+[ -f "$HOME"/.extra ] && source "$HOME"/.extra || return 0
 
