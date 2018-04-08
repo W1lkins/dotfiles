@@ -50,15 +50,15 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 0
 
-font-0 = DejaVu Sans Mono:size=11:weight=regular;1
-font-1 = Fira Code:size=11:weight=regular;1
-font-2 = Font Awesome 5 Free:style=Regular;3
-font-3 = Font Awesome 5 Free:style=Solid;3
-font-4 = Font Awesome 5 Brands:style=Regular;3
+font-0 = DejaVu Sans Mono:size=14:weight=regular;1
+font-1 = Fira Code:size=14:weight=regular;1
+font-2 = Font Awesome 5 Free:size=10:style=Regular;3
+font-3 = Font Awesome 5 Free:size=10:style=Solid;3
+font-4 = Font Awesome 5 Brands:size=10:style=Regular;3
 
 modules-left = i3
 modules-center = xwindow
-modules-right = mpd filesystem alsa xkeyboard memory cpu wlan eth battery temperature date
+modules-right = mpd alsa xbacklight memory cpu wlan eth temperature battery date
 
 tray-position = right
 tray-padding = 2
@@ -159,9 +159,8 @@ type = internal/fs
 interval = 60
 
 mount-0 = /home
-mount-1 = /
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%
+label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -176,6 +175,7 @@ ramp-volume-1 = 
 ramp-volume-2 = 
 
 format-volume = <ramp-volume> <label-volume>
+format-volume-underline = #f8f8f8
 label-volume = %percentage%
 label-volume-foreground = ${root.foreground}
 
@@ -206,9 +206,10 @@ label-indicator-underline = ${colors.secondary}
 [module/xbacklight]
 type = internal/xbacklight
 
-format-prefix = 
+format-prefix = " "
 format = <label>
 label = %percentage:2%
+format-underline = #55aa55
 
 ; }}}
 ; backlight-acpi {{{
@@ -235,7 +236,7 @@ label = %percentage_used%
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = " "
+format-prefix = ""
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #f90000
 label = %percentage:2%
@@ -284,7 +285,8 @@ label-discharging = %percentage%
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
-ramp-capacity-0-foreground = #FF0000
+ramp-capacity-0-foreground = #ff295f
+ramp-capacity-1-foreground = #ffb52a
 ramp-capacity-0 =  
 ramp-capacity-1 =  
 ramp-capacity-2 =  
@@ -309,13 +311,15 @@ format-underline = #f50a4d
 format-warn = <ramp> <label-warn>
 format-warn-underline = ${self.format-underline}
 
-label = %temperature-c%
-label-warn = %temperature-c%
+label = %temperature:2:2%
+label-warn = %temperature:2:2%
 label-warn-foreground = ${colors.secondary}
 
-ramp-0 = 
+ramp-3-foreground = ${colors.secondary}
+ramp-0 = 
 ramp-1 = 
-ramp-2 = 
+ramp-2 = 
+ramp-3 = 
 ramp-foreground = ${colors.foreground-alt}
 
 ; }}}
@@ -359,38 +363,6 @@ format-disconnected =
 
 [module/pulseaudio]
 inherit = module/alsa
-
-; }}}
-; power {{{
-
-[module/powermenu]
-type = custom/menu
-
-expand-right = true
-
-format-spacing = 1
-
-label-open = 
-label-open-foreground = ${colors.secondary}
-label-close =  cancel
-label-close-foreground = ${colors.secondary}
-label-separator = |
-label-separator-foreground = ${colors.foreground-alt}
-
-menu-0-0 = reboot
-menu-0-0-exec = menu-open-1
-menu-0-1 = power off
-menu-0-1-exec = menu-open-2
-
-menu-1-0 = cancel
-menu-1-0-exec = menu-open-0
-menu-1-1 = reboot
-menu-1-1-exec = sudo reboot
-
-menu-2-0 = power off
-menu-2-0-exec = sudo poweroff
-menu-2-1 = cancel
-menu-2-1-exec = menu-open-0
 
 ; }}}
 
