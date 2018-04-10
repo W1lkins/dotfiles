@@ -1,4 +1,8 @@
-" Basic Options ----------------------------------------------------------- {{{
+" General ----------------------------------------------------------------- {{{
+
+silent function! NEOVIM()
+    return has('nvim')
+endfunction
 
 " leader
 let mapleader = ","
@@ -91,7 +95,7 @@ let NERDTreeDirArrows = 1
 let NERDTreeMapJumpFirstChild = 'gK'
 let NERDTreeMinimalUI = 1
 " }}}
-Plug 'Shougo/deoplete.nvim', has('nvim') ? {} : { 'on': [] }
+Plug 'Shougo/deoplete.nvim', NEOVIM() ? {} : { 'on': [] }
 " {{{
 let g:deoplete#enable_at_startup = 1
 
@@ -113,7 +117,7 @@ nnoremap <leader>gd :Gdiff<cr>
 " }}}
 Plug 'w0rp/ale'
 Plug 'wincent/command-t', {'do':':UpdateRemotePlugins'}
-if has('nvim')
+if NEOVIM()
     Plug 'fatih/vim-go', {'do':':GoInstallBinaries'}
 endif
 " {{{
@@ -291,9 +295,9 @@ endif
 " }}}
 " Color Scheme {{{
 
-syntax on
-set background=dark
+syntax enable
 colorscheme gruvbox
+set background=dark
 
 " highlight VCS conflict markers
 match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
@@ -397,6 +401,8 @@ iab erlog error_log(
 " }}}
 " Mappings & Useful Functions --------------------------------------------- {{{
 
+" Mappings {{{
+
 " no help key
 inoremap <F1> <Nop>
 noremap  <F1> <Nop>
@@ -436,31 +442,6 @@ nnoremap <leader>W :set wrap!<cr>
 
 " inserting blank lines
 nnoremap <cr> o<esc>
-
-" copying/pasting text to the system clipboard.
-function! g:FuckingCopyTheTextPlease()
-    let view = winsaveview()
-    let old_z = @z
-    normal! gv"zy
-    call system('pbcopy', @z)
-    let @z = old_z
-    call winrestview(view)
-endfunction
-
-function! g:FuckingCopyAllTheTextPlease()
-    let view = winsaveview()
-    let old_z = @z
-    normal! ggVG"zy
-    call system('pbcopy', @z)
-    let @z = old_z
-    call winrestview(view)
-endfunction
-
-" ,y in normal mode copies a line - ,Y copies the whole file - ,y in visual mode copies whatever is highlighted
-noremap <leader>p "*p
-vnoremap <leader>y :<c-u>call g:FuckingCopyTheTextPlease()<cr>
-nnoremap <leader>y VV:<c-u>call g:FuckingCopyTheTextPlease()<cr>
-nnoremap <leader>Y :<c-u>call g:FuckingCopyAllTheTextPlease()<cr>
 
 " Yank to end of line
 nnoremap Y y$
@@ -551,11 +532,38 @@ nnoremap <leader>i :set list!<cr>
 " unfuck the screen
 nnoremap U :syntax sync fromstart<cr>:redraw!<cr>
 
-" Insert Mode Completion {{{
-
+" Insert Mode Completion
 inoremap <c-f> <c-x><c-f>
 inoremap <c-]> <c-x><c-]>
 inoremap <c-l> <c-x><c-l>
+
+" }}}
+" Functions {{{
+
+" copying/pasting text to the system clipboard.
+function! g:FuckingCopyTheTextPlease()
+    let view = winsaveview()
+    let old_z = @z
+    normal! gv"zy
+    call system('pbcopy', @z)
+    let @z = old_z
+    call winrestview(view)
+endfunction
+
+function! g:FuckingCopyAllTheTextPlease()
+    let view = winsaveview()
+    let old_z = @z
+    normal! ggVG"zy
+    call system('pbcopy', @z)
+    let @z = old_z
+    call winrestview(view)
+endfunction
+
+" ,y in normal mode copies a line - ,Y copies the whole file - ,y in visual mode copies whatever is highlighted
+noremap <leader>p "*p
+vnoremap <leader>y :<c-u>call g:FuckingCopyTheTextPlease()<cr>
+nnoremap <leader>y VV:<c-u>call g:FuckingCopyTheTextPlease()<cr>
+nnoremap <leader>Y :<c-u>call g:FuckingCopyAllTheTextPlease()<cr>
 
 " }}}
 
@@ -703,7 +711,7 @@ nnoremap <down>  :lnext<cr>zvzz
 " }}}
 
 " }}}
-" Extra Configs ---------------------------------------------------------- {{{
+" Extra Configs ----------------------------------------------------------- {{{
 
 " Highlight Word {{{
 "
@@ -786,5 +794,4 @@ au FileType sh setlocal tabstop=2
 " }}}
 
 " }}}
-
 " }}}
