@@ -8,6 +8,10 @@ silent function! RUBY()
     return has('ruby')
 endfunction
 
+silent function! CMDT()
+    return NEOVIM() && RUBY()
+endfunction
+
 " leader
 let mapleader = ","
 let maplocalleader = "\\"
@@ -120,7 +124,7 @@ nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gd :Gdiff<cr>
 " }}}
 Plug 'w0rp/ale'
-if NEOVIM() || RUBY()
+if CMDT()
     Plug 'wincent/command-t', {'do':':UpdateRemotePlugins'}
 endif
 if NEOVIM()
@@ -131,8 +135,10 @@ let g:go_fmt_command = "goimports"
 " }}}
 " {{{
 " bindings
-nnoremap <leader>, :CommandT<cr>
-nnoremap <leader>. :CommandTBuffer<cr>
+if CMDT()
+    nnoremap <leader>, :CommandT<cr>
+    nnoremap <leader>. :CommandTBuffer<cr>
+endif
 
 " options
 let g:CommandTMaxFiles = 20000
