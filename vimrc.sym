@@ -4,6 +4,10 @@ silent function! NEOVIM()
     return has('nvim')
 endfunction
 
+silent function! RUBY()
+    return has('ruby')
+endfunction
+
 " leader
 let mapleader = ","
 let maplocalleader = "\\"
@@ -116,7 +120,9 @@ nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gd :Gdiff<cr>
 " }}}
 Plug 'w0rp/ale'
-Plug 'wincent/command-t', {'do':':UpdateRemotePlugins'}
+if NEOVIM() || RUBY()
+    Plug 'wincent/command-t', {'do':':UpdateRemotePlugins'}
+endif
 if NEOVIM()
     Plug 'fatih/vim-go', {'do':':GoInstallBinaries'}
 endif
@@ -138,6 +144,10 @@ Plug 'vimwiki/vimwiki'
 " {{{
 let g:vimwiki_list = [{'path':'~/.wiki/', 'path_html':'~/.wiki/html/'}]
 " }}}
+Plug 'cespare/vim-toml'
+" {{{
+" }}}}
+Plug 'majutsushi/tagbar'
 
 call plug#end()
 
@@ -160,8 +170,10 @@ set listchars=tab:>\ ,eol:¬                      " change tab/eol chars etc.
 set matchtime=3                                  " tenths of a second to show the matching brackets etc.
 set modelines=0                                  " sets the number of lines (at the beginning and end of each file) vim checks for initialisations
 set mouse=a                                      " lets use the mouse
-set relativenumber                               " show relative line numbers
+set mousehide                                    " hide the mousecursor while typing
 set number                                       " turn on line numbers by default
+set pastetoggle=<F3>                             " binding to toggle paste mode
+set relativenumber                               " show relative line numbers
 set ruler                                        " shows the line and column number of the current cursor position
 set shiftround                                   " round indent to multiple of `shiftwidth`
 set showbreak=↪                                  " string at start of lines that have been wrapped
@@ -523,8 +535,9 @@ command! -bang WA wa<bang>
 command! -bang Wq wq<bang>
 command! -bang WQ wq<bang>
 
-" toggle paste
-nnoremap <F3> :set paste!<cr>
+" Visual shifting (does not exit Visual mode)
+vnoremap < <gv
+vnoremap > >gv
 
 " toggle [i]nvisible characters
 nnoremap <leader>i :set list!<cr>
@@ -672,7 +685,7 @@ nnoremap VaB vaBV
 
 " Directional Keys {{{
 
-" fixes
+" wrapped lines go down/up to next row, rather than next line in file
 noremap j gj
 noremap k gk
 noremap gj j
@@ -792,6 +805,11 @@ au FileType perl setlocal tabstop=2
 au FileType sh setlocal shiftwidth=2
 au FileType sh setlocal tabstop=2
 " }}}
+" Git {{{
+" set position to the first line when editing a git commit message
+au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
+" }}}
 
 " }}}
+
 " }}}
