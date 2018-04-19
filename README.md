@@ -47,3 +47,13 @@
 2. **You will be asked about gpg keys for git, and if you're on macOS, about brew.**
 
 3. **source ~/.zshrc**
+
+<br>
+
+## Trying without installing
+
+1. **Clone the repository**
+
+- `git clone https://github.com/w1lkins/dotfiles dotfiles && cd $_`
+- `make docker`
+
