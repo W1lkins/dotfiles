@@ -1,54 +1,92 @@
-default: setup
+BOOTSTRAP=./bootstrap.pl
+DBUILD=$(DOCKERCMD) build
+DCREATE=$(DOCKERCMD) create
+DEXEC=$(DOCKERCMD) exec
+DOCKERCMD=docker
+DRM=$(DOCKERCMD) rm
+DRMI=$(DOCKERCMD) rmi
+DSTART=$(DOCKERCMD) start
+DSTOP=$(DOCKERCMD) stop
+GITCMD=git
+GITPULL=$(GITCMD) pull
+LINT=perl -cw bootstrap.pl
+SHELLCHECK=./scripts.sym/testscripts
 
-docker: build create start install attach
+.PHONY: all
+all: setup 
 
-help:
-	echo "Usage:"
-	echo "    make build|create|docker|setup|start|stop|install|test|attach|clean|remove|up"
+.PHONY: docker
+docker: 
+	@echo "+ $@"
+	build create start install attach ## build a docker file and attach
 
-setup:
-	git pull origin master && ./bootstrap.pl
+.PHONY: setup
+setup: ## pull from git and run the bootstrap install script
+	@echo "+ $@"
+	$(GITCMD) pull origin master && $(BOOTSTRAP)
 
-build:
-	# Grab Dockerfile from the dotfiletest folder
+.PHONY: build
+build: ## build from dockerfile and tag as dotfiles
+	@echo "+ $@"
 	docker build --tag dotfiles --rm - < docker.sym/dotfiletest/Dockerfile
 
-create:
-	docker stop dotfiles > /dev/null 2>&1 ||:
-	docker rm dotfiles > /dev/null 2>&1 ||:
-	docker create --interactive --tty \
+.PHONY: create
+create: ## stop dotfile container, remove, and recreate
+	@echo "+ $@"
+	$(DSTOP) dotfiles > /dev/null 2>&1 ||:
+	$(DRM) dotfiles > /dev/null 2>&1 ||:
+	$(DCREATE) --interactive --tty \
 		--name dotfiles \
 		--hostname dotfiles \
 		--volume ${HOME}/dotfiles:/project \
 		dotfiles \
 		/bin/zsh --login
 
-start:
-	docker start dotfiles
+.PHONY: start
+start: ## start dotfile container
+	@echo "+ $@"
+	$(DSTART) dotfiles
 
-stop:
-	docker stop dotfiles
+.PHONY: stop
+stop: ## stop dotfile container
+	@echo "+ $@"
+	$(DSTOP) dotfiles
 
-install:
-	docker exec --interactive --tty dotfiles \
-		./bootstrap.pl \
-			--config=zsh \
-			--minimal
+.PHONY: install
+install: ## run bootstrap.pl inside docker
+	@echo "+ $@"
+	$(DEXEC) --interactive --tty dotfiles \
+		$(BOOTSTRAP) \
+		--config=zsh \
+		--minimal
 
-test:
-	perl -cw bootstrap.pl && ./scripts.sym/testscripts
+.PHONY: test
+test: ## lint and shellcheck
+	@echo "+ $@"
+	$(LINT) && $(SHELLCHECK)
 
-attach:
-	docker exec --interactive --tty dotfiles \
+.PHONY: attach
+attach: ## attach to a dotfile container
+	@echo "+ $@"
+	$(DEXEC) --interactive --tty dotfiles \
 		/bin/zsh --login ||:
 
-clean:
-	docker stop dotfiles > /dev/null 2>&1 ||:
-	docker rm dotfiles > /dev/null 2>&1 ||:
+.PHONY: clean
+clean: ## stop and remove dotfile container
+	@echo "+ $@"
+	$(DSTOP) dotfiles > /dev/null 2>&1 ||:
+	$(DRM) dotfiles > /dev/null 2>&1 ||:
 
-destroy: clean
-	docker rmi dotfiles > /dev/null 2>&1 ||:
+.PHONY: destroy
+destroy: clean ## stop and remove dotfile container, remove built image
+	@echo "+ $@"
+	$(DRMI) dotfiles > /dev/null 2>&1 ||:
 
-up: setup
+.PHONY: up
+up: setup ## alias for setup
+
+.PHONY: help
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
 
 .SILENT:
