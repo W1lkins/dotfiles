@@ -44,9 +44,13 @@
 - `git clone https://github.com/w1lkins/dotfiles dotfiles && cd $_`
 - `make`
 
-2. **You will be asked about gpg keys for git, and if you're on macOS, about brew.**
+2. **Install**
 
-3. **source ~/.zshrc**
+- `make`
+
+3. **You will be asked about gpg keys for git, and if you're on macOS, about brew.**
+
+4. **source ~/.zshrc**
 
 <br>
 
@@ -55,5 +59,8 @@
 1. **Clone the repository**
 
 - `git clone https://github.com/w1lkins/dotfiles dotfiles && cd $_`
+
+2. **Run Makefile command**
+
 - `make docker`
 
