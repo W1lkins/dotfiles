@@ -1,0 +1,19 @@
+#!/bin/bash
+
+mounts=$(lsblk -lp | grep part | grep -v "t /" | awk '{print $1, "(" $4 ")"}')
+[[ "$mounts" = "" ]] && exit 1
+
+choice=$(echo "$mounts" | dmenu -i -p "Which drive?" | awk '{print $1}')
+[[ "$choice" = "" ]] && exit 1
+
+sudo mount "$choice" && exit 0
+
+dirs=$(find /mnt /media /mount /home -type d -maxdepth 5 2>/dev/null)
+mp=$(echo "$dirs" | dmenu -i -p "Which mount point?")
+[[ "$mp" = "" ]] && exit 1
+if [[ ! -d "$mp" ]]; then
+	mkdiryn=$(echo -e "No\\nYes" | dmenu -i -p  "$mp not found. Create?")
+	[[ "$mkdiryn" = Yes ]] && sudo mkdir -p "$mp"
+fi
+sudo mount "$choice" "$mp"
+

@@ -121,7 +121,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+c reload
 bindsym $mod+Ctrl+r restart
 
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec prompt "Are you sure you want to exit i3?" "i3-msg exit"
 
 bindsym $mod+o exec $term -e ranger
 bindsym $mod+b exec --no-startup-id $browser
