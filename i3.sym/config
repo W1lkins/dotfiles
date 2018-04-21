@@ -135,7 +135,6 @@ bindsym $mod+g exec $term -e weechat
 # external bindings {{{
 
 bindsym $mod+r exec --no-startup-id rofi -show run -lines 5 -width 100 -padding 350 -opacity "85" -bw 0 -font "Tamzen 12"
-bindsym $mod+Shift+r exec --no-startup-id rofi -modi lpass:rofi-lpass -show lpass
 bindsym $mod+Shift+s exec --no-startup-id scrot '%Y-%m-%d-%H-%M.png' -e 'mv $f ~/media/screenshots'
 bindsym $mod+space exec --no-startup-id $HOME/.i3/lock/lock
 bindsym $mod+a exec --no-startup-id unclutter
