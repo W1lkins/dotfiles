@@ -45,6 +45,8 @@ docker.sym/config.json
 docker.sym/daemon.json
 i3.sym/.config.swp
 ncmpcpp.sym/error.log
+suckless.sym/dmenu/*
+!suckless.sym/dmenu/config.h
 suckless.sym/st/*
 !suckless.sym/st/config.h
 vim.sym/bundle
