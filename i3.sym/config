@@ -110,7 +110,7 @@ bindsym $mod+Shift+l move right 30
 bindsym $mod+f fullscreen toggle
 bindsym $mod+slash split h
 bindsym $mod+Shift+q kill
-bindsym $mod+t exec $term
+bindsym $mod+t exec --no-startup-id $term
 bindsym $mod+v split v
 
 bindsym $mod+Ctrl+s layout stacking
