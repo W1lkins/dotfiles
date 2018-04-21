@@ -1,0 +1,14 @@
+#!/bin/bash
+# A dmenu prompt to unmount drives.
+# Drives mounted at /, /boot and /home will not be options to unmount.
+
+exclude="\\(/boot\\|/home\\|/\\)$"
+
+points=$(lsblk -lp | grep "t /" | grep -v "$exclude" | awk '{print $1, "(" $4 ")", "on", $7}')
+[[ "$points" = "" ]] && exit
+
+choice=$(echo "$points" | dmenu -i -p "Which drive?" | awk '{print $1}')
+[[ "$choice" = "" ]] && exit
+
+sudo umount "$choice"
+
