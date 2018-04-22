@@ -113,10 +113,11 @@ inoremap <silent><expr> <TAB>
     \ pumvisible() ? "\<C-n>" :
     \ <SID>check_back_space() ? "\<TAB>" :
     \ deoplete#mappings#manual_complete()
-function! s:check_back_space() abort " {{{
+
+function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~ '\s'
-endfunction " }}}
+endfunction
 
 " }}}
 Plug 'tpope/vim-fugitive'
@@ -128,33 +129,36 @@ nnoremap <leader>gd :Gdiff<cr>
 Plug 'w0rp/ale'
 if CMDT()
     Plug 'wincent/command-t', {'do':':UpdateRemotePlugins'}
-endif
-if NEOVIM()
-    Plug 'fatih/vim-go', {'do':':GoInstallBinaries'}
-endif
 " {{{
-let g:go_fmt_command = "goimports"
-" }}}
-" {{{
-" bindings
-if CMDT()
-    nnoremap <leader>, :CommandT<cr>
-    nnoremap <leader>. :CommandTBuffer<cr>
-endif
+nnoremap <leader>, :CommandT<cr>
+nnoremap <leader>. :CommandTBuffer<cr>
 
-" options
 let g:CommandTMaxFiles = 20000
 let g:CommandTSuppressMaxFilesWarning = 1
 let g:CommandTMatchWindowAtTop = 1
 let g:CommandTWildIgnore=&wildignore . ",*/tmp/*,*/node_modules/*,*/bundle/*"
 " }}}
+else
+    Plug 'kien/ctrlp.vim'
+" {{{
+nnoremap <leader>, :CtrlP<cr>
+nnoremap <leader>. :CtrlPBuffer<cr>
+
+let g:ctrlp_match_window_bottom = 0
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+" }}}
+endif
+if NEOVIM()
+    Plug 'fatih/vim-go', {'do':':GoInstallBinaries'}
+" {{{
+let g:go_fmt_command = "goimports"
+" }}}
+endif
 Plug 'vimwiki/vimwiki'
 " {{{
 let g:vimwiki_list = [{'path':'~/.wiki/', 'path_html':'~/.wiki/html/'}]
 " }}}
 Plug 'cespare/vim-toml'
-" {{{
-" }}}}
 Plug 'majutsushi/tagbar'
 
 call plug#end()
