@@ -1,5 +1,3 @@
-# W1lkins ↴
-
 ```
               ▄▄                         ▄▄▄▄      ██     ▄▄▄▄                         
               ██              ██        ██▀▀▀      ▀▀     ▀▀██                         
@@ -9,21 +7,22 @@
         ▀██▄▄███  ▀██▄▄██▀    ██▄▄▄     ██      ▄▄▄██▄▄▄    ██▄▄▄   ▀██▄▄▄▄█  █▄▄▄▄▄██ 
           ▀▀▀ ▀▀    ▀▀▀▀       ▀▀▀▀     ▀▀      ▀▀▀▀▀▀▀▀     ▀▀▀▀     ▀▀▀▀▀    ▀▀▀▀▀▀  
 ```
+
 <br>
 
 ## What's included?
 
 - compton
-- gitconfig
+- dmenu
+- git config
 - htoprc
 - inputrc
-- macOS defaults & brew
+- macOS sane defaults & brew
 - ncmpcpp
 - neovim
 - polybar
 - ranger
 - redshift
-- rofi
 - screenlayouts for monitors
 - suckless-terminal
 - tmux
@@ -35,32 +34,34 @@
 - yay (aur)
 - zsh
 
-<br>
+---
 
 ## Installation
 
-1. **Clone the repository**
+**Clone the repository**:
 
 - `git clone https://github.com/w1lkins/dotfiles dotfiles && cd $_`
 - `make`
 
-2. **Install**
+**Install**:
 
 - `make`
 
-3. **You will be asked about gpg keys for git, and if you're on macOS, about brew.**
+You will be asked about gpg keys for git, and if you're on macOS, about brew.
 
-4. **source ~/.zshrc**
+**Finally, run**:
 
-<br>
+`source ~/.zshrc`
+
+---
 
 ## Trying without installing
 
-1. **Clone the repository**
+**Clone the repository**:
 
-- `git clone https://github.com/w1lkins/dotfiles dotfiles && cd $_`
+- `git clone https://github.com/w1lkins/dotfiles && cd dotfiles`
 
-2. **Run Makefile command**
+**Run Makefile command**:
 
 - `make docker`
 
