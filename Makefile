@@ -15,11 +15,6 @@ SHELLCHECK=./scripts.sym/testscripts
 .PHONY: all
 all: setup 
 
-.PHONY: docker
-docker: 
-	@echo "+ $@"
-	build create start install attach ## build a docker file and attach
-
 .PHONY: setup
 setup: ## pull from git and run the bootstrap install script
 	@echo "+ $@"
@@ -29,6 +24,10 @@ setup: ## pull from git and run the bootstrap install script
 build: ## build from dockerfile and tag as dotfiles
 	@echo "+ $@"
 	docker build --tag dotfiles --rm - < docker.sym/dotfiletest/Dockerfile
+
+.PHONY: docker
+docker: build create start install attach ## build a docker file and attach
+	@echo "+ $@"
 
 .PHONY: create
 create: ## stop dotfile container, remove, and recreate
