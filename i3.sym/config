@@ -136,7 +136,7 @@ bindsym $mod+g exec $term -e weechat
 
 bindsym $mod+r exec --no-startup-id dmenu_run
 bindsym $mod+Shift+s exec --no-startup-id scrot '%Y-%m-%d-%H-%M.png' -e 'mv $f ~/media/screenshots'
-bindsym $mod+space exec --no-startup-id $HOME/.i3/lock/lock
+bindsym $mod+space exec --no-startup-id $HOME/.i3/lock -l dimblur
 bindsym $mod+a exec --no-startup-id unclutter
 
 # }}}
@@ -171,6 +171,8 @@ exec_always --no-startup-id xrdb ~/.Xresources
 exec --no-startup-id xflux -l 55.9 -g -3.5
 # wallpaper
 exec_always --no-startup-id feh --bg-fill --no-fehbg ~/.config/wall.png
+# lock setup
+exec --no-startup-id $HOME/.i3/lock -u $HOME/media/pictures/wallpapers/
 # composite manager
 exec --no-startup-id compton -f --config ~/.compton.conf
 # fix keyboard
