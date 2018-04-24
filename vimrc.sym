@@ -590,6 +590,18 @@ vnoremap <leader>y :<c-u>call g:FuckingCopyTheTextPlease()<cr>
 nnoremap <leader>y VV:<c-u>call g:FuckingCopyTheTextPlease()<cr>
 nnoremap <leader>Y :<c-u>call g:FuckingCopyAllTheTextPlease()<cr>
 
+function! OpenMarkdownPreview() abort
+  if exists('s:markdown_job_id') && s:markdown_job_id > 0
+    call jobstop(s:markdown_job_id)
+    unlet s:markdown_job_id
+  endif
+  let s:markdown_job_id = jobstart('grip ' . shellescape(expand('%:p')))
+  if s:markdown_job_id <= 0 | return | endif
+  call system('open http://localhost:6419')
+endfunction
+
+noremap <silent> <leader>om :call OpenMarkdownPreview()<cr>
+
 " }}}
 
 " }}}

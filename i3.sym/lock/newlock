@@ -1,0 +1,241 @@
+#!/bin/bash
+# lock the screen using i3lock and bash
+
+# folder to store temporary images
+readonly CACHE_DIR="$HOME/.cache/i3lock"
+
+# store the original wallpaper
+readonly ORIGINAL_WALL="$CACHE_DIR/wall.png"
+
+# store the resized image based on monitor resolution
+readonly RESIZED="$CACHE_DIR/resized.png"
+
+# potential image processing types to use as a wallpaper
+readonly DIM="$CACHE_DIR/dim.png"
+readonly BLUR="$CACHE_DIR/blur.png"
+readonly DIMBLUR="$CACHE_DIR/dimblur.png"
+
+# lockscreen images (images to be used as lockscreen background)
+readonly LOCK_RESIZED="$CACHE_DIR/l_resized.png"
+readonly LOCK_DIM="$CACHE_DIR/l_dim.png"
+readonly LOCK_BLUR="$CACHE_DIR/l_blur.png"
+readonly LOCK_DIM_BLUR="$CACHE_DIR/l_dimblur.png"
+
+# kill the dunst notification daemon
+prelock() {
+	pkill -u "$USER" -USR1 dunst
+}
+
+# lock the screen
+lock() {
+	#$1 image path
+	letter_entered_color=d23c3dff
+	letter_removed_color=d23c3dff
+	password_correct=00000000
+	password_incorrect=d23c3dff
+	background_color=00000000
+	foreground_color=ffffffff
+	i3lock \
+		-t -i "$1" \
+		--timepos="110:h-70" \
+		--datepos="135:h-45" \
+		--clock --datestr "Type password to unlock..." \
+		--insidecolor=$background_color --ringcolor=$foreground_color --line-uses-inside \
+		--keyhlcolor=$letter_entered_color --bshlcolor=$letter_removed_color --separatorcolor=$background_color \
+		--insidevercolor=$password_correct --insidewrongcolor=$password_incorrect \
+		--ringvercolor=$foreground_color --ringwrongcolor=$foreground_color --indpos="x+280:h-70" \
+		--radius=20 --ring-width=4 --veriftext="" --wrongtext="" \
+		--verifcolor="$foreground_color" --timecolor="$foreground_color" --datecolor="$foreground_color" \
+    --noinputtext="" \
+		--force-clock
+}
+
+# run any commands after locking the screen
+postlock() {
+	pkill -u "$USER" -USR2 dunst
+}
+
+rec_get_random() {
+	dir="$1"
+	if [ ! -d "$dir" ]; then
+		user_input="$dir"
+		return
+	fi
+	dir=("$dir"/*)
+	dir_string=${dir[RANDOM % ${#dir[@]}]}
+	rec_get_random "$dir_string"
+}
+
+# Options
+case "$1" in
+	"")
+		if [ ! -f "$LOCK_DIM" ]; then
+			exit 1
+		fi;;
+	-l | --lock)
+		case "$2" in
+			"")
+				prelock
+				lock "$LOCK_RESIZED"
+				postlock
+				;;
+			dim)
+				prelock
+				lock "$LOCK_DIM"
+				postlock
+				;;
+			blur)
+				prelock
+				lock "$LOCK_BLUR"
+				postlock
+				;;
+			dimblur)
+				prelock
+				lock "$LOCK_DIM_BLUR"
+				postlock
+				;;
+		esac;;
+	-s | --suspend)
+		case "$2" in
+			"")
+				prelock
+				lock "$LOCK_RESIZED" && systemctl suspend
+				postlock
+				;;
+			dim)
+				prelock
+				lock "$LOCK_DIM" && systemctl suspend
+				postlock
+				;;
+			blur)
+				prelock
+				lock "$LOCK_BLUR" && systemctl suspend
+				postlock
+				;;
+			dimblur)
+				prelock
+				lock "$LOCK_DIM_BLUR" && systemctl suspend
+				postlock
+				;;
+		esac;;
+	-w | --wall)
+		case "$2" in
+			"")
+				feh --bg-fill "$RESIZED"
+				;;
+			dim)
+				feh --bg-fill "$DIM"
+				;;
+			blur)
+				feh --bg-fill "$BLUR"
+				;;
+			dimblur)
+				feh --bg-fill "$DIMBLUR"
+				;;
+		esac;;
+	-u | --update)
+		background="$2"
+		shift 2
+
+		# find monitor resolution
+		y_res=$(xdpyinfo | grep dimensions | sed -r 's/^[^0-9]*([0-9]+x[0-9]+).*$/\1/')
+		blur_level=1
+
+		while [ $# -gt 0 ]; do
+		    case "$1" in
+			-r | --resolution )
+			    y_res="$2"
+			    shift 2
+			    ;;
+			-b | --blur )
+			    blur_level="$2"
+			    shift 2
+			    ;;
+			*)
+        shift ;;
+		    esac
+		done
+
+		rectangles=" "
+		SR=$(xrandr --query | grep ' connected' | grep -o '[0-9][0-9]*x[0-9][0-9]*[^ ]*')
+		for RES in $SR; do
+			SRA=("${RES//[x+]/ }")
+			CX=$(("${SRA[2]}" + 25))
+			CY=$(("${SRA[1]}" - 30))
+			rectangles+="rectangle $CX,$CY $((CX+300)),$((CY-80)) "
+		done
+
+		# User supplied Image
+		user_image="$CACHE_DIR/user_image.png"
+
+		# create folder
+		if [ ! -d "$CACHE_DIR" ]; then
+			echo "Creating '$CACHE_DIR'"
+			mkdir -p "$CACHE_DIR"
+		fi
+
+		# get random file in dir if passed argument is a dir
+		rec_get_random "$background"
+
+		# get user image
+		cp "$user_input" "$user_image"
+		if [ ! -f "$user_image" ]; then
+			echo "No path to image"
+			exit 1
+		fi
+
+		# replace orignal with user image
+		cp "$user_image" "$ORIGINAL_WALL"
+		rm "$user_image"
+
+		echo "Generating alternate images"
+
+		# wallpapers
+		echo
+		echo "Converting image to resolution"
+		# resize image
+		convert "$ORIGINAL_WALL" -resize "$y_res""^" -gravity center -extent "$y_res" "$RESIZED"
+
+		echo
+		echo "Applying dim and blur"
+		# dim
+		convert "$RESIZED" -fill black -colorize 40% "$DIM"
+
+		# blur
+		blur_shrink=$(echo "scale=2; 20 / $blur_level" | bc)
+		blur_sigma=$(echo "scale=2; 0.6 * $blur_level" | bc)
+		convert "$RESIZED" \
+		    -filter Gaussian \
+		    -resize "$blur_shrink%" \
+		    -define "filter:sigma=$blur_sigma" \
+		    -resize "$y_res^" -gravity center -extent "$y_res" \
+		    "$BLUR"
+
+		# dimblur
+		convert "$DIM" \
+		    -filter Gaussian \
+		    -resize "$blur_shrink%" \
+		    -define "filter:sigma=$blur_sigma" \
+		    -resize "$y_res^" -gravity center -extent "$y_res" \
+		    "$DIMBLUR"
+
+		# lockscreen backgrounds
+
+		echo
+		echo "Caching images"
+		# resized
+    convert "$RESIZED" -draw "fill rgba(0, 0, 0, 0.4) $rectangles" "$LOCK_RESIZED"
+
+		# dim
+		convert "$DIM" -draw "fill rgba(0, 0, 0, 0.4) $rectangles" "$LOCK_DIM"
+
+		# blur
+		convert "$BLUR" -draw "fill rgba(0, 0, 0, 0.4) $rectangles" "$LOCK_BLUR"
+
+		# blur
+		convert "$DIMBLUR" -draw "fill rgba(0, 0, 0, 0.4) $rectangles" "$LOCK_DIM_BLUR"
+		echo
+		echo "Done"
+		;;
+esac
+
