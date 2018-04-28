@@ -9,16 +9,17 @@ import (
 	"os"
 	"os/exec"
 	"os/signal"
-    "path/filepath"
+	"path/filepath"
 	"runtime"
 	"strings"
 	"syscall"
 
 	"github.com/mitchellh/go-homedir"
 	"github.com/sirupsen/logrus"
-	input "github.com/tcnksm/go-input"
+	"github.com/tcnksm/go-input"
 )
 
+// Help banner
 const (
 	BANNER = `
  _____        _    __ _ _  
@@ -38,7 +39,7 @@ var (
 	vrsn  bool
 )
 
-var GITCOMMIT string
+var gitcommit string
 
 func init() {
 	// parse flags
@@ -47,15 +48,15 @@ func init() {
 	flag.BoolVar(&debug, "d", false, "run in debug mode")
 
 	flag.Usage = func() {
-		fmt.Fprint(os.Stderr, fmt.Sprintf(BANNER, GITCOMMIT))
+		fmt.Fprint(os.Stderr, fmt.Sprintf(BANNER, gitcommit))
 		flag.PrintDefaults()
 	}
 
 	flag.Parse()
 
 	if vrsn {
-		fmt.Fprint(os.Stderr, fmt.Sprintf(BANNER, GITCOMMIT))
-        os.Exit(0)
+		fmt.Fprint(os.Stderr, fmt.Sprintf(BANNER, gitcommit))
+		os.Exit(0)
 	}
 
 	if debug {
@@ -76,16 +77,16 @@ func main() {
 	}()
 
 	setupGitConfig()
-    moveDotfiles()
-    setupVim()
+	moveDotfiles()
+	setupVim()
 
-    logrus.Info("install complete")
+	logrus.Info("install complete")
 }
 
 func setupGitConfig() {
 	home, err := homedir.Dir()
 	if err != nil {
-		logrus.Fatalf("could not get home directory %s", err)
+		logrus.Fatalf("could not get home directory %v", err)
 	}
 
 	gcfg := home + "/.gitconfig"
@@ -120,7 +121,7 @@ func setupGitConfig() {
 		if usingGPG {
 			keys, err := runCommand("gpg", "--list-secret-keys", "--keyid-format", "LONG")
 			if err != nil {
-				logrus.Fatalf("could not get GPG keys: %s", err)
+				logrus.Fatalf("could not get GPG keys: %v", err)
 			}
 			logrus.Info(keys.String())
 
@@ -137,7 +138,7 @@ func setupGitConfig() {
 
 		err := copyFile(localFile, gcfg)
 		if err != nil {
-			logrus.Fatalf("could not copy %s to %s: %s", localFile, gcfg, err)
+			logrus.Fatalf("could not copy %s to %s: %v", localFile, gcfg, err)
 		}
 
 		// replace placeholder values
@@ -152,7 +153,7 @@ func setupGitConfig() {
 
 		err = ioutil.WriteFile(gcfg, []byte(new), 0)
 		if err != nil {
-			logrus.Fatalf("could not replace contents of file %s: %s", gcfg, err)
+			logrus.Fatalf("could not replace contents of file %s: %v", gcfg, err)
 		}
 
 		logrus.Info("gitconfig created")
@@ -162,96 +163,96 @@ func setupGitConfig() {
 }
 
 func moveDotfiles() {
-    logrus.Info("installing dotfiles")
+	logrus.Info("installing dotfiles")
 
-    files := getFilesWithExtension(".sym")
+	files := getFilesWithExtension(".sym")
 	home, err := homedir.Dir()
-    if err != nil {
-        logrus.Fatalf("could not get home directory: %s", err)
-    }
+	if err != nil {
+		logrus.Fatalf("could not get home directory: %v", err)
+	}
 
-    for _, f := range files {
-        s := strings.Replace(f, ".sym", "", -1)
-        d := home + "/." + strings.Replace(s, "./", "", -1)
-        abs, err := filepath.Abs(f)
-        if err != nil {
-            logrus.Fatalf("could not get absolute path of %s: %s", f, err)
-        }
-        linkFile(abs, d)
-    }
+	for _, f := range files {
+		s := strings.Replace(f, ".sym", "", -1)
+		d := home + "/." + strings.Replace(s, "./", "", -1)
+		abs, err := filepath.Abs(f)
+		if err != nil {
+			logrus.Fatalf("could not get absolute path of %s: %v", f, err)
+		}
+		linkFile(abs, d)
+	}
 }
 
 func setupVim() {
 }
 
 func linkFile(src, dst string) {
-    skip := false
+	skip := false
 
-    if (fileExists(dst)) {
-        if !isSymlink(dst) {
-            logrus.Infof("file already exists: %s, what to do?", dst)
-            choice := askUser("[s]kip, [o]verwrite, [b]ackup?", &input.Options{
-                Default: "s",
-                Required: true,
-                Loop: true,
-                ValidateFunc: func(s string) error {
-                    if s != "s" && s != "o" && s != "b" {
-                        return fmt.Errorf("answer must be one of: s | o | b")
-                    }
-                    return nil
-                },
-            })
+	if fileExists(dst) {
+		if !isSymlink(dst) {
+			logrus.Infof("file already exists: %s, what to do?", dst)
+			choice := askUser("[s]kip, [o]verwrite, [b]ackup?", &input.Options{
+				Default:  "s",
+				Required: true,
+				Loop:     true,
+				ValidateFunc: func(s string) error {
+					if s != "s" && s != "o" && s != "b" {
+						return fmt.Errorf("answer must be one of: s | o | b")
+					}
+					return nil
+				},
+			})
 
-            switch choice {
-            case "s":
-                logrus.Infof("skipped %s", dst)
-                skip = true
-            case "o":
-                err := os.Remove(dst)
-                if err != nil {
-                    logrus.Fatalf("could not remove %s: %s", dst, err)
-                }
-                logrus.Infof("removed %s", dst)
-            case "b":
-                err := os.Rename(dst, dst + ".backup")
-                if err != nil {
-                    logrus.Fatalf("could not rename %s: %s", dst, err)
-                }
-                logrus.Infof("moved %s to %s.backup", dst, dst)
-            }
-        } else {
-            logrus.Infof("skipped %s", dst)
-            skip = true
-        }
-    }
+			switch choice {
+			case "s":
+				logrus.Infof("skipped %s", dst)
+				skip = true
+			case "o":
+				err := os.Remove(dst)
+				if err != nil {
+					logrus.Fatalf("could not remove %s: %v", dst, err)
+				}
+				logrus.Infof("removed %s", dst)
+			case "b":
+				err := os.Rename(dst, dst+".backup")
+				if err != nil {
+					logrus.Fatalf("could not rename %s: %v", dst, err)
+				}
+				logrus.Infof("moved %s to %s.backup", dst, dst)
+			}
+		} else {
+			logrus.Infof("skipped %s", dst)
+			skip = true
+		}
+	}
 
-    if (!skip) {
-        logrus.Debugf("symlinking %s to %s", src, dst)
-        err := os.Symlink(src, dst)
-        if err != nil {
-            logrus.Fatalf("failed to symlink %s to %s: %s", src, dst, err)
-        }
-        logrus.Infof("linked %s to %s", src, dst)
-    }
+	if !skip {
+		logrus.Debugf("symlinking %s to %s", src, dst)
+		err := os.Symlink(src, dst)
+		if err != nil {
+			logrus.Fatalf("failed to symlink %s to %s: %v", src, dst, err)
+		}
+		logrus.Infof("linked %s to %s", src, dst)
+	}
 }
 
 func getFilesWithExtension(ext string) []string {
-    path, err := os.Getwd()
-    if err != nil {
-        logrus.Fatalf("could not get current working dir: %s", err)
-    }
+	path, err := os.Getwd()
+	if err != nil {
+		logrus.Fatalf("could not get current working dir: %v", err)
+	}
 
-    var files []string
-    filepath.Walk(path, func(p string, f os.FileInfo, _ error) error {
-        if filepath.Ext(p) == ext && !strings.Contains(f.Name(), "git") {
-            if (!strings.Contains(f.Name(), "%")) {
-                files = append(files, "./"+f.Name())
-            }
-        }
-        return nil
-    })
+	var files []string
+	filepath.Walk(path, func(p string, f os.FileInfo, _ error) error {
+		if filepath.Ext(p) == ext && !strings.Contains(f.Name(), "git") {
+			if !strings.Contains(f.Name(), "%") {
+				files = append(files, "./"+f.Name())
+			}
+		}
+		return nil
+	})
 
-    return files
+	return files
 }
 
 func fileExists(f string) bool {
@@ -260,11 +261,11 @@ func fileExists(f string) bool {
 }
 
 func isSymlink(f string) bool {
-    b, err := os.Lstat(f)
-    if err != nil {
-        logrus.Fatalf("could not determine whether or not %s is a symlink: %s", f, err)
-    }
-    return b.Mode() & os.ModeSymlink == os.ModeSymlink
+	b, err := os.Lstat(f)
+	if err != nil {
+		logrus.Fatalf("could not determine whether or not %s is a symlink: %v", f, err)
+	}
+	return b.Mode()&os.ModeSymlink == os.ModeSymlink
 }
 
 func askUser(query string, opt *input.Options) string {
@@ -272,7 +273,7 @@ func askUser(query string, opt *input.Options) string {
 
 	o, err := ui.Ask(query, opt)
 	if err != nil {
-		logrus.Fatalf("error while asking %s, %s", query, err)
+		logrus.Fatalf("error while asking %s, %v", query, err)
 	}
 
 	return o
