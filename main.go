@@ -160,14 +160,76 @@ func setupGitConfig() {
 
 func moveDotfiles() {
     logrus.Info("installing dotfiles")
-    //overwrite := false
-    //backup := false
-    //skip := false
 
-    checkExtension(".sym")
+    files := getFilesWithExtension(".sym")
+	home, err := homedir.Dir()
+    if err != nil {
+        logrus.Fatalf("could not get home directory: %s", err)
+    }
+
+    for _, f := range files {
+        s := strings.Replace(f, ".sym", "", -1)
+        d := home + "/." + strings.Replace(s, "./", "", -1)
+        abs, err := filepath.Abs(f)
+        if err != nil {
+            logrus.Fatalf("could not get absolute path of %s: %s", f, err)
+        }
+        linkFile(abs, d)
+    }
 }
 
-func checkExtension(ext string) []string {
+func linkFile(src, dst string) {
+    skip := false
+
+    if (fileExists(dst)) {
+        if !isSymlink(dst) {
+            logrus.Infof("file already exists: %s, what to do?", dst)
+            choice := askUser("[s]kip, [o]verwrite, [b]ackup?", &input.Options{
+                Default: "s",
+                Required: true,
+                Loop: true,
+                ValidateFunc: func(s string) error {
+                    if s != "s" && s != "o" && s != "b" {
+                        return fmt.Errorf("answer must be one of: s | o | b")
+                    }
+                    return nil
+                },
+            })
+
+            switch choice {
+            case "s":
+                logrus.Infof("skipped %s", dst)
+                skip = true
+            case "o":
+                err := os.Remove(dst)
+                if err != nil {
+                    logrus.Fatalf("could not remove %s: %s", dst, err)
+                }
+                logrus.Infof("removed %s", dst)
+            case "b":
+                err := os.Rename(dst, dst + ".backup")
+                if err != nil {
+                    logrus.Fatalf("could not rename %s: %s", dst, err)
+                }
+                logrus.Infof("moved %s to %s.backup", dst, dst)
+            }
+        } else {
+            logrus.Infof("skipped %s", dst)
+            skip = true
+        }
+    }
+
+    if (!skip) {
+        logrus.Debugf("symlinking %s to %s", src, dst)
+        err := os.Symlink(src, dst)
+        if err != nil {
+            logrus.Fatalf("failed to symlink %s to %s: %s", src, dst, err)
+        }
+        logrus.Infof("linked %s to %s", src, dst)
+    }
+}
+
+func getFilesWithExtension(ext string) []string {
     path, err := os.Getwd()
     if err != nil {
         logrus.Fatalf("could not get current working dir: %s", err)
@@ -175,15 +237,13 @@ func checkExtension(ext string) []string {
 
     var files []string
     filepath.Walk(path, func(p string, f os.FileInfo, _ error) error {
-        if filepath.Ext(p) == ext {
-            files = append(files, f.Name())
+        if filepath.Ext(p) == ext && !strings.Contains(f.Name(), "git") {
+            if (!strings.Contains(f.Name(), "%")) {
+                files = append(files, "./"+f.Name())
+            }
         }
         return nil
     })
-
-    for _, file := range files {
-        fmt.Println(file)
-    }
 
     return files
 }
@@ -191,6 +251,14 @@ func checkExtension(ext string) []string {
 func fileExists(f string) bool {
 	_, err := os.Stat(f)
 	return !os.IsNotExist(err)
+}
+
+func isSymlink(f string) bool {
+    b, err := os.Lstat(f)
+    if err != nil {
+        logrus.Fatalf("could not determine whether or not %s is a symlink: %s", f, err)
+    }
+    return b.Mode() & os.ModeSymlink == os.ModeSymlink
 }
 
 func askUser(query string, opt *input.Options) string {
