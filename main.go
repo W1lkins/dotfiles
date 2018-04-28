@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	"flag"
 	"fmt"
 	"io"
@@ -65,6 +64,10 @@ func init() {
 }
 
 func main() {
+	format := new(logrus.TextFormatter)
+	format.DisableTimestamp = true
+	logrus.SetFormatter(format)
+
 	// handle exit
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, os.Interrupt)
@@ -84,6 +87,11 @@ func main() {
 }
 
 func setupGitConfig() {
+	wd, err := os.Getwd()
+	if err != nil {
+		logrus.Fatalf("could not get working directory %v", err)
+	}
+
 	home, err := homedir.Dir()
 	if err != nil {
 		logrus.Fatalf("could not get home directory %v", err)
@@ -119,12 +127,7 @@ func setupGitConfig() {
 
 		var key string
 		if usingGPG {
-			keys, err := runCommand("gpg", "--list-secret-keys", "--keyid-format", "LONG")
-			if err != nil {
-				logrus.Fatalf("could not get GPG keys: %v", err)
-			}
-			logrus.Info(keys.String())
-
+			runCommand(wd, "gpg", "--list-secret-keys", "--keyid-format", "LONG")
 			key = askUser("Which key?", &input.Options{
 				Required: true,
 				Loop:     true,
@@ -183,6 +186,16 @@ func moveDotfiles() {
 }
 
 func setupVim() {
+	logrus.Info("setting up vim")
+	runCommand("./vim.sym", "vim", "+PlugInstall", "+qa")
+	logrus.Info("plugins installed")
+
+	if !fileExists("vim.sym/bundle/command-t/ruby/command-t/ext/command-t/ext.bundle") {
+		logrus.Info("setting up command-t")
+		runCommand("./vim.sym/bundle/command-t", "rake", "make")
+	}
+
+	logrus.Info("vim setup complete")
 }
 
 func linkFile(src, dst string) {
@@ -279,20 +292,17 @@ func askUser(query string, opt *input.Options) string {
 	return o
 }
 
-func runCommand(command string, args ...string) (bytes.Buffer, error) {
+func runCommand(dir string, command string, args ...string) {
 	cmd := exec.Command(command, args...)
 	cmd.Stdin = os.Stdin
 	cmd.Stderr = os.Stderr
+	cmd.Stdout = os.Stdout
 
-	var out bytes.Buffer
-	cmd.Stdout = &out
-
+	cmd.Dir = dir
 	err := cmd.Run()
 	if err != nil {
-		return out, err
+		logrus.Fatalf("could not run command %s in dir %s: %v", command, dir, err)
 	}
-
-	return out, nil
 }
 
 func copyFile(src, dst string) error {
