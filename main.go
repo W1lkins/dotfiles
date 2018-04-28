@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"os/signal"
+    "path/filepath"
 	"runtime"
 	"strings"
 	"syscall"
@@ -20,7 +21,12 @@ import (
 
 const (
 	BANNER = `
-blaat
+ _____        _    __ _ _  
+|  __ \      | |  / _(_) |  
+| |  | | ___ | |_| |_ _| | ___  ___  
+| |  | |/ _ \| __|  _| | |/ _ \/ __|  
+| |__| | (_) | |_| | | | |  __/\__ \  
+|_____/ \___/ \__|_| |_|_|\___||___/  
 
 Set up dotfiles for the current system
 Build: %s
@@ -48,7 +54,8 @@ func init() {
 	flag.Parse()
 
 	if vrsn {
-		fmt.Printf("dotfiles, build %s", GITCOMMIT)
+		fmt.Fprint(os.Stderr, fmt.Sprintf(BANNER, GITCOMMIT))
+        os.Exit(0)
 	}
 
 	if debug {
@@ -63,23 +70,24 @@ func main() {
 	signal.Notify(c, syscall.SIGTERM)
 	go func() {
 		for s := range c {
-			logrus.Infof("Received %s, exiting.", s.String())
+			logrus.Infof("received %s, exiting.", s.String())
 			os.Exit(0)
 		}
 	}()
 
 	setupGitConfig()
+    moveDotfiles()
 }
 
 func setupGitConfig() {
 	home, err := homedir.Dir()
 	if err != nil {
-		logrus.Fatalf("Could not get home directory %s", err)
+		logrus.Fatalf("could not get home directory %s", err)
 	}
 
 	gcfg := home + "/.gitconfig"
 	if !fileExists(gcfg) {
-		logrus.Info("Setting up gitconfig")
+		logrus.Info("setting up gitconfig")
 		store := "cache"
 		if runtime.GOOS == "darwin" {
 			store = "osxkeychain"
@@ -109,7 +117,7 @@ func setupGitConfig() {
 		if usingGPG {
 			keys, err := runCommand("gpg", "--list-secret-keys", "--keyid-format", "LONG")
 			if err != nil {
-				logrus.Fatalf("Could not get GPG keys: %s", err)
+				logrus.Fatalf("could not get GPG keys: %s", err)
 			}
 			logrus.Info(keys.String())
 
@@ -121,12 +129,12 @@ func setupGitConfig() {
 
 		localFile := "./git/gitconfig"
 		if !fileExists("./git/gitconfig") {
-			logrus.Fatal("Could not find ./git/gitconfig")
+			logrus.Fatal("could not find ./git/gitconfig")
 		}
 
 		err := copyFile(localFile, gcfg)
 		if err != nil {
-			logrus.Fatalf("Could not copy %s to %s: %s", localFile, gcfg, err)
+			logrus.Fatalf("could not copy %s to %s: %s", localFile, gcfg, err)
 		}
 
 		// replace placeholder values
@@ -141,13 +149,43 @@ func setupGitConfig() {
 
 		err = ioutil.WriteFile(gcfg, []byte(new), 0)
 		if err != nil {
-			logrus.Fatalf("Could not replace contents of file %s: %s", gcfg, err)
+			logrus.Fatalf("could not replace contents of file %s: %s", gcfg, err)
 		}
 
 		logrus.Info("gitconfig created")
 	} else {
 		logrus.Info("skipped gitconfig")
 	}
+}
+
+func moveDotfiles() {
+    logrus.Info("installing dotfiles")
+    //overwrite := false
+    //backup := false
+    //skip := false
+
+    checkExtension(".sym")
+}
+
+func checkExtension(ext string) []string {
+    path, err := os.Getwd()
+    if err != nil {
+        logrus.Fatalf("could not get current working dir: %s", err)
+    }
+
+    var files []string
+    filepath.Walk(path, func(p string, f os.FileInfo, _ error) error {
+        if filepath.Ext(p) == ext {
+            files = append(files, f.Name())
+        }
+        return nil
+    })
+
+    for _, file := range files {
+        fmt.Println(file)
+    }
+
+    return files
 }
 
 func fileExists(f string) bool {
@@ -160,7 +198,7 @@ func askUser(query string, opt *input.Options) string {
 
 	o, err := ui.Ask(query, opt)
 	if err != nil {
-		logrus.Fatalf("Error while asking %s, %s", query, err)
+		logrus.Fatalf("error while asking %s, %s", query, err)
 	}
 
 	return o
