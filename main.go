@@ -77,6 +77,9 @@ func main() {
 
 	setupGitConfig()
     moveDotfiles()
+    setupVim()
+
+    logrus.Info("install complete")
 }
 
 func setupGitConfig() {
@@ -176,6 +179,9 @@ func moveDotfiles() {
         }
         linkFile(abs, d)
     }
+}
+
+func setupVim() {
 }
 
 func linkFile(src, dst string) {
