@@ -149,6 +149,9 @@ func setupGitConfig() {
 
 		// replace placeholder values
 		read, err := ioutil.ReadFile(gcfg)
+        if err != nil {
+            logrus.Fatalf("could not read file %s: %v", gcfg, err)
+        }
 		new := strings.Replace(string(read), "AUTHORNAME", name, -1)
 		new = strings.Replace(new, "AUTHOREMAIL", email, -1)
 		new = strings.Replace(new, "GIT_CREDENTIAL_HELPER", store, -1)
@@ -157,7 +160,7 @@ func setupGitConfig() {
 			new = strings.Replace(new, "gpgsign = false", "gpgsign = true", -1)
 		}
 
-		err = ioutil.WriteFile(gcfg, []byte(new), 0)
+        err = ioutil.WriteFile(gcfg, []byte(new), 0)
 		if err != nil {
 			logrus.Fatalf("could not replace contents of file %s: %v", gcfg, err)
 		}
