@@ -127,10 +127,10 @@ func setupGitConfig() {
 
 		var key string
 		if usingGPG {
-            err := runCommand(wd, "gpg", "--list-secret-keys", "--keyid-format", "LONG")
-            if err != nil {
-                logrus.Fatalf("could not list gpg secret keys: %v", err)
-            }
+			err := runCommand(wd, "gpg", "--list-secret-keys", "--keyid-format", "LONG")
+			if err != nil {
+				logrus.Fatalf("could not list gpg secret keys: %v", err)
+			}
 			key = askUser("Which key?", &input.Options{
 				Required: true,
 				Loop:     true,
@@ -149,9 +149,9 @@ func setupGitConfig() {
 
 		// replace placeholder values
 		read, err := ioutil.ReadFile(gcfg)
-        if err != nil {
-            logrus.Fatalf("could not read file %s: %v", gcfg, err)
-        }
+		if err != nil {
+			logrus.Fatalf("could not read file %s: %v", gcfg, err)
+		}
 		new := strings.Replace(string(read), "AUTHORNAME", name, -1)
 		new = strings.Replace(new, "AUTHOREMAIL", email, -1)
 		new = strings.Replace(new, "GIT_CREDENTIAL_HELPER", store, -1)
@@ -160,7 +160,7 @@ func setupGitConfig() {
 			new = strings.Replace(new, "gpgsign = false", "gpgsign = true", -1)
 		}
 
-        err = ioutil.WriteFile(gcfg, []byte(new), 0)
+		err = ioutil.WriteFile(gcfg, []byte(new), 0)
 		if err != nil {
 			logrus.Fatalf("could not replace contents of file %s: %v", gcfg, err)
 		}
@@ -193,16 +193,16 @@ func moveDotfiles() {
 
 func setupVim() {
 	logrus.Info("setting up vim")
-    err := runCommand("./vim.sym", "vim", "+PlugInstall", "+qa")
-    if err != nil {
-        logrus.Fatalf("could not run PlugInstall: %v", err)
-    }
+	err := runCommand("./vim.sym", "vim", "+PlugInstall", "+qa")
+	if err != nil {
+		logrus.Fatalf("could not run PlugInstall: %v", err)
+	}
 	logrus.Info("plugins installed")
 
 	if !fileExists("vim.sym/bundle/command-t/ruby/command-t/ext/command-t/ext.bundle") {
 		logrus.Info("setting up command-t")
-        // we don't care if this fails
-        _ = runCommand("./vim.sym/bundle/command-t", "rake", "make")
+		// we don't care if this fails
+		_ = runCommand("./vim.sym/bundle/command-t", "rake", "make")
 	}
 
 	logrus.Info("vim setup complete")
@@ -212,40 +212,39 @@ func linkFile(src, dst string) {
 	skip := false
 
 	if fileExists(dst) {
-		if !isSymlink(dst) {
-			logrus.Infof("file already exists: %s, what to do?", dst)
-			choice := askUser("[s]kip, [o]verwrite, [b]ackup?", &input.Options{
-				Default:  "s",
-				Required: true,
-				Loop:     true,
-				ValidateFunc: func(s string) error {
-					if s != "s" && s != "o" && s != "b" {
-						return fmt.Errorf("answer must be one of: s | o | b")
-					}
-					return nil
-				},
-			})
+		if isSymlink(dst) {
+			logrus.Infof("skipped %s", dst)
+			return
+		}
+		logrus.Infof("file already exists: %s, what to do?", dst)
+		choice := askUser("[s]kip, [o]verwrite, [b]ackup?", &input.Options{
+			Default:  "s",
+			Required: true,
+			Loop:     true,
+			ValidateFunc: func(s string) error {
+				if s != "s" && s != "o" && s != "b" {
+					return fmt.Errorf("answer must be one of: s | o | b")
+				}
+				return nil
+			},
+		})
 
-			switch choice {
-			case "s":
-				logrus.Infof("skipped %s", dst)
-				skip = true
-			case "o":
-				err := os.Remove(dst)
-				if err != nil {
-					logrus.Fatalf("could not remove %s: %v", dst, err)
-				}
-				logrus.Infof("removed %s", dst)
-			case "b":
-				err := os.Rename(dst, dst+".backup")
-				if err != nil {
-					logrus.Fatalf("could not rename %s: %v", dst, err)
-				}
-				logrus.Infof("moved %s to %s.backup", dst, dst)
-			}
-		} else {
+		switch choice {
+		case "s":
 			logrus.Infof("skipped %s", dst)
 			skip = true
+		case "o":
+			err := os.Remove(dst)
+			if err != nil {
+				logrus.Fatalf("could not remove %s: %v", dst, err)
+			}
+			logrus.Infof("removed %s", dst)
+		case "b":
+			err := os.Rename(dst, dst+".backup")
+			if err != nil {
+				logrus.Fatalf("could not rename %s: %v", dst, err)
+			}
+			logrus.Infof("moved %s to %s.backup", dst, dst)
 		}
 	}
 
@@ -311,10 +310,10 @@ func runCommand(dir string, command string, args ...string) error {
 	cmd.Dir = dir
 	err := cmd.Run()
 	if err != nil {
-        return err
+		return err
 	}
 
-    return nil
+	return nil
 }
 
 func copyFile(src, dst string) error {

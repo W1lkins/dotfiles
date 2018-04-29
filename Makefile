@@ -57,7 +57,7 @@ build: $(NAME) ## builds a dynamic exe
 
 $(NAME): $(MAIN)
 	@echo "+ $@"
-	go build -tags "$(BUILDTAGS)" ${GO_LDFLAGS} .
+	@go build -tags "$(BUILDTAGS)" ${GO_LDFLAGS} .
 
 .PHONY: static
 static: ## build a static executable
