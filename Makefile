@@ -35,12 +35,17 @@ ARCH := linux/amd64 darwin/amd64 linux/arm64
 
 # Golang {{{
 
-all: clean update build setup ## runs a clean, build, fmt, lint, test, staticcheck, vet and install
+all: clean update deps build setup ## runs a clean, update, build, and setup
 
 .PHONY: update ## update from Github
 update:
 	@echo "+ $@"
 	@git pull origin master
+
+.PHONY: deps ## install golang deps
+deps:
+	@echo "+ $@"
+	@go get github.com/mitchellh/go-homedir github.com/sirupsen/logrus github.com/tcnksm/go-input
 
 .PHONY: setup ## run the dotfile install script
 setup:
