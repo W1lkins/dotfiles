@@ -1,11 +1,20 @@
 ---
-  sudo: required
+  language: go
+  sudo: true
   notifications:
-    email: true
-  services:
-    - docker
+    emai: true
+  go:
+    - 1.x
+    - tip
+  matrix:
+    allow_failures:
+      - go: tip
+    fast_finish: true
+  install:
+    - go get -u -v github.com/golang/lint/golint honnef.co/go/tools/cmd/staticcheck github.com/mitchellh/go-homedir github.com/sirupsen/logrus github.com/tcnksm/go-input
   script:
-    - make test
-  git:
-    submodules: false
-
+    - go build -v
+    - go vet main.go
+    - staticcheck main.go
+    - golint -set_exit_status main.go
+    - go test -v
