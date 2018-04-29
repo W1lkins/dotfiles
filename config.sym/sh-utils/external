@@ -30,3 +30,6 @@ if type gpgconf &> /dev/null; then
   GPG_TTY="$(tty)"; export GPG_TTY; SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket); export SSH_AUTH_SOCK; gpgconf --launch gpg-agent
 fi
 
+# travis
+[ -f "$HOME"/.travis/travis.sh ] && source "$HOME"/.travis/travis.sh
+

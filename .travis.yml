@@ -18,3 +18,21 @@
     - staticcheck main.go
     - golint -set_exit_status main.go
     - go test -v
+    - make release
+  deploy:
+    provider: releases
+    api_key:
+      secure: "OvyAvxtvMTFAm0hFaRpevBtmkGwPV2Z6rFecJWmbjV9QzZR65KiMtccprz+oI8SmZgrXmsA9n6xG8mUqcxZrYa/GRFprkWyOQJ+Eq9gI8BdtwIosywHOZhc8dMm9TCPkejvBDHKVkqgD2MzeQgmnsmXQbXzZIS6UDI5lAvR5cxPZ3l9o1r9h9S7pwFN3IHgjDIAhuLA/Qjeb/JYzeqKwK/pe83Vkwo4vdufUkjb2O6GMHWeUFj91HYklNX94EqrTu90RfMjBvoH1EWsYptbpidK1qf0UXwtxTAOs3AvJvHAzyKv371WyP6TVl0TET9+Do0ZUHIWo1078lMUjkycVFhoRh3YsIJQhFjofd3p/Yhuj3wNQwnWkDqFTmfCsxyPeOZZ4NiQhxHVSN9VKCBxXEnxiappU6rqVpR8WEqEZXQ3H5jQAW9BEmkEPM9Ze1osrwuqPXLZ0AMpn1EHHyFguW2JygoATjtPO0qzQ+krWevKhHY5y5sVZsR/qPhKnPI8/lEW+NJTTkYXyQIPdUDNQQS3NkFQcP9GDeq+Ygh2EqQyn3mZi5DKo5Q8wEhLpGVPBlrsR/+AjIGA+IkqzBFzN25oRPIFdT4nM4N/zj4aKjVb7eLDtJ08NbMhYfbyOZCAMlbOHCbiBtYQjbzu8sHE7vv2bvcP4lSP4ytMNw8Vfx78="
+    file:
+      - cross/dotfiles-linux-amd64
+      - cross/dotfiles-linux-amd64.md5
+      - cross/dotfiles-linux-amd64.sha256
+      - cross/dotfiles-darwin-amd64
+      - cross/dotfiles-darwin-amd64.md5
+      - cross/dotfiles-darwin-amd64.sha256
+      - cross/dotfiles-linux-arm64
+      - cross/dotfiles-linux-arm64.md5
+      - cross/dotfiles-linux-arm64.sha256
+    skip_cleanup: true
+    on:
+      tags: true
