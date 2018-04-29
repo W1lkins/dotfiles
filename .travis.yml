@@ -2,7 +2,7 @@
   language: go
   sudo: true
   notifications:
-    emai: true
+    email: true
   go:
     - 1.x
     - tip
@@ -22,7 +22,7 @@
   deploy:
     provider: releases
     api_key:
-      secure: "OvyAvxtvMTFAm0hFaRpevBtmkGwPV2Z6rFecJWmbjV9QzZR65KiMtccprz+oI8SmZgrXmsA9n6xG8mUqcxZrYa/GRFprkWyOQJ+Eq9gI8BdtwIosywHOZhc8dMm9TCPkejvBDHKVkqgD2MzeQgmnsmXQbXzZIS6UDI5lAvR5cxPZ3l9o1r9h9S7pwFN3IHgjDIAhuLA/Qjeb/JYzeqKwK/pe83Vkwo4vdufUkjb2O6GMHWeUFj91HYklNX94EqrTu90RfMjBvoH1EWsYptbpidK1qf0UXwtxTAOs3AvJvHAzyKv371WyP6TVl0TET9+Do0ZUHIWo1078lMUjkycVFhoRh3YsIJQhFjofd3p/Yhuj3wNQwnWkDqFTmfCsxyPeOZZ4NiQhxHVSN9VKCBxXEnxiappU6rqVpR8WEqEZXQ3H5jQAW9BEmkEPM9Ze1osrwuqPXLZ0AMpn1EHHyFguW2JygoATjtPO0qzQ+krWevKhHY5y5sVZsR/qPhKnPI8/lEW+NJTTkYXyQIPdUDNQQS3NkFQcP9GDeq+Ygh2EqQyn3mZi5DKo5Q8wEhLpGVPBlrsR/+AjIGA+IkqzBFzN25oRPIFdT4nM4N/zj4aKjVb7eLDtJ08NbMhYfbyOZCAMlbOHCbiBtYQjbzu8sHE7vv2bvcP4lSP4ytMNw8Vfx78="
+      secure: "jYQtPCx9jWEL8DBI/SWuW2eqJgqMw8h/3iWgljtu61DD1+D4E6+brBDLS+VkVyoyZcO9lojx1EBlbCr6xCSFATZQRIFhGxCdipt6qwtdJWQO6i5Y/+W18dBcJg4hjj4JNzagQlZzwAPSylHqq37astv/1HbIeJ9+OtY7yDHcEbVpjdYRnqVauu1VRNBNaZwHcrbKocYddl74cXHC9Qq2BJ5j774FmP8IxOX5hMdiI1anWAUG5JFexE783OIE3qQITK2vB4Gjs83XFtAQrsyNIdhRPMvlXhMtjfSzobN82QKm5BY//qfKYEBoZg4OJf3yX1SKtOS6fYDeBSns6OGwffMcyqoGcNKoVywddnAaU8Ey71VDf0a2GlzYhaykosF2UzNoJRNtYF80cHbaTH+5ioEr4xp/k6R5vNsA3hq1Q3ICjFuUi86b9GdydpIl881eluTXYQJmfySMMeT1lFihcEtRZNsH5axmE3zvq8sV+dfXez/3u8t+xMjWKV8IofjTxdhaR0aKT7Ex8iBVSz7lZeAH+jB3X4U0MEpHCIPHUiB92lAQrfAMdCfs87OPcuQxhaacVcRfeE6yDOuaJbnIsv/Rj8YlPLWVAmPu5oOAX29pAnae3ZlbIBNRGSxEZAlLzoUkDne5oxBuutqJKsr88KzDg0HKwGfPFrKrFycQXec="
     file:
       - cross/dotfiles-linux-amd64
       - cross/dotfiles-linux-amd64.md5
