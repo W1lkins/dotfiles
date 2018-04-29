@@ -127,7 +127,10 @@ func setupGitConfig() {
 
 		var key string
 		if usingGPG {
-			runCommand(wd, "gpg", "--list-secret-keys", "--keyid-format", "LONG")
+            err := runCommand(wd, "gpg", "--list-secret-keys", "--keyid-format", "LONG")
+            if err != nil {
+                logrus.Fatalf("could not list gpg secret keys: %v", err)
+            }
 			key = askUser("Which key?", &input.Options{
 				Required: true,
 				Loop:     true,
@@ -187,12 +190,16 @@ func moveDotfiles() {
 
 func setupVim() {
 	logrus.Info("setting up vim")
-	runCommand("./vim.sym", "vim", "+PlugInstall", "+qa")
+    err := runCommand("./vim.sym", "vim", "+PlugInstall", "+qa")
+    if err != nil {
+        logrus.Fatalf("could not run PlugInstall: %v", err)
+    }
 	logrus.Info("plugins installed")
 
 	if !fileExists("vim.sym/bundle/command-t/ruby/command-t/ext/command-t/ext.bundle") {
 		logrus.Info("setting up command-t")
-		runCommand("./vim.sym/bundle/command-t", "rake", "make")
+        // we don't care if this fails
+        _ = runCommand("./vim.sym/bundle/command-t", "rake", "make")
 	}
 
 	logrus.Info("vim setup complete")
@@ -292,7 +299,7 @@ func askUser(query string, opt *input.Options) string {
 	return o
 }
 
-func runCommand(dir string, command string, args ...string) {
+func runCommand(dir string, command string, args ...string) error {
 	cmd := exec.Command(command, args...)
 	cmd.Stdin = os.Stdin
 	cmd.Stderr = os.Stderr
@@ -301,8 +308,10 @@ func runCommand(dir string, command string, args ...string) {
 	cmd.Dir = dir
 	err := cmd.Run()
 	if err != nil {
-		logrus.Fatalf("could not run command %s in dir %s: %v", command, dir, err)
+        return err
 	}
+
+    return nil
 }
 
 func copyFile(src, dst string) error {
