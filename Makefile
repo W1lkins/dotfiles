@@ -9,7 +9,7 @@ DSTART=$(DOCKERCMD) start
 DSTOP=$(DOCKERCMD) stop
 GITCMD=git
 GITPULL=$(GITCMD) pull
-LINT=perl -cw bootstrap.pl
+LINT=golint -set_exit_status main.go 
 SHELLCHECK=./scripts.sym/testscripts
 
 .PHONY: all
