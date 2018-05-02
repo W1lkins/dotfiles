@@ -44,3 +44,8 @@ docker-remove-all() {
   docker rm "$(docker ps -a -q)"
 }
 
+# docker ps output
+dps() {
+  docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}'
+}
+
