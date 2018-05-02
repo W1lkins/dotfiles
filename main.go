@@ -175,6 +175,9 @@ func moveDotfiles() {
 	logrus.Info("installing dotfiles")
 
 	files := getFilesWithExtension(".sym")
+	if len(files) == 0 {
+		logrus.Fatalf("Found no files with .sym extension")
+	}
 	home, err := homedir.Dir()
 	if err != nil {
 		logrus.Fatalf("could not get home directory: %v", err)
