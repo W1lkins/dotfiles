@@ -11,3 +11,4 @@ gogo() {
 gopath() {
   cd "$GOPATH" || return
 }
+

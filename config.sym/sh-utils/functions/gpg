@@ -1,0 +1,27 @@
+#!/bin/bash
+
+# restart gpg-agent
+resgpg() {
+  sudo killall gpg-agent && gpg-connect-agent reloadagent /bye
+}
+
+# list gpg keys
+glk() {
+  gpg --list-keys
+}
+
+# list secret gpg keys
+glsk() {
+  gpg --list-secret-keys
+}
+
+# encrypt with gpg
+gencrypt() {
+  gpg -r W1lkins -e "$1"
+}
+
+# decrypt with gpg
+gdecrypt() {
+  gpg -d "$1"
+}
+

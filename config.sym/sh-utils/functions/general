@@ -276,21 +276,6 @@ watchkern() {
   watch -n1 'dmesg | tail'
 }
 
-# restart gpg-agent
-resgpg() {
-  sudo killall gpg-agent && gpg-connect-agent reloadagent /bye
-}
-
-# list gpg keys
-glk() {
-  gpg --list-keys
-}
-
-# list secret gpg keys
-glsk() {
-  gpg --list-secret-keys
-}
-
 # show terminal colors
 tcolors() {
   for i in {0..255};
