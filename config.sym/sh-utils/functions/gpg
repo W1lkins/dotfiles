@@ -25,3 +25,8 @@ gdecrypt() {
   gpg -d "$1"
 }
 
+# import keys
+gimport() {
+  gpg --allow-secret-key-import --import "$1"
+}
+
