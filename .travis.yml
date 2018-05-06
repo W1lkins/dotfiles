@@ -24,12 +24,15 @@
     api_key:
       secure: "jYQtPCx9jWEL8DBI/SWuW2eqJgqMw8h/3iWgljtu61DD1+D4E6+brBDLS+VkVyoyZcO9lojx1EBlbCr6xCSFATZQRIFhGxCdipt6qwtdJWQO6i5Y/+W18dBcJg4hjj4JNzagQlZzwAPSylHqq37astv/1HbIeJ9+OtY7yDHcEbVpjdYRnqVauu1VRNBNaZwHcrbKocYddl74cXHC9Qq2BJ5j774FmP8IxOX5hMdiI1anWAUG5JFexE783OIE3qQITK2vB4Gjs83XFtAQrsyNIdhRPMvlXhMtjfSzobN82QKm5BY//qfKYEBoZg4OJf3yX1SKtOS6fYDeBSns6OGwffMcyqoGcNKoVywddnAaU8Ey71VDf0a2GlzYhaykosF2UzNoJRNtYF80cHbaTH+5ioEr4xp/k6R5vNsA3hq1Q3ICjFuUi86b9GdydpIl881eluTXYQJmfySMMeT1lFihcEtRZNsH5axmE3zvq8sV+dfXez/3u8t+xMjWKV8IofjTxdhaR0aKT7Ex8iBVSz7lZeAH+jB3X4U0MEpHCIPHUiB92lAQrfAMdCfs87OPcuQxhaacVcRfeE6yDOuaJbnIsv/Rj8YlPLWVAmPu5oOAX29pAnae3ZlbIBNRGSxEZAlLzoUkDne5oxBuutqJKsr88KzDg0HKwGfPFrKrFycQXec="
     file:
-      - cross/dotfiles-linux-amd64
-      - cross/dotfiles-linux-amd64.md5
-      - cross/dotfiles-linux-amd64.sha256
       - cross/dotfiles-darwin-amd64
       - cross/dotfiles-darwin-amd64.md5
       - cross/dotfiles-darwin-amd64.sha256
+      - cross/dotfiles-linux-amd64
+      - cross/dotfiles-linux-amd64.md5
+      - cross/dotfiles-linux-amd64.sha256
+      - cross/dotfiles-linux-arm
+      - cross/dotfiles-linux-arm.md5
+      - cross/dotfiles-linux-arm.sha256
       - cross/dotfiles-linux-arm64
       - cross/dotfiles-linux-arm64.md5
       - cross/dotfiles-linux-arm64.sha256

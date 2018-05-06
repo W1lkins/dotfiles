@@ -18,7 +18,7 @@ BUILDTAGS :=
 BUILDDIR := ${PREFIX}/cross
 
 # compile time
-VERSION := "0.1.1"
+VERSION := "0.1.2"
 GITCOMMIT := $(shell git rev-parse --short HEAD)
 GITUNTRACKED := $(shell git status --porcelain --untracked-files=no)
 ifneq ($(GITUNTRACKEDCHANGES),)
@@ -29,7 +29,7 @@ GO_LDFLAGS=-ldflags "-w $(CTIME)"
 GO_LDFLAGS_STATIC=-ldflags "-w $(CTIMEVAR) -extldflags -static"
 
 # architecture
-ARCH := linux/amd64 darwin/amd64 linux/arm64
+ARCH := darwin/amd64 linux/amd64 linux/arm linux/arm64
 
 # }}}
 
@@ -110,7 +110,7 @@ release: $(MAIN) ## build cross-compiled binaries binary-GOOS-GOARCH
 
 .PHONY: tag
 tag: ## create a new tag for releasing
-	git tag -a $(VERSION) -m "$(VERSION)"
+	git tag -a $(VERSION)
 	@echo "Tag created. Run git push origin $(VERSION)"
 
 .PHONY: clean
