@@ -160,6 +160,7 @@ let g:vimwiki_list = [{'path':'~/.wiki/', 'path_html':'~/.wiki/html/'}]
 " }}}
 Plug 'cespare/vim-toml'
 Plug 'majutsushi/tagbar'
+Plug 'buoto/gotests-vim'
 
 call plug#end()
 
