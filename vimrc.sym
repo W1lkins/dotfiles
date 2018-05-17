@@ -630,10 +630,10 @@ nnoremap th :tabp<cr>
 " Buffers {{{
 
 " close currently open buffer
-map <leader>bd :bd<cr>
+noremap <leader>bd :bd<cr>
 
 " Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+noremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " mappings for switching buffer via `Ngb` where N 1-99
 let c = 1
@@ -643,9 +643,8 @@ while c <= 99
 endwhile
 
 " Ctrl-N/P for next/previous buffer
-nnoremap <C-N> :bnext<cr>
-nnoremap <C-P> :bprev<cr>
-
+noremap <C-N> :bnext<cr>
+noremap <C-P> :bprev<cr>
 
 " }}}
 
