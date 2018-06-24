@@ -43,11 +43,8 @@ let g:bufExplorerSortBy='name'
 " explore the buffers with ,o
 map <leader>o :BufExplorer<cr>
 " }}}
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " {{{
-" initialise fzf
-set rtp+=/usr/local/opt/fzf
-
 " set up the ripgrep command
 let g:rg_command = '
   \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
@@ -159,6 +156,7 @@ Plug 'vimwiki/vimwiki'
 let g:vimwiki_list = [{'path':'~/.wiki/', 'path_html':'~/.wiki/html/'}]
 " }}}
 Plug 'cespare/vim-toml'
+Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
 Plug 'buoto/gotests-vim'
 

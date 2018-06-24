@@ -11,7 +11,6 @@ bind-key C-a send-prefix
 # basic options
 set-option -g default-terminal "screen-256color"
 
-set-option -g mouse on              # use the mouse for resizing etc.
 set-option -s escape-time 0         # no wait time between key sequences
 set-option -g base-index 1          # windows are one-indexed
 set-option -g allow-rename off      # don't rename windows automatically
