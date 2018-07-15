@@ -158,6 +158,8 @@ let g:vimwiki_list = [{'path':'~/.wiki/', 'path_html':'~/.wiki/html/'}]
 Plug 'cespare/vim-toml'
 Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
+Plug 'sheerun/vim-polyglot'
+Plug 'posva/vim-vue'
 Plug 'buoto/gotests-vim'
 
 call plug#end()
@@ -171,7 +173,7 @@ set autowrite                                    " write contents of file when m
 set backspace=indent,eol,start                   " make backspace work like most other apps
 set backupskip=/tmp/*,/private/tmp/*"            " make Vim able to edit crontab files again.
 set colorcolumn=+1                               " highlight column after 'textwidth'
-set encoding=utf-8                               " make stuff work
+set encoding=UTF-8                               " make stuff work
 set hidden                                       " buffer becomes hidden when it is abandoned
 set history=1000                                 " remember 1000 lines of history
 set laststatus=2                                 " always show status line
