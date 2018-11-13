@@ -33,3 +33,6 @@ fi
 # travis
 [ -f "$HOME"/.travis/travis.sh ] && source "$HOME"/.travis/travis.sh
 
+# nix
+source /Users/w1lkins/.nix-profile/etc/profile.d/nix.sh
+
