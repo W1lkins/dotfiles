@@ -1,12 +1,11 @@
-!suckless.sym/dmenu/config.h
-!suckless.sym/st/config.h
-config.sym/.mono
 config.sym/Atom/
 config.sym/autostart
 config.sym/base16-shell
 config.sym/Bitwarden
 config.sym/chromium/
+config.sym/Code
 config.sym/configstore
+config.sym/cros-garcon.conf
 config.sym/dconf
 config.sym/deluge
 config.sym/filezilla
@@ -21,6 +20,7 @@ config.sym/gtk-3.0
 config.sym/heroku
 config.sym/menus
 config.sym/mimeapps.list
+config.sym/.mono
 config.sym/mopidy
 config.sym/neofetch
 config.sym/pulse
@@ -38,6 +38,7 @@ config.sym/transmission
 config.sym/Trolltech.conf
 config.sym/vlc/
 config.sym/wall.png
+config.sym/weston.ini
 config.sym/xfce4/terminal/accels.scm
 config.sym/xfce4/xfconf/
 config.sym/yarn
@@ -50,8 +51,10 @@ dotfiles
 i3.sym/.config.swp
 ncmpcpp.sym/error.log
 suckless.sym/dmenu/*
+!suckless.sym/dmenu/config.h
 suckless.sym/st/*
-vim.sym/.netrwhist
+!suckless.sym/st/config.h
 vim.sym/bundle
 vim.sym/gutentags
+vim.sym/.netrwhist
 vim.sym/tmp
