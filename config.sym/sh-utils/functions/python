@@ -6,11 +6,11 @@ function simpleserver() {
 }
 
 function vv() {
-  virtualenv venv
+  pipenv install
 }
 
 function svenv() {
-  source ./venv/bin/activate
+  pipenv shell
 }
 
 function preqs() {
