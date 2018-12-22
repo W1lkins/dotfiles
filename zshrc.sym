@@ -4,13 +4,13 @@
 source "$HOME/.env"
 
 # source all the files in .config
-while IFS= read -r -d '' file
+for file in $(find "$HOME/.config/sh-utils" -type f)
 do
-  source "$file"
-done <   <(find "$HOME/.config/sh-utils" -type f -print0)
+    source "$file"
+done
 
 # source a system specific config if one exists
-[ -s "$HOME"/.extra ] && source "$HOME"/.extra || return 0
+[ -f "$HOME"/.extra ] && source "$HOME"/.extra || return 0
 
-[ -s ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
