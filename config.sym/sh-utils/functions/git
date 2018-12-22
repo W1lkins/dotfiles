@@ -5,7 +5,7 @@ is-master() {
 }
 
 up() {
-  if [[ is-master ]]; then
+  if [[ $(is-master) ]]; then
     echo "Already on master branch, pulling"
     git fetch --prune; git prune; git pull
   else

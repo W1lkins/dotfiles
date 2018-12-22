@@ -1,4 +1,5 @@
 FROM alpine
+MAINTAINER jonathan@wilkins.tech
 
 RUN apk update && apk add shadow perl zsh vim curl git tmux ctags go libc-dev make
 

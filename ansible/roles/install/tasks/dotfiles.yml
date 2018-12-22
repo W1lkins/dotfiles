@@ -1,5 +1,0 @@
----
-
-- name: run a script
-  script: '{{ home }}/dotfiles/bootstrap.sh'
-

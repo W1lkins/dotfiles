@@ -48,7 +48,7 @@ temp=$(mktemp) || exit 1
 if [ -f "$CRONTAB" ]; then
   clean_cron_lines < "$CRONTAB" | lookup_run_parts > "$temp"
 else
-  echo "$CRONTAB not found!" && exit 1
+  echo "$CRONTAB not found!"
 fi
 
 # Add all of the jobs from the system-wide cron directory.
@@ -75,3 +75,4 @@ sed "1i\\mi\\th\\td\\tm\\tw\\tuser\\tcommand" |
 column -s"${tab}" -t
 
 rm --force "${temp}"
+

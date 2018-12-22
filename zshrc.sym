@@ -12,5 +12,5 @@ done
 # source a system specific config if one exists
 [ -f "$HOME"/.extra ] && source "$HOME"/.extra || return 0
 
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
