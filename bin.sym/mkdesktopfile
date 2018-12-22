@@ -17,3 +17,4 @@ else
     echo -e "Missing param - Usage:\\n- mkdesktopfile [program name] [path to program] [path to icon]"
     exit 1
 fi
+

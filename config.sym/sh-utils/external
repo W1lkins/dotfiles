@@ -2,7 +2,7 @@
 # shellcheck source=/dev/null
 
 # oh-my-zsh
-source "$ZSH"/oh-my-zsh.sh
+[ -f "$ZSH"/oh-my-zsh.sh ] && source "$ZSH"/oh-my-zsh.sh
 
 # base16 shell
 export BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"

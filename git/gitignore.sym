@@ -1,4 +1,4 @@
-# Compiled source #
+# compiled source #
 ###################
 *.com
 *.class
@@ -7,13 +7,13 @@
 *.o
 *.so
 
-# Temporary files #
+# tmp files #
 ###################
 *.swp
 *.swo
 *~
 
-# Packages #
+# packages #
 ############
 *.7z
 *.dmg
@@ -24,15 +24,16 @@
 *.tar
 *.zip
 
-# Logs and databases #
+# logs and databases #
 ######################
 *.log
 *.sql
 *.sqlite
 
-# OS generated files #
+# OS specfic files #
 ######################
 .DS_Store*
 ehthumbs.db
 Icon?
 Thumbs.db
+
