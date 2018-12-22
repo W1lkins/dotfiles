@@ -16,4 +16,5 @@ alias tarup='tar -zcf'
 alias tardown='tar -zxf'
 alias shutdown='sudo shutdown now'
 alias restart='sudo shutdown -r now'
+alias python=python3
 

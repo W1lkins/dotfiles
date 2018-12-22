@@ -8,6 +8,7 @@ config.sym/configstore
 config.sym/cros-garcon.conf
 config.sym/dconf
 config.sym/deluge
+config.sym/discord
 config.sym/filezilla
 config.sym/gcloud
 config.sym/gconf
@@ -27,6 +28,7 @@ config.sym/pulse
 config.sym/ranger/bookmarks
 config.sym/ranger/history
 config.sym/ranger/tagged
+config.sym/Signal
 config.sym/Slack/
 config.sym/spotify
 config.sym/streamlink-twitch-gui

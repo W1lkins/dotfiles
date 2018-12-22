@@ -317,11 +317,15 @@ fg-bg() {
 
 # paste service
 pb() {
-  curl -F "c=@${1:--}" "https://p.wilkins.cloud/?u=1";
+  curl -F "c=@${1:--}" "https://p.wilkins.tech/?u=1";
 }
 
 # get ssl key for znc - argument should be path to znc.pem
 znckey() {
   cat "$1" | openssl x509 -sha512 -fingerprint -noout | tr -d ':' | tr 'A-Z' 'a-z' | cut -d = -f 2
+}
+
+remove-apt-repository() {
+  sudo add-apt-repository -r "$1"
 }
 

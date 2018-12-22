@@ -41,7 +41,7 @@ let g:bufExplorerShowRelativePath=1
 let g:bufExplorerSortBy='name'
 
 " explore the buffers with ,o
-map <leader>o :BufExplorer<cr>
+map <leader>o :BufExplorer<CR>
 " }}}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " {{{
@@ -75,7 +75,7 @@ nnoremap <leader>a <C-]>
 nnoremap <leader>t <C-t>
 nnoremap <leader>A :tselect<CR>
 " }}}
-Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 " {{{
 noremap <F2> :NERDTreeToggle<cr>
 inoremap <F2> <esc>:NERDTreeToggle<cr>
@@ -151,10 +151,6 @@ if NEOVIM()
 let g:go_fmt_command = "goimports"
 " }}}
 endif
-Plug 'vimwiki/vimwiki'
-" {{{
-let g:vimwiki_list = [{'path':'~/.wiki/', 'path_html':'~/.wiki/html/'}]
-" }}}
 Plug 'cespare/vim-toml'
 Plug 'airblade/vim-gitgutter'
 Plug 'majutsushi/tagbar'
@@ -421,7 +417,7 @@ iab lsad ಥ_ಥ
 iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 
 " php abbreviations
-iab erlog error_log(
+iab erlog error_log();
 
 " }}}
 " Mappings & Useful Functions --------------------------------------------- {{{
