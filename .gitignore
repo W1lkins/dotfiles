@@ -24,7 +24,9 @@ config.sym/mimeapps.list
 config.sym/.mono
 config.sym/mopidy
 config.sym/neofetch
+config.sym/.op/
 config.sym/pulse
+config.sym/QtProject.conf
 config.sym/ranger/bookmarks
 config.sym/ranger/history
 config.sym/ranger/tagged
