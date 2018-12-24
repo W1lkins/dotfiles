@@ -325,8 +325,13 @@ znckey() {
   openssl x509 -sha512 -fingerprint -noout < "$1" | tr -d ':' | tr '[:upper:]' '[:lower:]' | cut -d = -f 2
 }
 
-# remove an apt repository
+# remove a repository from apt
 remove-apt-repository() {
   sudo add-apt-repository -r "$1"
+}
+
+# show available process signals, zsh doesn't seem to handle this nicely
+signals() {
+  bash -c 'kill -l'
 }
 
