@@ -18,4 +18,5 @@ alias shutdown='sudo shutdown now'
 alias restart='sudo shutdown -r now'
 alias python=python3
 alias vim=nvim
+alias jk=jekyll
 
