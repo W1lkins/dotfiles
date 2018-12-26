@@ -2,25 +2,25 @@
 # shellcheck source=/dev/null
 
 # oh-my-zsh
-[ -f "$ZSH"/oh-my-zsh.sh ] && source "$ZSH"/oh-my-zsh.sh
+[ -s "$ZSH"/oh-my-zsh.sh ] && source "$ZSH"/oh-my-zsh.sh
 
 # base16 shell
 export BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
-[[ -s $BASE16_SHELL ]] && source "$BASE16_SHELL"
+[ -s "$BASE16_SHELL" ] && source "$BASE16_SHELL"
 
 # fzf
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -s ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # source cargo for rust
-[ -f "$HOME"/.cargo/env ] && source "$HOME"/.cargo/env
+[ -s "$HOME"/.cargo/env ] && source "$HOME"/.cargo/env
 
 # import shell history into historian if it exists
-[ -f "$HOME"/historian/hist ] && hist import &> /dev/null
+[ -s "$HOME"/historian/hist ] && hist import &> /dev/null
 
 # google cloud SDK
-[ -f "$HOME"/google-cloud-sdk/ ] && source "$HOME"/google-cloud-sdk/completion.zsh.inc && source "$HOME"/google-cloud-sdk/path.zsh.inc
+[ -d "$HOME"/google-cloud-sdk/ ] && source "$HOME"/google-cloud-sdk/completion.zsh.inc && source "$HOME"/google-cloud-sdk/path.zsh.inc
 
 # add global npm modules to path
 export PATH=~/.npm-global/bin:$PATH
@@ -34,8 +34,13 @@ if type gpgconf &> /dev/null; then
 fi
 
 # travis
-[ -f "$HOME"/.travis/travis.sh ] && source "$HOME"/.travis/travis.sh
+[ -s "$HOME"/.travis/travis.sh ] && source "$HOME"/.travis/travis.sh
 
 # nix
-[ -f "$HOME"/.nix-profile/etc/profile.d/nix.sh ] && source "$HOME"/.nix-profile/etc/profile.d/nix.sh
+[ -s "$HOME"/.nix-profile/etc/profile.d/nix.sh ] && source "$HOME"/.nix-profile/etc/profile.d/nix.sh
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
 
