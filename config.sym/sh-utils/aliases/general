@@ -19,4 +19,5 @@ alias restart='sudo shutdown -r now'
 alias python=python3
 alias vim=nvim
 alias jk=jekyll
+alias usystemctl='systemctl --user'
 
