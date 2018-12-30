@@ -1,0 +1,12 @@
+[Unit]
+Description=Raspberry Pi Christmas Tree
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/home/pi/.scripts/rpi_christmas.py
+KillSignal=SIGINT
+
+[Install]
+WantedBy=default.target
+
