@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-"""Control lights on a raspberry pi"""
 
 from signal import pause
 from gpiozero import LEDBoard
