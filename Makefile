@@ -9,7 +9,7 @@ MAIN := main.go
 # variables
 NAME := dotfiles
 PKG := github.com/w1lkins/$(NAME)
-SHELLCHECK := ./scripts.sym/testscripts
+SHELLCHECK := ./bin.sym/test-dotfile-scripts
 
 # build-tags
 BUILDTAGS :=

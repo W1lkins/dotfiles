@@ -2,7 +2,7 @@
 readonly POOL="sks-keyservers.net"
 
 echo -e "Listing keys...\\n"
-gpg --list-keys | grep pub
+gpg --list-keys --keyid-format LONG | grep pub
 
 echo ""
 read -rp "Which key to send? " key
