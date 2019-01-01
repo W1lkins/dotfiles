@@ -18,7 +18,7 @@ BUILDTAGS :=
 BUILDDIR := ${PREFIX}/cross
 
 # compile time
-VERSION := "0.1.2"
+VERSION := "0.1.3"
 GITCOMMIT := $(shell git rev-parse --short HEAD)
 GITUNTRACKED := $(shell git status --porcelain --untracked-files=no)
 ifneq ($(GITUNTRACKEDCHANGES),)
