@@ -1,5 +1,4 @@
 config.sym/Atom/
-config.sym/Notable/
 config.sym/autostart
 config.sym/base16-shell
 config.sym/Bitwarden
@@ -25,7 +24,9 @@ config.sym/mimeapps.list
 config.sym/.mono
 config.sym/mopidy
 config.sym/neofetch
+config.sym/Notable/
 config.sym/.op/
+config.sym/Postman
 config.sym/pulse
 config.sym/QtProject.conf
 config.sym/ranger/bookmarks

@@ -5,7 +5,7 @@ gog() {
 }
 
 gogo() {
-  cd "$(find "$GOPATH/src" -depth 3 -type d -iname "$1" | head -n1)" || return
+  cd "$(find "$GOPATH/src" -type d -iname "$1" | head -n1)" || return
 }
 
 gopath() {
