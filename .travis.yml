@@ -11,13 +11,13 @@
       - go: tip
     fast_finish: true
   install:
-    - go get -u -v github.com/golang/lint/golint honnef.co/go/tools/cmd/staticcheck github.com/mitchellh/go-homedir github.com/sirupsen/logrus github.com/tcnksm/go-input
+    - go get -u -v github.com/golang/lint/golint honnef.co/go/tools/cmd/staticcheck github.com/mitchellh/go-homedir github.com/sirupsen/logrus github.com/tcnksm/go-input github.com/genuinetools/pkg/cli
   script:
-    - go build -v
-    - go vet main.go
-    - staticcheck main.go
-    - golint -set_exit_status main.go
-    - go test -v
+    - make build
+    - make vet
+    - make staticcheck
+    - make lint
+    - make test
     - make release
   deploy:
     provider: releases
