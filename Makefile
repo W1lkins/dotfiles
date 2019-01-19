@@ -163,7 +163,7 @@ docker-stop:
 .PHONY: docker-setup
 docker-setup: ## run make in dotfile container
 	@echo "+ $@"
-	@docker exec --interactive --tty dotfiles make
+	@docker exec --interactive --tty dotfiles make all
 
 .PHONY: docker-attach
 docker-attach: ## attach to running dotfile container
