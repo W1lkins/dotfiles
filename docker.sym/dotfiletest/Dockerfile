@@ -1,17 +1,15 @@
-FROM alpine
-MAINTAINER jonathan@wilkins.tech
+FROM debian:buster-slim
 
-RUN apk update && apk add shadow perl zsh vim curl git tmux ctags go libc-dev make
+LABEL maintainer jonathan@wilkins.tech
 
-RUN go get -u -v \
-    github.com/mitchellh/go-homedir \
-    github.com/sirupsen/logrus \
-    github.com/tcnksm/go-input \
-    github.com/genuinetools/pkg/cli
+ENV DEBIAN_FRONTEND noninteractive
+
+RUN apt update && \
+    apt install -y bash ca-certificates sudo zsh vim curl git tmux ctags make --no-install-recommends \
+    && rm -rf /var/lib/apt/lists/*
 
 RUN git clone git://github.com/robbyrussell/oh-my-zsh.git /root/.oh-my-zsh 
 
 RUN chsh -s /bin/zsh
 
 WORKDIR /dotfiles
-
