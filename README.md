@@ -16,14 +16,17 @@
 - compton
 - dmenu
 - git config
+- go
 - htoprc
 - inputrc
-- macOS sane defaults & brew
+- macOS sane defaults
 - ncmpcpp
 - neovim
 - polybar
+- python3
 - ranger
 - redshift
+- rust
 - screenlayouts for monitors
 - suckless-terminal
 - tmux
@@ -45,9 +48,7 @@
 
 **Install**
 
-*_requires Golang - alternatively download a release from from: [here](https://github.com/W1lkins/dotfiles/releases)_
-
-- `make`
+- `make init`
 
 You will be asked about gpg keys for git (defaults to no) and whether you want
 to backup your existing dotfiles (defaults to skip)
@@ -62,7 +63,7 @@ to backup your existing dotfiles (defaults to skip)
 
 **Clone the repository**:
 
-- `git clone https://github.com/w1lkins/dotfiles && cd dotfiles`
+- `git clone https://github.com/w1lkins/dotfiles dotfiles && cd $_`
 
 **Run Makefile command**:
 

@@ -13,7 +13,7 @@ do
     ERRORS+=("$f")
   }
   fi
-done < <(find config.sym/sh-utils bin.sym -type f -print0)
+done < <(find config.sym/sh-utils bin.sym install.sh -type f -print0)
 
 if [ ${#ERRORS[@]} -eq 0 ]; then
 	echo "No errors!"

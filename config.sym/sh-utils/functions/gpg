@@ -2,7 +2,7 @@
 
 # restart gpg-agent
 resgpg() {
-  sudo killall gpg-agent && gpg-connect-agent reloadagent /bye
+  sudo pkill -9 gpg-agent && gpg-connect-agent reloadagent /bye
 }
 
 # list gpg keys
