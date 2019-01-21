@@ -6,13 +6,13 @@ bzip2
 ca-certificates
 cmake
 coreutils
+ctags
 curl
 dirmngr
 dnsutils
 file
 findutils
 gcc
-gcc-multilib
 gettext
 git
 gnupg
@@ -32,7 +32,6 @@ lsof
 make
 mount
 net-tools
-ripgrep
 ssh
 strace
 tar
@@ -40,7 +39,7 @@ tmux
 tree
 tzdata
 unzip
+xclip
 xz-utils
-yarn
 zip
 zsh

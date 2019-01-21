@@ -112,7 +112,7 @@ install_base() {
     # TODO(jwilkins): Make this arch agnostic
     sudo apt update || true
     sudo apt -y upgrade
-    < packages xargs sudo apt-get install -y --no-install-recommends
+    < packages xargs sudo apt install -y --no-install-recommends
 
     sudo apt autoremove
     sudo apt autoclean
@@ -130,7 +130,7 @@ install_extras() {
         curl https://sh.rustup.rs -sSf | sh
     fi
     info "rust installed, running post-install actions"
-    cargo install --force shellharden
+    cargo install shellharden ripgrep || true
 
     # go
     GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text")
@@ -152,7 +152,6 @@ install_extras() {
     # vim-go
     go get github.com/alecthomas/gometalinter \
         github.com/davidrjenni/reftools/cmd/fillstruct \
-        github.com/derekparker/delve/cmd/dlv \
         github.com/fatih/gomodifytags \
         github.com/fatih/motion \
         github.com/josharian/impl \
@@ -252,7 +251,7 @@ setup_vim() {
 
     if ! [ -s "vim.sym/bundle/command-t/ruby/command-t/ext/command-t/ext.bundle" ]; then
         info "installing command-t"
-        ( cd vim.sym/bundle/command-t || exit 1; rake make >/dev/null 2>&1 ) ||
+        ( cd vim.sym/bundle/command-t >/dev/null 2>&1 || exit 1; rake make >/dev/null 2>&1 ) ||
             warn "couldnt install command-t, try running rake make manually"
     else
         info "command-t already installed"
