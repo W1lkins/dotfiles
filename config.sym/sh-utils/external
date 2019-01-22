@@ -22,14 +22,8 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # google cloud SDK
 [ -d "$HOME"/google-cloud-sdk/ ] && source "$HOME"/google-cloud-sdk/completion.zsh.inc && source "$HOME"/google-cloud-sdk/path.zsh.inc
 
-# add global npm modules to path
-export PATH=~/.npm-global/bin:$PATH
-
-# add global yarn modules to path
-export PATH=~/.yarn/bin:$PATH
-
-# add pip --user packages to path
-export PATH=~/.local/bin:$PATH
+# add npm/yarn/rbenv/pip modules to path
+export PATH="$HOME"/.npm-global/bin:"$HOME"/.yarn/bin:"$HOME"/.local/bin:"$HOME"/.gem/bin:$PATH
 
 # gpg
 if type gpgconf &> /dev/null; then

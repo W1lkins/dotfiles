@@ -1,9 +1,8 @@
-#!/bin/bash
+#!/bin/bash -e
+set -o pipefail
 
 DOTFILES_ROOT=$(pwd -P)
-export PATH=$PATH:/usr/local/go/bin:$HOME/.cargo/bin:$HOME/.local/bin
-set -e
-set -o pipefail
+export PATH=$PATH:/usr/local/go/bin:$HOME/.cargo/bin:$HOME/.local/bin:/usr/local/rvm/bin
 
 info() {
     printf "[\\033[00;34m.\\033[0m] %s\\n" "$1"
@@ -96,23 +95,22 @@ link_file() {
 }
 
 setup_sudo() {
-    readonly user="$(whoami)"
     sudo groupadd sudo || true
     sudo groupadd docker || true
     sudo groupadd systemd-journal || true
     sudo groupadd systemd-network || true
 
-    sudo adduser "$user" sudo
-    sudo gpasswd -a "$user" systemd-journal
-	sudo gpasswd -a "$user" systemd-network
-	sudo gpasswd -a "$user" docker
+    sudo adduser "$USER" sudo
+    sudo gpasswd -a "$USER" systemd-journal
+	sudo gpasswd -a "$USER" systemd-network
+	sudo gpasswd -a "$USER" docker
 }
 
 install_base() {
     # TODO(jwilkins): Make this arch agnostic
-    sudo apt update || true
-    sudo apt -y upgrade
-    < packages xargs sudo apt install -y --no-install-recommends
+    sudo apt update -qq || true
+    sudo apt -yqq upgrade
+    < packages xargs sudo apt install -yqq --no-install-recommends
 
     sudo apt autoremove
     sudo apt autoclean
@@ -127,13 +125,13 @@ install_extras() {
 
     # rust
     if ! [ -s "$HOME"/.cargo/bin/rustc ]; then
-        curl https://sh.rustup.rs -sSf | sh
+        curl -sSLf "https://sh.rustup.rs" | sh
     fi
     info "rust installed, running post-install actions"
     cargo install shellharden ripgrep || true
 
     # go
-    GO_VERSION=$(curl -sSL "https://golang.org/VERSION?m=text")
+    GO_VERSION=$(curl -sSLf "https://golang.org/VERSION?m=text")
     INSTALLED_VERSION="none"
     if [ -s /usr/local/go/bin/go ]; then
         INSTALLED_VERSION="$(go version | cut -d' ' -f3)"
@@ -144,7 +142,7 @@ install_extras() {
         GO_VERSION=${GO_VERSION#go}
         info "installing new go version: $GO_VERSION"
 		sudo rm -rf "$GO_SRC"
-        curl -sSL "https://storage.googleapis.com/golang/go$GO_VERSION.$KERNEL-$ARCH.tar.gz" | sudo tar -v -C /usr/local -xz
+        curl -sSLf "https://storage.googleapis.com/golang/go$GO_VERSION.$KERNEL-$ARCH.tar.gz" | sudo tar -v -C /usr/local -xz
     fi
     info "go installed, running post-install actions"
 
@@ -173,13 +171,13 @@ install_extras() {
     go get honnef.co/go/tools/cmd/staticcheck
 
     # python
-    sudo apt install python3 python3-distutils || true
+    sudo apt install python3 python3-distutils python3-neovim || true
     if ! command -v pip >/dev/null 2>&1; then
-        curl https://bootstrap.pypa.io/get-pip.py -o /tmp/get-pip.py
+        curl -sSLOf "https://bootstrap.pypa.io/get-pip.py" -o /tmp/get-pip.py
         python3 /tmp/get-pip.py --user
     fi
     info "python3 and pip installed, running post-install actions"
-    pip install --user yapf pipenv icdiff pipreqs
+    pip install --quiet --user yapf pipenv icdiff pipreqs
 
     # fzf
     if ! [ -s "$HOME/.fzf" ]; then
@@ -188,10 +186,24 @@ install_extras() {
     fi
     info "fzf installed"
 
+    # yarn
+    curl -sSLf "https://dl.yarnpkg.com/debian/pubkey.gpg" | sudo apt-key add -
+    echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+    sudo apt update -qq && sudo apt install -yqq yarn --no-install-recommends
+
+    # docker
+    curl -sSLf "https://download.docker.com/linux/ubuntu/gpg" | sudo apt-key add -
+    local arch=$ARCH
+    if [ "$arch" == "arm" ]; then
+        arch=armhf
+    fi
+    sudo add-apt-repository "deb [arch=$arch] https://download.docker.com/linux/$DIST $(lsb_release -cs) stable"
+    sudo apt update -qq && sudo apt install -yqq docker-ce
+
     # 1password cli
     if ! [ -s /usr/local/bin/op ]; then
         OP=op_"$KERNEL"_"$ARCH"_v0.5.5.zip
-        curl -sSLO "https://cache.agilebits.com/dist/1P/op/pkg/v0.5.5/$OP"
+        curl -sSLOf "https://cache.agilebits.com/dist/1P/op/pkg/v0.5.5/$OP"
         unzip "$OP"
         sudo mv op /usr/local/bin/op
         rm op.sig "$OP"
@@ -248,20 +260,13 @@ setup_dotfiles() {
 
 setup_vim() {
     ( cd "$HOME"/.vim || exit 1; vim +PlugInstall +qa ) || fail "couldn't cd to $HOME/.vim"
-
-    if ! [ -s "vim.sym/bundle/command-t/ruby/command-t/ext/command-t/ext.bundle" ]; then
-        info "installing command-t"
-        ( cd vim.sym/bundle/command-t >/dev/null 2>&1 || exit 1; rake make >/dev/null 2>&1 ) ||
-            warn "couldnt install command-t, try running rake make manually"
-    else
-        info "command-t already installed"
-    fi
 }
 
 main() {
     local cmd="$1"
-    KERNEL=$(uname -s | tr '[:upper:]' '[:lower:]')
-    ARCH=$(determine_arch)
+    readonly KERNEL=$(uname -s | tr '[:upper:]' '[:lower:]')
+    readonly ARCH=$(determine_arch)
+    readonly DIST=$(lsb_release -si | tr '[:upper:]' '[:lower:]')
     info "Running for kernel: $KERNEL and arch $ARCH"
 
     if [[ ! -z $cmd && $cmd == "init" ]]; then

@@ -124,19 +124,8 @@ nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gd :Gdiff<cr>
 " }}}
 Plug 'w0rp/ale'
-if CMDT()
-    Plug 'wincent/command-t', {'do':':UpdateRemotePlugins'}
-" {{{
-nnoremap <leader>, :CommandT<cr>
-nnoremap <leader>. :CommandTBuffer<cr>
-
-let g:CommandTMaxFiles = 20000
-let g:CommandTSuppressMaxFilesWarning = 1
-let g:CommandTMatchWindowAtTop = 1
-let g:CommandTWildIgnore=&wildignore . ",*/tmp/*,*/node_modules/*,*/bundle/*"
 " }}}
-else
-    Plug 'ctrlpvim/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 " {{{
 nnoremap <leader>, :CtrlP<cr>
 nnoremap <leader>. :CtrlPBuffer<cr>
@@ -144,7 +133,6 @@ nnoremap <leader>. :CtrlPBuffer<cr>
 let g:ctrlp_match_window_bottom = 0
 let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 " }}}
-endif
 if NEOVIM()
     Plug 'fatih/vim-go', {'do':':GoInstallBinaries'}
 " {{{
