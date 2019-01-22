@@ -122,6 +122,8 @@ install_extras() {
     if ! [ -s "$HOME/.oh-my-zsh" ]; then
         git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"
     fi
+    info "oh-my-zsh installed"
+    printf "\\n"
 
     # rust
     if ! [ -s "$HOME"/.cargo/bin/rustc ]; then
@@ -129,6 +131,7 @@ install_extras() {
     fi
     info "rust installed, running post-install actions"
     cargo install shellharden ripgrep || true
+    printf "\\n"
 
     # go
     GO_VERSION=$(curl -fsSL "https://golang.org/VERSION?m=text")
@@ -145,6 +148,7 @@ install_extras() {
         curl -fsSL "https://storage.googleapis.com/golang/go$GO_VERSION.$KERNEL-$ARCH.tar.gz" | sudo tar -v -C /usr/local -xz
     fi
     info "go installed, running post-install actions"
+    printf "\\n"
 
     # go post-install
     # vim-go
@@ -171,6 +175,7 @@ install_extras() {
     go get honnef.co/go/tools/cmd/staticcheck
 
     # python
+    info "installing python3"
     sudo apt install python3 python3-distutils python3-neovim || true
     if ! command -v pip >/dev/null 2>&1; then
         curl -sSLOf "https://bootstrap.pypa.io/get-pip.py" -o /tmp/get-pip.py
@@ -178,6 +183,7 @@ install_extras() {
     fi
     info "python3 and pip installed, running post-install actions"
     pip install --quiet --user yapf pipenv icdiff pipreqs
+    printf "\\n"
 
     # fzf
     if ! [ -s "$HOME/.fzf" ]; then
@@ -185,14 +191,22 @@ install_extras() {
             "$HOME/.fzf/install"
     fi
     info "fzf installed"
+    printf "\\n"
 
     # yarn
+    info "installing yarn"
     curl -fsSL "https://dl.yarnpkg.com/debian/pubkey.gpg" | sudo apt-key add -
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
     sudo apt update -qq && sudo apt install -yqq yarn --no-install-recommends
+    info "yarn installed"
+    printf "\\n"
 
     # docker
-    curl -fsSL "https://get.docker.com" | bash >/dev/null 2>&1
+    if ! command -v docker >/dev/null 2>&1; then
+        curl -fsSL "https://get.docker.com" | bash
+    fi
+    info "docker installed"
+    printf "\\n"
 
     # 1password cli
     if ! [ -s /usr/local/bin/op ]; then
