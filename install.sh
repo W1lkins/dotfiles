@@ -125,13 +125,13 @@ install_extras() {
 
     # rust
     if ! [ -s "$HOME"/.cargo/bin/rustc ]; then
-        curl -sSLf "https://sh.rustup.rs" | sh
+        curl -fsSL "https://sh.rustup.rs" | bash
     fi
     info "rust installed, running post-install actions"
     cargo install shellharden ripgrep || true
 
     # go
-    GO_VERSION=$(curl -sSLf "https://golang.org/VERSION?m=text")
+    GO_VERSION=$(curl -fsSL "https://golang.org/VERSION?m=text")
     INSTALLED_VERSION="none"
     if [ -s /usr/local/go/bin/go ]; then
         INSTALLED_VERSION="$(go version | cut -d' ' -f3)"
@@ -142,7 +142,7 @@ install_extras() {
         GO_VERSION=${GO_VERSION#go}
         info "installing new go version: $GO_VERSION"
 		sudo rm -rf "$GO_SRC"
-        curl -sSLf "https://storage.googleapis.com/golang/go$GO_VERSION.$KERNEL-$ARCH.tar.gz" | sudo tar -v -C /usr/local -xz
+        curl -fsSL "https://storage.googleapis.com/golang/go$GO_VERSION.$KERNEL-$ARCH.tar.gz" | sudo tar -v -C /usr/local -xz
     fi
     info "go installed, running post-install actions"
 
@@ -187,18 +187,12 @@ install_extras() {
     info "fzf installed"
 
     # yarn
-    curl -sSLf "https://dl.yarnpkg.com/debian/pubkey.gpg" | sudo apt-key add -
+    curl -fsSL "https://dl.yarnpkg.com/debian/pubkey.gpg" | sudo apt-key add -
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
     sudo apt update -qq && sudo apt install -yqq yarn --no-install-recommends
 
     # docker
-    curl -sSLf "https://download.docker.com/linux/ubuntu/gpg" | sudo apt-key add -
-    local arch=$ARCH
-    if [ "$arch" == "arm" ]; then
-        arch=armhf
-    fi
-    sudo add-apt-repository "deb [arch=$arch] https://download.docker.com/linux/$DIST $(lsb_release -cs) stable"
-    sudo apt update -qq && sudo apt install -yqq docker-ce
+    curl -fsSL "https://get.docker.com" | bash >/dev/null 2>&1
 
     # 1password cli
     if ! [ -s /usr/local/bin/op ]; then

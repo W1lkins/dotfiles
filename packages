@@ -32,6 +32,7 @@ lsof
 make
 mount
 net-tools
+software-properties-common
 ssh
 strace
 tar
