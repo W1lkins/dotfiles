@@ -177,12 +177,12 @@ install_extras() {
     # python
     info "installing python3"
     sudo apt install python3 python3-distutils python3-neovim || true
-    if ! command -v pip >/dev/null 2>&1; then
-        curl -sSLOf "https://bootstrap.pypa.io/get-pip.py" -o /tmp/get-pip.py
+    if ! command -v pip3 >/dev/null 2>&1; then
+        curl -fsSL "https://bootstrap.pypa.io/get-pip.py" -o /tmp/get-pip.py
         python3 /tmp/get-pip.py --user
     fi
     info "python3 and pip installed, running post-install actions"
-    pip install --quiet --user yapf pipenv icdiff pipreqs
+    pip3 install --quiet --user yapf pipenv icdiff pipreqs
     printf "\\n"
 
     # fzf
