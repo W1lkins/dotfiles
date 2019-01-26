@@ -266,6 +266,17 @@ setup_dotfiles() {
     done
 }
 
+setup_systemd() {
+    for file in $(find -H config.sym/systemd/system -type f -name '*.service')
+    do
+        dest="/etc/systemd/system/$(basename "$file")"
+        if ! [ -L "$dest" ]; then
+            info "Linking $file to $dest"
+            sudo ln -s $(readlink -f "$file") "$dest"
+        fi
+    done
+}
+
 setup_vim() {
     ( cd "$HOME"/.vim || exit 1; vim +PlugInstall +qa ) || fail "couldn't cd to $HOME/.vim"
 }
@@ -297,6 +308,10 @@ main() {
 
     info "linking dotfiles"
     setup_dotfiles
+    printf "\\n"
+
+    info "setting up systemd"
+    setup_systemd
     printf "\\n"
 
     info "setting up vim"
