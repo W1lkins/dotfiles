@@ -4,9 +4,8 @@
 # oh-my-zsh
 [ -s "$ZSH"/oh-my-zsh.sh ] && source "$ZSH"/oh-my-zsh.sh
 
-# base16 shell
-export BASE16_SHELL="$HOME/.config/base16-shell/base16-ocean.dark.sh"
-[ -s "$BASE16_SHELL" ] && source "$BASE16_SHELL"
+# git ssh settings
+export GIT_SSH_COMMAND="ssh -i ~/.ssh/$(cat /etc/hostname)"
 
 # fzf
 [ -s ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -22,7 +21,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 # google cloud SDK
 [ -d "$HOME"/google-cloud-sdk/ ] && source "$HOME"/google-cloud-sdk/completion.zsh.inc && source "$HOME"/google-cloud-sdk/path.zsh.inc
 
-# add npm/yarn/rbenv/pip modules to path
+# add npm/yarn/gem/pip modules to path
 export PATH="$HOME"/.npm-global/bin:"$HOME"/.yarn/bin:"$HOME"/.local/bin:"$HOME"/.gem/bin:$PATH
 
 # gpg
