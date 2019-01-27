@@ -33,6 +33,7 @@ lsof
 make
 mount
 net-tools
+shellcheck
 software-properties-common
 ssh
 strace
