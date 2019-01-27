@@ -280,7 +280,10 @@ setup_systemd() {
 }
 
 setup_vim() {
-    ( cd "$HOME"/.vim || exit 1; vim +PlugInstall +qa ) || fail "couldn't cd to $HOME/.vim"
+    (
+        cd "$HOME"/.vim || exit 1;
+        nvim +PlugClean +PlugUpdate +UpdateRemotePlugins +qa
+    ) || fail "couldn't cd to $HOME/.vim"
 }
 
 main() {
