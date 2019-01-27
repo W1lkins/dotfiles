@@ -2,14 +2,8 @@
 
 alias ..='cd ..'
 alias l='ls -lFh'
-alias la='ls -lAFh'
-alias lr='ls -tRFh'
-alias lt='ls -ltFh'
+alias la='ls -laFh'
 alias ll='ls -l'
-alias ldot='ls -ld .*'
-alias lS='ls -1FSsh'
-alias lart='ls -1Fcart'
-alias lrt='ls -1Fcrt'
 alias vi='$EDITOR'
 alias tarup='tar -zcf'
 alias tardown='tar -zxf'
@@ -19,4 +13,6 @@ alias python=python3
 alias vim=nvim
 alias jk=jekyll
 alias usystemctl='systemctl --user'
+alias drive='gdrive'
+alias ls='exa'
 

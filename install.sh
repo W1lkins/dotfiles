@@ -132,7 +132,7 @@ install_extras() {
     info "rust installed, running post-install actions"
     rustup override set stable
     rustup update stable
-    cargo install shellharden ripgrep || true
+    cargo install shellharden ripgrep exa || true
     printf "\\n"
 
     # go
@@ -175,6 +175,7 @@ install_extras() {
 
     # others
     go get honnef.co/go/tools/cmd/staticcheck
+    go get github.com/prasmussen/gdrive
 
     # python
     info "installing python3"
