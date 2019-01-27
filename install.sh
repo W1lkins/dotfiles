@@ -100,7 +100,7 @@ setup_sudo() {
     sudo groupadd systemd-journal || true
     sudo groupadd systemd-network || true
 
-    sudo adduser "$USER" sudo
+    sudo gpasswd -a "$USER" sudo
     sudo gpasswd -a "$USER" systemd-journal
 	sudo gpasswd -a "$USER" systemd-network
 	sudo gpasswd -a "$USER" docker
