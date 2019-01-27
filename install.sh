@@ -130,6 +130,8 @@ install_extras() {
         curl -fsSL "https://sh.rustup.rs" | bash
     fi
     info "rust installed, running post-install actions"
+    rustup override set stable
+    rustup update stable
     cargo install shellharden ripgrep || true
     printf "\\n"
 
