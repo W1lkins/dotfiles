@@ -124,7 +124,6 @@ nnoremap <leader>gb :Gblame<cr>
 nnoremap <leader>gd :Gdiff<cr>
 " }}}
 Plug 'w0rp/ale'
-" }}}
 Plug 'ctrlpvim/ctrlp.vim'
 " {{{
 nnoremap <leader>, :CtrlP<cr>
@@ -147,7 +146,6 @@ Plug 'posva/vim-vue'
 Plug 'buoto/gotests-vim'
 
 call plug#end()
-
 " }}}
 " Set options {{{
 
