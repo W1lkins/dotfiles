@@ -38,6 +38,7 @@ software-properties-common
 ssh
 strace
 tar
+tig
 tmux
 tree
 tzdata
