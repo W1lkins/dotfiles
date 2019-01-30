@@ -13,6 +13,8 @@ alias python=python3
 alias vim=nvim
 alias jk=jekyll
 alias usystemctl='systemctl --user'
+
 alias drive='gdrive'
-alias ls='exa'
+alias cat='$HOME/.cargo/bin/bat'
+alias ls='$HOME/.cargo/bin/exa'
 

@@ -132,7 +132,7 @@ install_extras() {
     info "rust installed, running post-install actions"
     rustup override set stable
     rustup update stable
-    cargo install shellharden ripgrep exa || true
+    cargo install shellharden ripgrep exa bat || true
     printf "\\n"
 
     # go
@@ -222,6 +222,10 @@ install_extras() {
     info "1password cli installed"
 }
 
+post_install() {
+    mkdir -p "$HOME"/workspace
+}
+
 setup_git() {
     if ! [ -s "$HOME/.gitconfig" ]; then
         store="cache"
@@ -305,6 +309,10 @@ main() {
 
         info "installing extras"
         install_extras
+        printf "\\n"
+
+        info "running post-install actions"
+        post_install
         printf "\\n"
     fi
 
