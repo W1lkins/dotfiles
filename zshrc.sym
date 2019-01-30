@@ -3,6 +3,9 @@
 # first source our env variables
 source "$HOME/.env"
 
+# source oh-my-zsh
+[ -s "$ZSH"/oh-my-zsh.sh ] && source "$ZSH"/oh-my-zsh.sh
+
 # source all the files in .config
 for file in $(find "$HOME/.config/sh-utils" -type f)
 do

@@ -1,9 +1,6 @@
 #!/bin/bash
 # shellcheck source=/dev/null
 
-# oh-my-zsh
-[ -s "$ZSH"/oh-my-zsh.sh ] && source "$ZSH"/oh-my-zsh.sh
-
 # git ssh settings
 export GIT_SSH_COMMAND="ssh -i ~/.ssh/$(cat /etc/hostname)"
 
@@ -22,7 +19,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 [ -d "$HOME"/google-cloud-sdk/ ] && source "$HOME"/google-cloud-sdk/completion.zsh.inc && source "$HOME"/google-cloud-sdk/path.zsh.inc
 
 # add npm/yarn/gem/pip modules to path
-export PATH="$HOME"/.npm-global/bin:"$HOME"/.yarn/bin:"$HOME"/.local/bin:"$HOME"/.gem/bin:$PATH
+export PATH=$PATH:"$HOME"/.npm-global/bin:"$HOME"/.yarn/bin:"$HOME"/.local/bin:"$HOME"/.gem/bin
 
 # gpg
 if type gpgconf &> /dev/null; then
@@ -40,3 +37,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
 
+# some zsh additions
+zle -N fg-bg
+bindkey '^Z' fg-bg
