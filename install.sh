@@ -176,6 +176,7 @@ install_extras() {
     # others
     go get honnef.co/go/tools/cmd/staticcheck
     go get github.com/prasmussen/gdrive
+    go get github.com/motemen/ghq
 
     # python
     info "installing python3"
@@ -250,9 +251,15 @@ setup_git() {
 
         cp git/gitconfig "$HOME/.gitconfig"
 
-        sed -e "s/AUTHORNAME/$author/g" -e "s/AUTHOREMAIL/$email/g" -e "s/GIT_CREDENTIAL_HELPER/$store/g" -i "$HOME/.gitconfig"
+        sed -e "s/AUTHOR_NAME/$author/g" -e "s/AUTHOR_EMAIL/$email/g" -e "s/GIT_CREDENTIAL_HELPER/$store/g" -i "$HOME/.gitconfig"
+        echo "got past name etc."
         if ! [ -z "$key" ]; then
-            sed -e "s/AUTHORGPGKEY/$key/g" -e "s/gpgsign = false/gpgsign = true/g" -i "$HOME/.gitconfig"
+            sed -e "s/AUTHOR_GPG_KEY/$key/g" -e "s/gpgsign = false/gpgsign = true/g" -i "$HOME/.gitconfig"
+            echo "after gpg key"
+        fi
+        if command -v ghq >/dev/null 2>&1; then
+            # Use "|" as a delimiter since $HOME/workspace contains "/"
+            sed -e "s|GHQ_ROOT|$HOME/workspace|g" -i "$HOME/.gitconfig"
         fi
 
         success "created gitconfig"
