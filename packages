@@ -26,6 +26,7 @@ indent
 iptables
 jq
 less
+libssl-dev
 libtool
 libtool-bin
 lsb-release
@@ -33,6 +34,7 @@ lsof
 make
 mount
 net-tools
+pkg-config
 shellcheck
 software-properties-common
 ssh
