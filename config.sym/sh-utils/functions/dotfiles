@@ -1,19 +1,15 @@
 #!/bin/bash
 
 dots() {
-  cd "$HOME/dotfiles" || return
+  cd "$HOME/workspace/github.com/w1lkins/dotfiles" || return
 }
 
 zshrc() {
-  $EDITOR ~/.zshrc
+  $EDITOR "$HOME/.zshrc"
 }
 
 i3config() {
-  $EDITOR ~/.i3/config
-}
-
-terminalrc() {
-  $EDITOR "$HOME/.config/xfce4/terminal/terminalrc"
+  $EDITOR "$HOME/.i3/config"
 }
 
 htoprc() {
