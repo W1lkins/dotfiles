@@ -186,7 +186,7 @@ install_extras() {
         python3 /tmp/get-pip.py --user
     fi
     info "python3 and pip installed, running post-install actions"
-    pip3 install --quiet --user yapf pipenv icdiff pipreqs
+    pip3 install --quiet --user yapf pipenv icdiff pipreqs magic-wormhole
     printf "\\n"
 
     # fzf
