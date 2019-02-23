@@ -45,17 +45,48 @@ map <leader>o :BufExplorer<CR>
 " }}}
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 " {{{
-" set up the ripgrep command
-let g:rg_command = '
-  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --color "always"
-  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf}"
-  \ -g "!{.git,node_modules,vendor}/*" '
+nnoremap <silent> <leader>e :call Find()<CR>
 
-" make :F call rg_command
-command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+" ripgrep
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  set grepprg=rg\ --vimgrep
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+endif
 
-" map `F` to rg_command
-nnoremap F :F<space>
+" search through files using fzf/bat with preview + icons
+function! Find()
+  let l:fzf_files_options = '--preview "bat --theme="OneHalfDark" --style=numbers,changes --color always {2..-1} | head -'.&lines.'"'
+
+  function! s:files()
+    let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
+    return s:prepend_icon(l:files)
+  endfunction
+
+  function! s:prepend_icon(candidates)
+    let l:result = []
+    for l:candidate in a:candidates
+      let l:filename = fnamemodify(l:candidate, ':p:t')
+      let l:icon = WebDevIconsGetFileTypeSymbol(l:filename, isdirectory(l:filename))
+      call add(l:result, printf('%s %s', l:icon, l:candidate))
+    endfor
+
+    return l:result
+  endfunction
+
+  function! s:edit_file(item)
+    let l:pos = stridx(a:item, ' ')
+    let l:file_path = a:item[pos+1:-1]
+    execute 'silent e' l:file_path
+  endfunction
+
+  call fzf#run({
+        \ 'source': <sid>files(),
+        \ 'sink':   function('s:edit_file'),
+        \ 'options': '-m ' . l:fzf_files_options,
+        \ 'down':    '40%' })
+endfunction
+
 " }}}
 Plug 'junegunn/goyo.vim'
 " {{{
@@ -145,6 +176,10 @@ Plug 'sheerun/vim-polyglot'
 Plug 'posva/vim-vue'
 Plug 'buoto/gotests-vim'
 Plug 'rust-lang/rust.vim'
+" {{{
+let g:rustfmt_autosave = 1
+" }}}
+Plug 'ryanoasis/vim-devicons'
 
 call plug#end()
 " }}}
@@ -183,12 +218,7 @@ set ttyfast                                      " indicates a fast terminal con
 set undofile                                     " save undo's after file closes
 set undoreload=10000                             " number of lines to save for undo
 set visualbell                                   " uses a visual bell instead of beeping noise
-
-" time out on key codes but not mappings
-" e.g. `ci` will not timeout until you press t or ( or ESC etc.
-set notimeout
-set ttimeout
-set ttimeoutlen=10
+set timeoutlen=200                               " time out leader commands after 200ms
 
 " better completion
 set complete=.,w,b,u,t
