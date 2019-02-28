@@ -117,6 +117,19 @@ install_base() {
     sudo apt clean
 }
 
+install_sources() {
+	# GCP
+	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/google-cloud-sdk.list
+    deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main
+	EOF'
+
+	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/google-chrome.list
+	deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+	EOF'
+
+	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+}
+
 install_extras() {
     # oh-my-zsh
     if ! [ -s "$HOME/.oh-my-zsh" ]; then
@@ -308,6 +321,10 @@ main() {
     if [[ ! -z $cmd && $cmd == "init" ]]; then
         info "setting up sudo"
         setup_sudo
+        printf "\\n"
+
+        info "installing sources"
+        install_sources
         printf "\\n"
 
         info "installing base"

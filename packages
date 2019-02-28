@@ -18,6 +18,7 @@ gettext
 git
 gnupg
 gnupg2
+google-cloud-sdk
 grep
 gzip
 hostname
