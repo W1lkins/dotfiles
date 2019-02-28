@@ -118,16 +118,17 @@ install_base() {
 }
 
 install_sources() {
-	# GCP
+	# set up sources
 	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/google-cloud-sdk.list
     deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main
 	EOF'
-
 	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/google-chrome.list
 	deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
 	EOF'
 
+    # keys
 	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+    curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 }
 
 install_extras() {
