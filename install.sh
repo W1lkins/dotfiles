@@ -145,7 +145,7 @@ install_extras() {
     info "rust installed, running post-install actions"
     rustup override set stable
     rustup update stable
-    cargo install shellharden ripgrep exa bat || true
+    cargo install shellharden ripgrep exa bat miniserve || true
     printf "\\n"
 
     # go
