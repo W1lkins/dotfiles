@@ -219,6 +219,7 @@ install_extras() {
     install_oh_my_zsh
     install_rust
     install_go
+    install_python3
 
     # fzf
     if ! [ -s "$HOME/.fzf" ]; then

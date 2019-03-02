@@ -1,20 +1,13 @@
 #!/bin/bash
 
-alias ..='cd ..'
-alias l='ls -lFh'
-alias la='ls -laFh'
-alias ll='ls -l'
-alias vi='$EDITOR'
-alias tarup='tar -zcf'
-alias tardown='tar -zxf'
-alias shutdown='sudo shutdown now'
-alias restart='sudo shutdown -r now'
-alias python=python3
-alias vim=nvim
-alias jk=jekyll
-alias usystemctl='systemctl --user'
-
-alias drive='gdrive'
 alias cat='$HOME/.cargo/bin/bat'
+alias drive='gdrive'
+alias httpserver='miniserve'
 alias ls='$HOME/.cargo/bin/exa'
+alias python=python3
+alias tardown='tar -zxf'
+alias tarup='tar -zcf'
+alias usystemctl='systemctl --user'
+alias vi='$EDITOR'
+alias vim='nvim'
 
