@@ -104,6 +104,10 @@ setup_sudo() {
     sudo gpasswd -a "$USER" systemd-journal
 	sudo gpasswd -a "$USER" systemd-network
 	sudo gpasswd -a "$USER" docker
+
+    sudo mkdir -p /etc/sudoers.d/
+    sudo rm /etc/sudoers.d/"$USER"
+    echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/"$USER" >/dev/null
 }
 
 install_base() {
@@ -129,6 +133,11 @@ install_sources() {
     # keys
 	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
     curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+
+    # speed up apt
+    sudo mkdir -p /etc/apt/apt.conf.d
+    sudo rm /etc/apt/apt.conf.d/99translations
+	echo 'Acquire::Languages "none";' | sudo tee -a /etc/apt/apt.conf.d/99translations >/dev/null
 }
 
 install_oh_my_zsh() {
@@ -257,10 +266,6 @@ install_extras() {
 	sudo chmod +x /usr/local/bin/speedtest
 }
 
-post_install() {
-    mkdir -p "$HOME"/workspace
-}
-
 setup_git() {
     if ! [ -s "$HOME/.gitconfig" ]; then
         store="cache"
@@ -330,6 +335,12 @@ setup_vim() {
         cd "$HOME"/.vim || exit 1;
         nvim +PlugClean +PlugUpdate +UpdateRemotePlugins +qa
     ) || fail "couldn't cd to $HOME/.vim"
+}
+
+post_install() {
+    mkdir -p "$HOME"/workspace
+    mkdir -p "$HOME"/media/pictures/wallpapers
+    mkdir -p "$HOME"/tmp
 }
 
 main() {
