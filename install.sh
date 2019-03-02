@@ -2,7 +2,7 @@
 set -o pipefail
 
 DOTFILES_ROOT=$(pwd -P)
-export PATH=$PATH:/usr/local/go/bin:$HOME/.cargo/bin:$HOME/.local/bin:/usr/local/rvm/bin
+export PATH="$PATH:/usr/local/go/bin:$HOME/.cargo/bin:$HOME"/.local/bin
 
 info() {
     printf "[\\033[00;34m.\\033[0m] %s\\n" "$1"
@@ -31,7 +31,7 @@ determine_arch() {
         x86*) arch=amd64;;
         arm*) arch=arm;;
     esac
-    echo $arch
+    echo "$arch"
 }
 
 link_file() {
@@ -131,40 +131,42 @@ install_sources() {
     curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 }
 
-install_extras() {
+install_oh_my_zsh() {
     # oh-my-zsh
     if ! [ -s "$HOME/.oh-my-zsh" ]; then
         git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"
     fi
-    info "oh-my-zsh installed"
-    printf "\\n"
+    success "oh-my-zsh installed"
+}
 
-    # rust
+install_rust() {
     if ! [ -s "$HOME"/.cargo/bin/rustc ]; then
         curl -fsSL "https://sh.rustup.rs" | bash
     fi
-    info "rust installed, running post-install actions"
-    rustup override set stable
-    rustup update stable
-    cargo install shellharden ripgrep exa bat miniserve || true
-    printf "\\n"
+    success "rust installed, running post-install actions"
 
-    # go
+    # use nightly rust
+    rustup install nightly
+    rustup default nightly
+    rustup update
+    cargo install shellharden ripgrep exa bat miniserve || true
+}
+
+install_go() {
     GO_VERSION=$(curl -fsSL "https://golang.org/VERSION?m=text")
     INSTALLED_VERSION="none"
     if [ -s /usr/local/go/bin/go ]; then
         INSTALLED_VERSION="$(go version | cut -d' ' -f3)"
     fi
     GO_SRC=/usr/local/go
-    mkdir -p "$GO_SRC"
+    sudo mkdir -p "$GO_SRC"
     if [[ "$INSTALLED_VERSION" != "$GO_VERSION" ]]; then
         GO_VERSION=${GO_VERSION#go}
         info "installing new go version: $GO_VERSION"
 		sudo rm -rf "$GO_SRC"
         curl -fsSL "https://storage.googleapis.com/golang/go$GO_VERSION.$KERNEL-$ARCH.tar.gz" | sudo tar -v -C /usr/local -xz
     fi
-    info "go installed, running post-install actions"
-    printf "\\n"
+    success "go installed, running post-install actions"
 
     # go post-install
     # vim-go
@@ -191,40 +193,52 @@ install_extras() {
     go get honnef.co/go/tools/cmd/staticcheck
     go get github.com/prasmussen/gdrive
     go get github.com/motemen/ghq
+}
 
-    # python
+install_python3() {
     info "installing python3"
-    sudo apt install python3 python3-distutils python3-neovim || true
-    if ! command -v pip3 >/dev/null 2>&1; then
+    sudo apt install python3 \
+        python3-pip \
+        python3-setuptools \
+        python3-distutils \
+        --no-install-recommends
+    if ! command -v pip3 >/dev/null 2>&1 || ! [ -s "$HOME"/.local/bin/pip3 ]; then
         curl -fsSL "https://bootstrap.pypa.io/get-pip.py" -o /tmp/get-pip.py
         python3 /tmp/get-pip.py --user
     fi
-    info "python3 and pip installed, running post-install actions"
-    pip3 install --quiet --user yapf pipenv icdiff pipreqs magic-wormhole
-    printf "\\n"
+    success "python3 and pip installed, running post-install actions"
+    "$HOME"/.local/bin/pip3 install --quiet --user --upgrade \
+        yapf \
+        pipenv \
+        icdiff \
+        pipreqs \
+        magic-wormhole
+}
+
+install_extras() {
+    install_oh_my_zsh
+    install_rust
+    install_go
 
     # fzf
     if ! [ -s "$HOME/.fzf" ]; then
         git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf" && \
             "$HOME/.fzf/install"
     fi
-    info "fzf installed"
-    printf "\\n"
+    success "fzf installed"
 
     # yarn
     info "installing yarn"
     curl -fsSL "https://dl.yarnpkg.com/debian/pubkey.gpg" | sudo apt-key add -
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
     sudo apt update -qq && sudo apt install -yqq yarn --no-install-recommends
-    info "yarn installed"
-    printf "\\n"
+    success "yarn installed"
 
     # docker
     if ! command -v docker >/dev/null 2>&1; then
         curl -fsSL "https://get.docker.com" | bash
     fi
-    info "docker installed"
-    printf "\\n"
+    success "docker installed"
 
     # 1password cli
     if ! [ -s /usr/local/bin/op ]; then
@@ -234,7 +248,11 @@ install_extras() {
         sudo mv op /usr/local/bin/op
         rm op.sig "$OP"
     fi
-    info "1password cli installed"
+    success "1password cli installed"
+
+    # speedtest
+    curl -sSL https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | sudo tee /usr/local/bin/speedtest >/dev/null
+	sudo chmod +x /usr/local/bin/speedtest
 }
 
 post_install() {
@@ -300,7 +318,7 @@ setup_systemd() {
         dest="/etc/systemd/system/$(basename "$file")"
         if ! [ -L "$dest" ]; then
             info "Linking $file to $dest"
-            sudo ln -s $(readlink -f "$file") "$dest"
+            sudo ln -s "$(readlink -f "$file")" "$dest"
         fi
     done
 }
@@ -314,48 +332,39 @@ setup_vim() {
 
 main() {
     local cmd="$1"
-    readonly KERNEL=$(uname -s | tr '[:upper:]' '[:lower:]')
-    readonly ARCH=$(determine_arch)
-    readonly DIST=$(lsb_release -si | tr '[:upper:]' '[:lower:]')
+    readonly KERNEL="$(uname -s | tr '[:upper:]' '[:lower:]')"
+    readonly ARCH="$(determine_arch)"
+    readonly DIST="$(lsb_release -si | tr '[:upper:]' '[:lower:]')"
     info "Running for kernel: $KERNEL and arch $ARCH"
 
     if [[ ! -z $cmd && $cmd == "init" ]]; then
         info "setting up sudo"
         setup_sudo
-        printf "\\n"
 
         info "installing sources"
         install_sources
-        printf "\\n"
 
         info "installing base"
         install_base
-        printf "\\n"
 
         info "installing extras"
         install_extras
-        printf "\\n"
 
         info "running post-install actions"
         post_install
-        printf "\\n"
     fi
 
     info "setting up git"
     setup_git
-    printf "\\n"
 
     info "linking dotfiles"
     setup_dotfiles
-    printf "\\n"
 
     info "setting up systemd"
     setup_systemd
-    printf "\\n"
 
     info "setting up vim"
     setup_vim
-    printf "\\n"
 
     success "installation complete"
 }

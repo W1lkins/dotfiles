@@ -129,33 +129,7 @@ nnoremap <leader>a <C-]>
 nnoremap <leader>t <C-t>
 nnoremap <leader>A :tselect<CR>
 " }}}
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-" {{{
-noremap <F2> :NERDTreeToggle<cr>
-inoremap <F2> <esc>:NERDTreeToggle<cr>
-
-augroup ps_nerdtree
-    au!
-    au Filetype nerdtree setlocal nolist
-    au Filetype nerdtree nnoremap <buffer> H :vertical resize -10<cr>
-    au Filetype nerdtree nnoremap <buffer> L :vertical resize +10<cr>
-augroup END
-
-let NERDTreeHighlightCursorline = 1
-let NERDTreeIgnore = ['\~$', '.*\.pyc$', 'pip-log\.txt$', 'whoosh_index',
-                    \ 'xapian_index', '.*.pid', '.*-fixtures-.*.json',
-                    \ '.*\.o$', 'db.db', 'tags.bak', '.*\.pdf$', '.*\.mid$',
-                    \ '^tags$',
-                    \ '^.*\.meta$',
-                    \ '.*\.bcf$', '.*\.blg$', '.*\.fdb_latexmk$', '.*\.bbl$', '.*\.aux$', '.*\.run.xml$', '.*\.fls$',
-                    \ '.*\.midi$']
-let g:NERDTreeWinPos = 'right'
-let NERDChristmasTree = 1
-let NERDTreeChDirMode = 2
-let NERDTreeDirArrows = 1
-let NERDTreeMapJumpFirstChild = 'gK'
-let NERDTreeMinimalUI = 1
-" }}}
+Plug 'tpope/vim-vinegar'
 Plug 'Shougo/deoplete.nvim', NEOVIM() ? {} : { 'on': [] }
 " {{{
 let g:deoplete#enable_at_startup = 1

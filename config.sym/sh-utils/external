@@ -9,17 +9,14 @@ export GIT_SSH_COMMAND="ssh -i ~/.ssh/$(cat /etc/hostname)"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
-# source cargo for rust
-[ -s "$HOME"/.cargo/env ] && source "$HOME"/.cargo/env
-
 # import shell history into historian if it exists
 [ -s "$HOME"/historian/hist ] && hist import &> /dev/null
 
 # google cloud SDK
 [ -d "$HOME"/google-cloud-sdk/ ] && source "$HOME"/google-cloud-sdk/completion.zsh.inc && source "$HOME"/google-cloud-sdk/path.zsh.inc
 
-# add npm/yarn/gem/pip modules to path
-export PATH=$PATH:"$HOME"/.npm-global/bin:"$HOME"/.yarn/bin:"$HOME"/.local/bin:"$HOME"/.gem/bin
+# add cargo/npm/yarn/gem/pip modules to path
+export PATH=$PATH:"$HOME"/.cargo/bin:"$HOME"/.npm-global/bin:"$HOME"/.yarn/bin:"$HOME"/.local/bin:"$HOME"/.gem/bin
 
 # gpg
 if type gpgconf &> /dev/null; then
