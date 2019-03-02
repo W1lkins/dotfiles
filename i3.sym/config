@@ -20,7 +20,7 @@ set $lightgrey   #a89984
 set $white       #ebdbb2
 
 # window colors
-client.focused                $foreground      $foreground     $bacground   $foreground
+client.focused                $foreground      $foreground     $background   $foreground
 client.focused_inactive       $darkgrey        $darkgrey       $foreground  $darkgrey
 client.unfocused              $darkgrey        $darkgrey       $foreground  $darkgrey
 client.urgent                 $red             $red            $background  $red
@@ -30,8 +30,8 @@ client.urgent                 $red             $red            $background  $red
 # basic settings {{{
 
 set $mod Mod1
-set $term st
-set $browser chromium
+set $term alacritty
+set $browser google-chrome-unstable
 set $mail thunderbird
 set $music $term -name ncmpcpp -e ncmpcpp
 
@@ -119,12 +119,12 @@ bindsym $mod+Ctrl+e layout toggle split
 
 bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+c reload
-bindsym $mod+Ctrl+r restart
+bindsym $mod+Shift+r restart
 
 bindsym $mod+Shift+e exec prompt "Are you sure you want to exit i3?" "i3-msg exit"
 
 bindsym $mod+o exec $term -e ranger
-bindsym $mod+b exec --no-startup-id $browser
+bindsym $mod+w exec --no-startup-id $browser
 bindsym $mod+i exec $term -e htop
 bindsym $mod+m exec --no-startup-id $music
 bindsym $mod+e exec --no-startup-id $mail
@@ -179,8 +179,6 @@ exec --no-startup-id compton -f --config ~/.compton.conf
 exec --no-startup-id unclutter
 # we'll start pulseaudio if it exists
 exec --no-startup-id pulseaudio
-# start mopidy
-exec --no-startup-id mopidy
 
 # }}}
 
