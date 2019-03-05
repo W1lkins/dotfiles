@@ -106,7 +106,7 @@ setup_sudo() {
 	sudo gpasswd -a "$USER" docker
 
     sudo mkdir -p /etc/sudoers.d/
-    sudo rm /etc/sudoers.d/"$USER"
+    sudo rm -f /etc/sudoers.d/"$USER"
     echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/"$USER" >/dev/null
 }
 
@@ -136,7 +136,7 @@ install_sources() {
 
     # speed up apt
     sudo mkdir -p /etc/apt/apt.conf.d
-    sudo rm /etc/apt/apt.conf.d/99translations
+    sudo rm -f /etc/apt/apt.conf.d/99translations
 	echo 'Acquire::Languages "none";' | sudo tee -a /etc/apt/apt.conf.d/99translations >/dev/null
 }
 
