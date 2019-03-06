@@ -206,10 +206,10 @@ install_go() {
 
 install_python3() {
     info "installing python3"
-    sudo apt install python3 \
+    sudo apt install -yqq python3 \
         python3-pip \
         python3-setuptools \
-	python3-dev \
+        python3-dev \
         python3-distutils \
         --no-install-recommends
     if ! command -v pip3 >/dev/null 2>&1 || ! [ -s "$HOME"/.local/bin/pip3 ]; then
