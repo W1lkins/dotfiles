@@ -222,7 +222,8 @@ install_python3() {
         pipenv \
         icdiff \
         pipreqs \
-        magic-wormhole
+        magic-wormhole \
+        docker-compose
 }
 
 install_extras() {
