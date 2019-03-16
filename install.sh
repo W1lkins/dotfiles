@@ -339,9 +339,8 @@ setup_vim() {
 }
 
 post_install() {
-    mkdir -p "$HOME"/workspace
-    mkdir -p "$HOME"/media/pictures/wallpapers
-    mkdir -p "$HOME"/tmp
+    mkdir -p "$HOME"/{workspace,tmp,downloads,documents}
+    mkdir -p "$HOME"/media/{pictures/wallpapers,screenshots,videos,music}
 }
 
 main() {
