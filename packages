@@ -42,6 +42,7 @@ mount
 net-tools
 pkg-config
 shellcheck
+signal-desktop
 software-properties-common
 ssh
 sshfs

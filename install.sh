@@ -106,7 +106,9 @@ setup_sudo() {
 	sudo gpasswd -a "$USER" docker
 
     sudo mkdir -p /etc/sudoers.d/
+    echo "Removing /etc/sudoers.d/$USER"
     sudo rm -f /etc/sudoers.d/"$USER"
+    echo "Adding /etc/sudoers.d/$USER"
     echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/"$USER" >/dev/null
 }
 
@@ -129,10 +131,14 @@ install_sources() {
 	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/google-chrome.list
 	deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
 	EOF'
+	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/signal.list
+    deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main
+	EOF'
 
     # keys
-	curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-    curl https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+    curl -s https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
 
     # speed up apt
     sudo mkdir -p /etc/apt/apt.conf.d
