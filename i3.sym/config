@@ -20,10 +20,10 @@ set $lightgrey   #a89984
 set $white       #ebdbb2
 
 # window colors
-client.focused                $foreground      $foreground     $background   $foreground
-client.focused_inactive       $darkgrey        $darkgrey       $foreground  $darkgrey
-client.unfocused              $darkgrey        $darkgrey       $foreground  $darkgrey
-client.urgent                 $red             $red            $background  $red
+client.focused $foreground $foreground $background $foreground
+client.focused_inactive $darkgrey $darkgrey $foreground $darkgrey
+client.unfocused $darkgrey $darkgrey $foreground $darkgrey
+client.urgent $red $red $background $red
 
 # }}}
 
@@ -33,7 +33,7 @@ set $mod Mod1
 set $term alacritty
 set $browser google-chrome-unstable
 set $mail thunderbird
-set $music $term -name ncmpcpp -e ncmpcpp
+set $music google-play-music-desktop-player
 
 font pango:Tamzen 10
 floating_modifier $mod
@@ -88,7 +88,7 @@ new_window 1pixel
 
 # enable and disable gaps
 bindsym $mod+Shift+d gaps inner all set 0; gaps outer all set 0
-bindsym $mod+d gaps inner all set 10; gaps outer all set 5;
+bindsym $mod+d gaps inner all set 10
 
 #}}}
 
@@ -117,11 +117,11 @@ bindsym $mod+Ctrl+s layout stacking
 bindsym $mod+Ctrl+w layout tabbed
 bindsym $mod+Ctrl+e layout toggle split
 
-bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
 bindsym $mod+Shift+e exec prompt "Are you sure you want to exit i3?" "i3-msg exit"
+bindsym $mod+Shift+x exec prompt "Are you sure you want to shutdown?" "sudo shutdown now"
 
 bindsym $mod+o exec $term -e ranger
 bindsym $mod+w exec --no-startup-id $browser
@@ -134,9 +134,10 @@ bindsym $mod+g exec $term -e weechat
 
 # external bindings {{{
 
-bindsym $mod+r exec --no-startup-id dmenu_run
-bindsym $mod+Shift+s exec --no-startup-id scrot '%Y-%m-%d-%H-%M.png' -e 'mv $f ~/media/screenshots'
-bindsym $mod+space exec --no-startup-id $HOME/.i3/lock -l dimblur
+bindsym $mod+space exec --no-startup-id dmenu_run
+bindsym --release $mod+s exec scrot -s '%Y-%m-%d-%H-%M-%S.png' -e 'mv $f ~/media/screenshots'
+bindsym --release $mod+Shift+s exec scrot -u '%Y-%m-%d-%H-%M-%S.png' -e 'mv $f ~/media/screenshots'
+bindsym $mod+Shift+space exec --no-startup-id $HOME/.i3/lock -l dimblur
 bindsym $mod+a exec --no-startup-id unclutter
 
 # }}}
@@ -144,14 +145,14 @@ bindsym $mod+a exec --no-startup-id unclutter
 # window assignments {{{
 
 assign [Class="Chromium"] $ws1
-for_window [class="Spotify"] move to workspace $ws10
-for_window [class="Thunderbird"] move to workspace $ws7
-for_window [class="streamlink-twitch-gui"] move to workspace $ws5
 for_window [class="mpv"] move to workspace $ws6
+for_window [class="Slack"] move to workspace $ws3
+for_window [class="Spotify"] move to workspace $ws10
+for_window [class="streamlink-twitch-gui"] move to workspace $ws5
+for_window [class="Thunderbird"] move to workspace $ws7
 for_window [class="Vlc"] move to workspace $ws6
 for_window [instance="twitch.+(chat)"] move to workspace $ws6
-for_window [title="^ncmpcpp\s+\d"] move to workspace $ws10
-for_window [class="Bitwarden"] move to workspace $ws9
+for_window [title="Google Play Music Desktop Player"] move to workspace $ws10
 
 # }}}
 
@@ -171,14 +172,14 @@ exec_always --no-startup-id xrdb ~/.Xresources
 exec --no-startup-id xflux -l 55.9 -g -3.5
 # wallpaper
 exec_always --no-startup-id feh --bg-fill --no-fehbg ~/.config/wall.png
-# lock setup
-exec --no-startup-id $HOME/.i3/lock -u $HOME/media/pictures/wallpapers/
 # composite manager
 exec --no-startup-id compton -f --config ~/.compton.conf
 # hide the mouse after a brief period
 exec --no-startup-id unclutter
 # we'll start pulseaudio if it exists
-exec --no-startup-id pulseaudio
+exec --no-startup-id pulseaudio --daemonize
+# start pasystray
+exec --no-startup-id pasystray
 
 # }}}
 
@@ -212,12 +213,12 @@ bindsym $mod+bracketright exec $forward
 
 # scratchpad Window {{{
 
-for_window [instance="dropdown"] floating enable
-for_window [instance="dropdown"] resize set 625 400
-for_window [instance="dropdown"] move position center
-for_window [instance="dropdown"] move scratchpad
-exec --no-startup-id $term -name dropdown -e tmux
-bindsym $mod+u [instance="dropdown"] scratchpad show; move position center
+for_window [title="dropdown"] floating enable
+for_window [title="dropdown"] resize set 825 600
+for_window [title="dropdown"] move position center
+for_window [title="dropdown"] move scratchpad
+exec --no-startup-id $term --title dropdown --command tmux
+bindsym $mod+u [title="dropdown"] scratchpad show; move position center
 
 #}}}
 
