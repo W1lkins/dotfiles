@@ -335,6 +335,7 @@ signals() {
   bash -c 'kill -l'
 }
 
+# use icdiff if it exists else fall back to normal diff
 diff() {
   if commandexists icdiff; then
     icdiff "$@"

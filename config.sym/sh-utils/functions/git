@@ -30,6 +30,10 @@ current-branch() {
     git rev-parse --abbrev-ref HEAD
 }
 
+renamebranch() {
+    git branch -m "$1"
+}
+
 setupstream() {
     git branch --set-upstream-to=origin/"$(current-branch)" "$(current-branch)"
 }
