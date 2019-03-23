@@ -130,7 +130,7 @@ install_base() {
             git clone https://github.com/jaagr/polybar.git;
             cd polybar;
             ./build.sh
-        )
+        ) || fail "Couldn't cd to $tmpdir to install polybar"
     fi
 
     # install fonts
@@ -145,14 +145,13 @@ install_base() {
             url=$(echo "$url" | tr -d '"');
             curl -fsSL "$url" -o mononoki.zip;
             if [[ ! -f mononoki.zip ]]; then
-                warning "Unable to download Mononoki fonts";
                 exit 1
             fi
             unzip "mononoki.zip";
             rm "mononoki.zip";
             mv ./* "$HOME/.fonts";
             fc-cache -fv
-        )
+        ) || fail "Couldn't download Mononoki"
     fi
 
     if fc-list | grep 'iosevka'; then
@@ -166,14 +165,13 @@ install_base() {
             url=$(echo "$url" | tr -d '"');
             curl -fsSL "$url" -o iosevka.zip;
             if [[ ! -f iosevka.zip ]]; then
-                warning "Unable to download Iosevka fonts";
                 exit 1
             fi
             unzip "iosevka.zip";
             rm "iosevka.zip";
             mv ./ttf/* "$HOME/.fonts";
             fc-cache -fv
-        )
+        ) || fail "Couldn't download Iosevka"
     fi
 }
 
@@ -404,13 +402,13 @@ setup_vim() {
             cd neovim;
             make -j8 CMAKE_BUILD_TYPE=RelWithDebInfo;
             sudo make install
-        )
+        ) || fail "Failed to install neovim"
     fi
 
     (
         cd "$HOME"/.vim || exit 1;
         nvim +PlugClean +PlugUpdate +UpdateRemotePlugins +qa
-    ) || fail "couldn't cd to $HOME/.vim"
+    ) || fail "Couldn't cd to $HOME/.vim"
 
 }
 
