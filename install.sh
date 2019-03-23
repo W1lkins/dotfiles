@@ -121,6 +121,60 @@ install_base() {
     sudo apt autoremove
     sudo apt autoclean
     sudo apt clean
+
+    # install polybar
+    if [[ ! -f /usr/local/bin/polybar ]]; then
+        tmpdir=$(mktemp -d)
+        (
+            cd "$tmpdir" || exit 1;
+            git clone https://github.com/jaagr/polybar.git;
+            cd polybar;
+            ./build.sh
+        )
+    fi
+
+    # install fonts
+    if fc-list | grep 'mononoki'; then
+        info "Mononoki font exists"
+    else
+        tmpdir=$(mktemp -d)
+        info "Installing Mononoki font"
+        (
+            cd "$tmpdir" || exit 1;
+            url="$(curl -fsSL https://api.github.com/repos/madmalik/mononoki/releases | jq '.[0].assets[0].browser_download_url')";
+            url=$(echo "$url" | tr -d '"');
+            curl -fsSL "$url" -o mononoki.zip;
+            if [[ ! -f mononoki.zip ]]; then
+                warning "Unable to download Mononoki fonts";
+                exit 1
+            fi
+            unzip "mononoki.zip";
+            rm "mononoki.zip";
+            mv ./* "$HOME/.fonts";
+            fc-cache -fv
+        )
+    fi
+
+    if fc-list | grep 'iosevka'; then
+        info "Iosevka font exists"
+    else
+        tmpdir=$(mktemp -d)
+        info "Installing Iosevka font"
+        (
+            cd "$tmpdir";
+            url="$(curl -fsSL https://api.github.com/repos/be5invis/Iosevka/releases | jq '.[0].assets[0].browser_download_url')";
+            url=$(echo "$url" | tr -d '"');
+            curl -fsSL "$url" -o iosevka.zip;
+            if [[ ! -f iosevka.zip ]]; then
+                warning "Unable to download Iosevka fonts";
+                exit 1
+            fi
+            unzip "iosevka.zip";
+            rm "iosevka.zip";
+            mv ./ttf/* "$HOME/.fonts";
+            fc-cache -fv
+        )
+    fi
 }
 
 install_sources() {
