@@ -67,5 +67,3 @@
     gpgsign = false
 [ghq]
     root = GHQ_ROOT
-[url "git@github.com:"]
-	insteadOf = https://github.com/
