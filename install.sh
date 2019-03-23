@@ -402,7 +402,7 @@ setup_vim() {
             cd "$tmpdir" || exit 1;
             git clone https://github.com/neovim/neovim.git;
             cd neovim;
-            make -j8 CMAKE_BUILD_TYPE=RelWithDebInfo
+            make -j8 CMAKE_BUILD_TYPE=RelWithDebInfo;
             sudo make install
         )
     fi
