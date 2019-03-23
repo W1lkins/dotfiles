@@ -219,6 +219,7 @@ install_rust() {
     rustup default nightly
     rustup update
     cargo install shellharden ripgrep exa bat miniserve || true
+    cargo install --git https://github.com/jwilm/alacritty || true
 }
 
 install_go() {
@@ -393,6 +394,19 @@ setup_systemd() {
 }
 
 setup_vim() {
+    # install neovim if not exists
+    if [[ ! -f /usr/local/bin/nvim ]]; then
+        info "installing neovim"
+        tmpdir=$(mktemp -d)
+        (
+            cd "$tmpdir" || exit 1;
+            git clone https://github.com/neovim/neovim.git;
+            cd neovim;
+            make -j8 CMAKE_BUILD_TYPE=RelWithDebInfo
+            sudo make install
+        )
+    fi
+
     (
         cd "$HOME"/.vim || exit 1;
         nvim +PlugClean +PlugUpdate +UpdateRemotePlugins +qa
