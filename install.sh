@@ -216,11 +216,11 @@ install_python3() {
         python3-pip \
         python3-setuptools \
         python3-dev \
-        python3-distutils \
         --no-install-recommends
     if ! command -v pip3 >/dev/null 2>&1 || ! [ -s "$HOME"/.local/bin/pip3 ]; then
-        curl -fsSL "https://bootstrap.pypa.io/get-pip.py" -o /tmp/get-pip.py
-        python3 /tmp/get-pip.py --user
+        tmpdir=$(mktemp -d)
+        curl -fsSL "https://bootstrap.pypa.io/get-pip.py" -o "/$tmpdir/get-pip.py"
+        python3 "/$tmpdir/get-pip.py" --user
     fi
     success "python3 and pip installed, running post-install actions"
     "$HOME"/.local/bin/pip3 install --quiet --user --upgrade \
@@ -229,7 +229,8 @@ install_python3() {
         icdiff \
         pipreqs \
         magic-wormhole \
-        docker-compose
+        docker-compose \
+        neovim
 }
 
 install_extras() {
