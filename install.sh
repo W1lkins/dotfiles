@@ -411,11 +411,31 @@ setup_vim() {
         cd "$HOME"/.vim || exit 1;
         nvim +PlugClean +PlugUpdate +UpdateRemotePlugins +qa
     ) || fail "couldn't cd to $HOME/.vim"
+
+}
+
+pre_install() {
+    sudo apt install -yqq --no-install-recommends curl apt-transport-https
 }
 
 post_install() {
     mkdir -p "$HOME"/{workspace,tmp,downloads,documents}
     mkdir -p "$HOME"/media/{pictures/wallpapers,screenshots,videos,music}
+
+    sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$(command -v alacritty)" 60
+    sudo update-alternatives --config x-terminal-emulator
+
+	sudo update-alternatives --install /usr/bin/vi vi "$(command -v nvim)" 60
+	sudo update-alternatives --config vi
+
+	sudo update-alternatives --install /usr/bin/vim vim "$(command -v nvim)" 60
+	sudo update-alternatives --config vim
+
+	sudo update-alternatives --install /usr/bin/editor editor "$(command -v nvim)" 60
+	sudo update-alternatives --config editor
+
+    # temporary removal of go.mod, go.sum
+    rm go.mod go.sum
 }
 
 main() {
@@ -424,6 +444,9 @@ main() {
     readonly ARCH="$(determine_arch)"
     readonly DIST="$(lsb_release -si | tr '[:upper:]' '[:lower:]')"
     info "Running for kernel: $KERNEL and arch $ARCH"
+
+    info "running pre-install"
+    pre_install
 
     if [[ ! -z $cmd && $cmd == "init" ]]; then
         info "setting up sudo"
@@ -437,9 +460,6 @@ main() {
 
         info "installing extras"
         install_extras
-
-        info "running post-install actions"
-        post_install
     fi
 
     info "setting up git"
@@ -453,6 +473,9 @@ main() {
 
     info "setting up vim"
     setup_vim
+
+    info "running post-install"
+    post_install
 
     success "installation complete"
 }
