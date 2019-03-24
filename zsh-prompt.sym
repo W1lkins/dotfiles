@@ -1,0 +1,37 @@
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*:prompt:*' check-for-changes true
+
+# Colors
+blue="%F{33}"
+cyan="%F{37}"
+green="%F{64}"
+orange="%F{166}"
+red="%F{124}"
+reset="%f"
+violet="%F{61}"
+white="%F{15}"
+
+# User specific options
+user="%{$blue%}"
+if [[ "$USER" == "root" ]]; then
+    user="%{$red%}"
+fi
+
+# Highlight that we're connected via SSH.
+host="%{$cyan%}";
+cloud=""
+if [[ "$SSH_TTY" ]]; then
+	host="%{$terminfo[bold]$cyan%}";
+    cloud="☁️ "
+fi
+
+precmd() {
+    zstyle ':vcs_info:*' formats '%F{15}on %F{61}%b'
+    vcs_info
+}
+
+PROMPT=$'
+%{$user%}%n %{$white%}at %{$host%}%m%{$cloud%} %{$white%}in %{$green%}%~%{$reset%} ${vcs_info_msg_0_}%{$reset%}
+$ '
+

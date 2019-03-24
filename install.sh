@@ -205,11 +205,12 @@ install_oh_my_zsh() {
     fi
     success "oh-my-zsh installed"
 
-    THEME_DIR="$HOME/.oh-my-zsh/custom/themes/powerlevel10k"
+    THEME_DIR="$HOME/.oh-my-zsh/custom/themes"
     if [[ ! -d $THEME_DIR ]]; then
-        info "installing theme"
-        git clone https://github.com/romkatv/powerlevel10k.git "$THEME_DIR"
+        mkdir -p "$THEME_DIR"
     fi
+    info "linking theme"
+    link_file "$HOME/.zsh-prompt" "$THEME_DIR/wilkins-custom.zsh-theme"
 }
 
 install_rust() {

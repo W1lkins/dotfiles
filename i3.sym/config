@@ -186,7 +186,6 @@ exec --no-startup-id pasystray
 
 # music {{{
 
-set $music urxvt -e ncmpcpp
 set $inc --no-startup-id mpc volume +10
 set $dec --no-startup-id mpc volume -10
 set $pause --no-startup-id mpc toggle
