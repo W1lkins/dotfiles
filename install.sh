@@ -178,13 +178,13 @@ install_base() {
 install_sources() {
 	# set up sources
 	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/google-cloud-sdk.list
-    deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main
+deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main
 	EOF'
 	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/google-chrome.list
-	deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
 	EOF'
 	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/signal.list
-    deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main
+deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main
 	EOF'
 
     # keys
@@ -204,6 +204,12 @@ install_oh_my_zsh() {
         git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"
     fi
     success "oh-my-zsh installed"
+
+    THEME_DIR="$HOME/.oh-my-zsh/custom/themes/powerlevel10k"
+    if [[ ! -d $THEME_DIR ]]; then
+        info "installing theme"
+        git clone https://github.com/romkatv/powerlevel10k.git "$THEME_DIR"
+    fi
 }
 
 install_rust() {
@@ -216,7 +222,7 @@ install_rust() {
     rustup install nightly
     rustup default nightly
     rustup update
-    cargo install shellharden ripgrep exa bat miniserve || true
+    cargo install shellharden ripgrep exa bat miniserve ffsend || true
     cargo install --git https://github.com/jwilm/alacritty || true
 }
 
