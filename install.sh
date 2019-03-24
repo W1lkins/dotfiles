@@ -210,7 +210,7 @@ install_oh_my_zsh() {
         mkdir -p "$THEME_DIR"
     fi
     info "linking theme"
-    link_file "$HOME/.zsh-prompt" "$THEME_DIR/wilkins-custom.zsh-theme"
+    ln -sf "$HOME/.zsh-prompt" "$THEME_DIR/wilkins-custom.zsh-theme"
 }
 
 install_rust() {
@@ -440,7 +440,7 @@ post_install() {
 	sudo update-alternatives --config editor
 
     # temporary removal of go.mod, go.sum
-    rm go.mod go.sum
+    rm -f go.mod go.sum
 }
 
 main() {
