@@ -23,7 +23,7 @@ host="%{$cyan%}";
 cloud=""
 if [[ "$SSH_TTY" ]]; then
 	host="%{$terminfo[bold]$cyan%}";
-    cloud="☁️ "
+    cloud=☁️
 fi
 
 precmd() {
@@ -32,6 +32,6 @@ precmd() {
 }
 
 PROMPT=$'
-%{$user%}%n %{$white%}at %{$host%}%m%{$cloud%} %{$white%}in %{$green%}%~%{$reset%} ${vcs_info_msg_0_}%{$reset%}
+%{$user%}%n %{$white%}at %{$host%}%m%{$cloud%} %{$terminfo[sgr0]%}%{$white%}in %{$green%}%~%{$reset%} ${vcs_info_msg_0_}%{$reset%}
 $ '
 
