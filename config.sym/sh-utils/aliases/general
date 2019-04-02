@@ -3,7 +3,7 @@
 alias cat='$HOME/.cargo/bin/bat'
 alias drive='gdrive'
 alias httpserver='miniserve'
-alias ls='$HOME/.cargo/bin/exa'
+alias ls='$HOME/.cargo/bin/lsd'
 alias open='xdg-open'
 alias python=python3
 alias tardown='tar -zxf'
