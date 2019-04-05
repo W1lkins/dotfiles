@@ -436,7 +436,7 @@ iab lmis ಠ‿ಠ
 iab lsad ಥ_ಥ
 
 " date abbreviation
-iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
+iab xdate <c-r>=strftime("%FT%H:%M:%S")<cr>
 
 " php abbreviations
 iab erlog error_log();
