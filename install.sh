@@ -424,8 +424,10 @@ pre_install() {
 }
 
 post_install() {
-    mkdir -p "$HOME"/{workspace,tmp,downloads,documents}
+    mkdir -p "$HOME"/{workspace/checkouts,tmp,downloads,documents}
     mkdir -p "$HOME"/media/{pictures/wallpapers,screenshots,videos,music}
+    mkdir -p "$HOME"/go/src/github.com/W1lkins/
+    ln -sf "$HOME"/go/src/github.com/W1lkins/ "$HOME"/workspace/go/
 
     sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$(command -v alacritty)" 60
     sudo update-alternatives --config x-terminal-emulator
