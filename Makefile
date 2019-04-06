@@ -3,6 +3,7 @@
 NAME := install.sh
 SHELLCHECK := ./bin.sym/test-dotfile-scripts
 .DEFAULT_GOAL := install
+DIR := $(shell pwd)
 
 # }}}
 
@@ -50,7 +51,7 @@ docker-create: docker-stop docker-clean ## stop dotfile container, remove, and r
 	docker create --interactive --tty \
 		--name dotfiles \
 		--hostname dotfiles \
-		--volume ${HOME}/dotfiles:/dotfiles \
+		--volume $(DIR):/dotfiles \
 		dotfiles \
 		/bin/zsh --login
 
@@ -67,7 +68,7 @@ docker-stop:
 .PHONY: docker-setup
 docker-setup: ## run make in dotfile container
 	@echo "+ $@"
-	@docker exec --interactive --tty dotfiles make init
+	@docker exec --interactive --tty dotfiles make
 
 .PHONY: docker-attach
 docker-attach: ## attach to running dotfile container

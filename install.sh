@@ -198,7 +198,7 @@ deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main
 	echo 'Acquire::Languages "none";' | sudo tee -a /etc/apt/apt.conf.d/99translations >/dev/null
 }
 
-install_oh_my_zsh() {
+setup_zsh() {
     # oh-my-zsh
     if ! [ -s "$HOME/.oh-my-zsh" ]; then
         git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"
@@ -275,7 +275,6 @@ install_python3() {
 }
 
 install_extras() {
-    install_oh_my_zsh
     install_rust
     install_go
     install_python3
@@ -408,10 +407,10 @@ post_install() {
     mkdir -p "$HOME"/{workspace/checkouts,tmp,downloads,documents}
     mkdir -p "$HOME"/media/{pictures/wallpapers,screenshots,videos,music}
     mkdir -p "$HOME"/go/src/github.com/W1lkins/
-    ln -sf "$HOME"/go/src/github.com/W1lkins/ "$HOME"/workspace/go/
+    ln -sf "$HOME"/go/src/github.com/W1lkins/ "$HOME"/workspace/go
 
-    sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$(command -v alacritty)" 60
-    sudo update-alternatives --config x-terminal-emulator
+    sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$(command -v alacritty)" 60 || true
+    sudo update-alternatives --config x-terminal-emulator || true
 
 	sudo update-alternatives --install /usr/bin/vi vi "$(command -v nvim)" 60
 	sudo update-alternatives --config vi
@@ -455,6 +454,9 @@ main() {
 
     info "linking dotfiles"
     setup_dotfiles
+
+    info "installing oh-my-zsh"
+    setup_zsh
 
     info "setting up systemd"
     setup_systemd

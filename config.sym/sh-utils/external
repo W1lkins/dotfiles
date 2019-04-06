@@ -2,7 +2,8 @@
 # shellcheck source=/dev/null
 
 # git ssh settings
-export GIT_SSH_COMMAND="ssh -i ~/.ssh/$(cat /etc/hostname)"
+GIT_SSH_COMMAND="ssh -i ~/.ssh/$(/bin/cat /etc/hostname)"
+export GIT_SSH_COMMAND
 
 # fzf
 [ -s ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -22,9 +23,6 @@ export PATH=$PATH:"$HOME"/.cargo/bin:"$HOME"/.npm-global/bin:"$HOME"/.yarn/bin:"
 if type gpgconf &> /dev/null; then
   GPG_TTY="$(tty)"; export GPG_TTY; SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket); export SSH_AUTH_SOCK; gpgconf --launch gpg-agent
 fi
-
-# travis
-[ -s "$HOME"/.travis/travis.sh ] && source "$HOME"/.travis/travis.sh
 
 # nix
 [ -s "$HOME"/.nix-profile/etc/profile.d/nix.sh ] && source "$HOME"/.nix-profile/etc/profile.d/nix.sh
