@@ -240,34 +240,15 @@ install_go() {
         info "installing new go version: $GO_VERSION"
 		sudo rm -rf "$GO_SRC"
         curl -fsSL "https://storage.googleapis.com/golang/go$GO_VERSION.$KERNEL-$ARCH.tar.gz" | sudo tar -v -C /usr/local -xz
+
+        info "updating go packages"
+        go get -u all
     fi
+
     success "go installed, running post-install actions"
-
-    # go post-install
-    # vim-go
-    go get github.com/alecthomas/gometalinter \
-        github.com/davidrjenni/reftools/cmd/fillstruct \
-        github.com/fatih/gomodifytags \
-        github.com/fatih/motion \
-        github.com/josharian/impl \
-        github.com/jstemmer/gotags \
-        github.com/kisielk/errcheck \
-        github.com/klauspost/asmfmt/cmd/asmfmt \
-        github.com/koron/iferr \
-        github.com/mdempsky/gocode \
-        github.com/rogpeppe/godef \
-        github.com/stamblerre/gocode \
-        github.com/zmb3/gogetdoc \
-        golang.org/x/lint/golint \
-        golang.org/x/tools/cmd/goimports \
-        golang.org/x/tools/cmd/gorename \
-        golang.org/x/tools/cmd/guru \
-        honnef.co/go/tools/cmd/keyify
-
-    # others
-    go get honnef.co/go/tools/cmd/staticcheck
-    go get github.com/prasmussen/gdrive
-    go get github.com/motemen/ghq
+    go get -u honnef.co/go/tools/cmd/staticcheck \
+        github.com/prasmussen/gdrive \
+        github.com/motemen/ghq
 }
 
 install_python3() {
