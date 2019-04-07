@@ -423,6 +423,14 @@ pre_install() {
 }
 
 post_install() {
+    # check ssh key for host
+    key_path="$HOME/.ssh/$(hostname).pub"
+    info "ensuring ssh key at $key_path exists"
+    if [[ ! -f "$key_path" ]]; then
+        info "ssh key does not exist, creating"
+        ssh-keygen -t rsa -b 4096 -f "$key_path"
+    fi
+
     mkdir -p "$HOME"/{workspace/checkouts,tmp,downloads,documents}
     mkdir -p "$HOME"/media/{pictures/wallpapers,screenshots,videos,music}
     mkdir -p "$HOME"/go/src/github.com/W1lkins/
