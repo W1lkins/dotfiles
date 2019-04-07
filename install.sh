@@ -118,12 +118,16 @@ install_base() {
     sudo apt -yqq upgrade
     < packages xargs sudo apt install -yqq --no-install-recommends
 
+    if [[ ! "$IS_SERVER" ]]; then
+        sudo apt -yqq install signal-desktop compton
+    fi
+
     sudo apt autoremove
     sudo apt autoclean
     sudo apt clean
 
     # install polybar
-    if [[ ! -f /usr/local/bin/polybar ]]; then
+    if [[ ! -f /usr/local/bin/polybar ]] && [[ ! "$IS_SERVER" ]]; then
         tmpdir=$(mktemp -d)
         (
             cd "$tmpdir" || exit 1;
@@ -134,6 +138,35 @@ install_base() {
     fi
 
     # install fonts
+    if [[ ! "$IS_SERVER" ]]; then
+        install_fonts
+    fi
+}
+
+install_sources() {
+	# set up sources
+	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/google-cloud-sdk.list
+deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main
+	EOF'
+	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/google-chrome.list
+deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
+	EOF'
+	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/signal.list
+deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main
+	EOF'
+
+    # keys
+	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+    curl -s https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+
+    # speed up apt
+    sudo mkdir -p /etc/apt/apt.conf.d
+    sudo rm -f /etc/apt/apt.conf.d/99translations
+	echo 'Acquire::Languages "none";' | sudo tee -a /etc/apt/apt.conf.d/99translations >/dev/null
+}
+
+install_fonts() {
     if fc-list | grep 'mononoki'; then
         info "Mononoki font exists"
     else
@@ -175,29 +208,6 @@ install_base() {
     fi
 }
 
-install_sources() {
-	# set up sources
-	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/google-cloud-sdk.list
-deb http://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -c -s) main
-	EOF'
-	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/google-chrome.list
-deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
-	EOF'
-	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/signal.list
-deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main
-	EOF'
-
-    # keys
-	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
-    curl -s https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
-
-    # speed up apt
-    sudo mkdir -p /etc/apt/apt.conf.d
-    sudo rm -f /etc/apt/apt.conf.d/99translations
-	echo 'Acquire::Languages "none";' | sudo tee -a /etc/apt/apt.conf.d/99translations >/dev/null
-}
-
 setup_zsh() {
     # oh-my-zsh
     if ! [ -s "$HOME/.oh-my-zsh" ]; then
@@ -224,7 +234,9 @@ install_rust() {
     rustup default nightly
     rustup update
     cargo install shellharden ripgrep lsd bat miniserve ffsend || true
-    cargo install --git https://github.com/jwilm/alacritty || true
+    if [[ ! "$IS_SERVER" ]]; then
+        cargo install --git https://github.com/jwilm/alacritty || true
+    fi
 }
 
 install_go() {
@@ -239,7 +251,14 @@ install_go() {
         GO_VERSION=${GO_VERSION#go}
         info "installing new go version: $GO_VERSION"
 		sudo rm -rf "$GO_SRC"
-        curl -fsSL "https://storage.googleapis.com/golang/go$GO_VERSION.$KERNEL-$ARCH.tar.gz" | sudo tar -v -C /usr/local -xz
+
+        local_arch=$ARCH
+        if [[ "$local_arch" == "arm" ]]; then
+            local_arch="armv6l"
+        fi
+        url="https://storage.googleapis.com/golang/go$GO_VERSION.$KERNEL-$local_arch.tar.gz"
+        info "downloading from url $url"
+        curl -fsSL "$url" | sudo tar -v -C /usr/local -xz
 
         info "updating go packages"
         go get -u all
@@ -409,8 +428,10 @@ post_install() {
     mkdir -p "$HOME"/go/src/github.com/W1lkins/
     ln -sf "$HOME"/go/src/github.com/W1lkins/ "$HOME"/workspace/go
 
-    sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$(command -v alacritty)" 60 || true
-    sudo update-alternatives --config x-terminal-emulator || true
+    if [[ ! "IS_SERVER" ]]; then
+        sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$(command -v alacritty)" 60 || true
+        sudo update-alternatives --config x-terminal-emulator || true
+    fi
 
 	sudo update-alternatives --install /usr/bin/vi vi "$(command -v nvim)" 60
 	sudo update-alternatives --config vi

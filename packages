@@ -6,7 +6,6 @@ bzip2
 ca-certificates
 cmake
 cmake-data
-compton
 coreutils
 ctags
 curl
@@ -60,7 +59,6 @@ net-tools
 pkg-config
 python-xcbgen
 shellcheck
-signal-desktop
 software-properties-common
 ssh
 sshfs
