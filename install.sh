@@ -106,9 +106,9 @@ setup_sudo() {
 	sudo gpasswd -a "$USER" docker
 
     sudo mkdir -p /etc/sudoers.d/
-    echo "Removing /etc/sudoers.d/$USER"
+    echo "removing /etc/sudoers.d/$USER"
     sudo rm -f /etc/sudoers.d/"$USER"
-    echo "Adding /etc/sudoers.d/$USER"
+    echo "adding /etc/sudoers.d/$USER"
     echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/"$USER" >/dev/null
 }
 
@@ -134,7 +134,7 @@ install_base() {
             git clone https://github.com/jaagr/polybar.git;
             cd polybar;
             ./build.sh
-        ) || fail "Couldn't cd to $tmpdir to install polybar"
+        ) || fail "couldn't cd to $tmpdir to install polybar"
     fi
 
     # install fonts
@@ -167,11 +167,12 @@ deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main
 }
 
 install_fonts() {
+	mkdir -p "$HOME/.fonts"
     if fc-list | grep 'mononoki'; then
-        info "Mononoki font exists"
+        info "mononoki font exists"
     else
         tmpdir=$(mktemp -d)
-        info "Installing Mononoki font"
+        info "installing Mononoki font"
         (
             cd "$tmpdir" || exit 1;
             url="$(curl -fsSL https://api.github.com/repos/madmalik/mononoki/releases | jq '.[0].assets[0].browser_download_url')";
@@ -184,14 +185,14 @@ install_fonts() {
             rm "mononoki.zip";
             mv ./* "$HOME/.fonts";
             fc-cache -fv
-        ) || fail "Couldn't download Mononoki"
+        ) || fail "couldn't download Mononoki"
     fi
 
     if fc-list | grep 'iosevka'; then
-        info "Iosevka font exists"
+        info "iosevka font exists"
     else
         tmpdir=$(mktemp -d)
-        info "Installing Iosevka font"
+        info "installing Iosevka font"
         (
             cd "$tmpdir";
             url="$(curl -fsSL https://api.github.com/repos/be5invis/Iosevka/releases | jq '.[0].assets[0].browser_download_url')";
@@ -204,7 +205,7 @@ install_fonts() {
             rm "iosevka.zip";
             mv ./ttf/* "$HOME/.fonts";
             fc-cache -fv
-        ) || fail "Couldn't download Iosevka"
+        ) || fail "couldn't download Iosevka"
     fi
 }
 
@@ -247,6 +248,7 @@ install_go() {
     fi
     GO_SRC=/usr/local/go
     sudo mkdir -p "$GO_SRC"
+    mkdir -p "$HOME/go"
     if [[ "$INSTALLED_VERSION" != "$GO_VERSION" ]]; then
         GO_VERSION=${GO_VERSION#go}
         info "installing new go version: $GO_VERSION"
@@ -261,7 +263,7 @@ install_go() {
         curl -fsSL "$url" | sudo tar -v -C /usr/local -xz
 
         info "updating go packages"
-        go get -u all
+        GOPATH="$HOME/go" go get -u all
     fi
 
     success "go installed, running post-install actions"
@@ -340,28 +342,26 @@ setup_git() {
             store="osxkeychain"
         fi
 
-        user_input "What is your GitHub author name? (Default: W1lkins)" author
+        user_input "what is your GitHub author name? (Default: W1lkins)" author
         author=${author:-W1lkins}
 
-        user_input "What is your GitHub email? (Default: wilkinsphysics@gmail.com)" email
+        user_input "what is your GitHub email? (Default: wilkinsphysics@gmail.com)" email
         email=${email:-wilkinsphysics@gmail.com}
 
-        user_input "Do you want to use a GPG key with git? [y/N]" using_gpg
+        user_input "do you want to use a GPG key with git? [y/N]" using_gpg
         using_gpg=${using_gpg:-N}
 
         key=
         if [ "$using_gpg" != "${using_gpg#[Yy]}" ] ;then
-            gpg --list-secret-keys --keyid-format LONG
-            user_input "Which key" key
+            gpg --list-keys --keyid-format LONG
+            user_input "which key" key
         fi
 
         cp git/gitconfig "$HOME/.gitconfig"
 
         sed -e "s/AUTHOR_NAME/$author/g" -e "s/AUTHOR_EMAIL/$email/g" -e "s/GIT_CREDENTIAL_HELPER/$store/g" -i "$HOME/.gitconfig"
-        echo "got past name etc."
         if ! [ -z "$key" ]; then
             sed -e "s/AUTHOR_GPG_KEY/$key/g" -e "s/gpgsign = false/gpgsign = true/g" -i "$HOME/.gitconfig"
-            echo "after gpg key"
         fi
         if command -v ghq >/dev/null 2>&1; then
             # Use "|" as a delimiter since $HOME/workspace contains "/"
@@ -391,7 +391,7 @@ setup_systemd() {
     do
         dest="/etc/systemd/system/$(basename "$file")"
         if ! [ -L "$dest" ]; then
-            info "Linking $file to $dest"
+            info "linking $file to $dest"
             sudo ln -s "$(readlink -f "$file")" "$dest"
         fi
     done
@@ -408,13 +408,13 @@ setup_vim() {
             cd neovim;
             make -j8 CMAKE_BUILD_TYPE=RelWithDebInfo;
             sudo make install
-        ) || fail "Failed to install neovim"
+        ) || fail "failed to install neovim"
     fi
 
     (
         cd "$HOME"/.vim || exit 1;
         nvim +PlugClean +PlugUpdate +UpdateRemotePlugins +qa
-    ) || fail "Couldn't cd to $HOME/.vim"
+    ) || fail "couldn't cd to $HOME/.vim"
 
 }
 
@@ -424,9 +424,9 @@ pre_install() {
 
 post_install() {
     # check ssh key for host
-    key_path="$HOME/.ssh/$(hostname).pub"
+    key_path="$HOME/.ssh/$(hostname)"
     info "ensuring ssh key at $key_path exists"
-    if [[ ! -f "$key_path" ]]; then
+    if [[ ! -f "$key_path.pub" ]]; then
         info "ssh key does not exist, creating"
         ssh-keygen -t rsa -b 4096 -f "$key_path"
     fi
@@ -436,7 +436,7 @@ post_install() {
     mkdir -p "$HOME"/go/src/github.com/W1lkins/
     ln -sf "$HOME"/go/src/github.com/W1lkins/ "$HOME"/workspace/go
 
-    if [[ ! "IS_SERVER" ]]; then
+    if [[ ! "$IS_SERVER" ]]; then
         sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$(command -v alacritty)" 60 || true
         sudo update-alternatives --config x-terminal-emulator || true
     fi
@@ -450,6 +450,12 @@ post_install() {
 	sudo update-alternatives --install /usr/bin/editor editor "$(command -v nvim)" 60
 	sudo update-alternatives --config editor
 
+    # change shell to zsh
+    if [[ "$SHELL" != "/usr/bin/zsh" ]]; then
+        info "changing shell to zsh"
+        chsh -s "$(command -v zsh)"
+    fi
+
     # temporary removal of go.mod, go.sum
     rm -f go.mod go.sum
 }
@@ -459,7 +465,7 @@ main() {
     readonly KERNEL="$(uname -s | tr '[:upper:]' '[:lower:]')"
     readonly ARCH="$(determine_arch)"
     readonly DIST="$(lsb_release -si | tr '[:upper:]' '[:lower:]')"
-    info "Running for kernel: $KERNEL and arch $ARCH"
+    info "running for kernel: $KERNEL and arch $ARCH"
 
     info "running pre-install"
     pre_install
