@@ -1,35 +1,35 @@
 #!/bin/bash
 
 aws-findmicros() {
-  aws ec2 describe-instances --filters '{"Name": "instance-type", "Values": ["t2.micro"]}'
+    aws ec2 describe-instances --filters '{"Name": "instance-type", "Values": ["t2.micro"]}'
 }
 
 s3-list-buckets() {
-  aws s3 ls
+    aws s3 ls
 }
 
 s3-ls() {
-  [ ! -z "$S3_URL" ] && aws s3 ls "$S3_URL" || echo "S3_URL not set"
+    [ ! -z "$S3_URL" ] && aws s3 ls "$S3_URL" || echo "S3_URL not set"
 }
 
 s3-sync-cd() {
-  [ ! -z "$S3_URL" ] && aws s3 sync . "$S3_URL" --delete || echo "S3_URL not set"
+    [ ! -z "$S3_URL" ] && aws s3 sync . "$S3_URL" --delete || echo "S3_URL not set"
 }
 
 s3-cp-local() {
-  [ ! -z "$S3_URL" ] && aws s3 cp "$1" "$S3_URL" || echo "S3_URL not set"
+    [ ! -z "$S3_URL" ] && aws s3 cp "$1" "$S3_URL" || echo "S3_URL not set"
 }
 
 s3-cp-remote() {
-  [ ! -z "$S3_URL" ] && aws s3 cp "$S3_URL/$1" "$2" || echo "S3_URL not set"
+    [ ! -z "$S3_URL" ] && aws s3 cp "$S3_URL/$1" "$2" || echo "S3_URL not set"
 }
 
 
 s3-mv-local() {
-  [ ! -z "$S3_URL" ] && aws s3 mv "$1" "$S3_URL" || echo "S3_URL not set"
+    [ ! -z "$S3_URL" ] && aws s3 mv "$1" "$S3_URL" || echo "S3_URL not set"
 }
 
 s3-mv-remote() {
-  [ ! -z "$S3_URL" ] && aws s3 mv "$S3_URL/$1" "$2" || echo "S3_URL not set"
+    [ ! -z "$S3_URL" ] && aws s3 mv "$S3_URL/$1" "$2" || echo "S3_URL not set"
 }
 

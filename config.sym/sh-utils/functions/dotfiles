@@ -1,38 +1,38 @@
 #!/bin/bash
 
 dots() {
-  cd "$HOME/workspace/github.com/w1lkins/dotfiles" || return
+    cd "$HOME/workspace/github.com/w1lkins/dotfiles" || return
 }
 
 zshrc() {
-  $EDITOR "$HOME/.zshrc"
+    $EDITOR "$HOME/.zshrc"
 }
 
 i3config() {
-  $EDITOR "$HOME/.i3/config"
+    $EDITOR "$HOME/.i3/config"
 }
 
 htoprc() {
-  $EDITOR "$HOME/.config/htop/htoprc"
+    $EDITOR "$HOME/.config/htop/htoprc"
 }
 
 vimrc() {
-  $EDITOR ~/.vimrc
+    $EDITOR ~/.vimrc
 }
 
 sshconfig() {
-  $EDITOR "$HOME/.ssh/config"
+    $EDITOR "$HOME/.ssh/config"
 }
 
 scripts() {
-  cd "$HOME/.scripts" || return
+    cd "$HOME/.scripts" || return
 }
 
 vimplugins() {
-  cd "$HOME/.vim/bundle" || return
+    cd "$HOME/.vim/bundle" || return
 }
 
 tmuxconf() {
-  $EDITOR "$HOME/.tmux.conf"
+    $EDITOR "$HOME/.tmux.conf"
 }
 

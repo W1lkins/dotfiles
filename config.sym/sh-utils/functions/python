@@ -2,22 +2,22 @@
 # shellcheck source=/dev/null
 
 function pip() {
-  if [ -s "$HOME"/.local/bin/pip3 ]; then
-      "$HOME"/.local/bin/pip3
-  else
-      pip3
-  fi
+    if [ -s "$HOME"/.local/bin/pip3 ]; then
+        "$HOME"/.local/bin/pip3
+    else
+        pip3
+    fi
 }
 
 function vv() {
-  pipenv install
+    pipenv install
 }
 
 function svenv() {
-  pipenv shell
+    pipenv shell
 }
 
 function preqs() {
-  pip freeze > requirements.txt
+    pip freeze > requirements.txt
 }
 

@@ -2,31 +2,31 @@
 
 # restart gpg-agent
 resgpg() {
-  sudo pkill -9 gpg-agent && gpg-connect-agent reloadagent /bye
+    sudo pkill -9 gpg-agent && gpg-connect-agent reloadagent /bye
 }
 
 # list gpg keys
 glk() {
-  gpg --list-keys
+    gpg --list-keys
 }
 
 # list secret gpg keys
 glsk() {
-  gpg --list-secret-keys
+    gpg --list-secret-keys
 }
 
 # encrypt with gpg
 gencrypt() {
-  gpg -r W1lkins -e "$1"
+    gpg -r W1lkins -e "$1"
 }
 
 # decrypt with gpg
 gdecrypt() {
-  gpg -d "$1"
+    gpg -d "$1"
 }
 
 # import keys
 gimport() {
-  gpg --allow-secret-key-import --import "$1"
+    gpg --allow-secret-key-import --import "$1"
 }
 

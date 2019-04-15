@@ -1,29 +1,29 @@
 #!/bin/bash
 
 is-master() {
-  [[ $(git rev-parse --abbrev-ref HEAD) == "master" ]]
+    [[ $(git rev-parse --abbrev-ref HEAD) == "master" ]]
 }
 
 up() {
-  if [[ $(is-master) ]]; then
-    echo "Already on master branch, pulling"
-    git fetch --prune; git prune; git pull
-  else
-    echo "Not on master branch, switching and pulling"
-    git checkout master; git fetch --prune; git prune; git pull
-  fi
+    if [[ $(is-master) ]]; then
+        echo "Already on master branch, pulling"
+        git fetch --prune; git prune; git pull
+    else
+        echo "Not on master branch, switching and pulling"
+        git checkout master; git fetch --prune; git prune; git pull
+    fi
 }
 
 merge-master-into-branch() {
-  git checkout master; git fetch --prune; git prune; git pull; git checkout -; git merge master
+    git checkout master; git fetch --prune; git prune; git pull; git checkout -; git merge master
 }
 
 vimlog() {
-  git log --graph --pretty=format:'%h - %d %s (%cr) <%an>' | vim -R -c 'set filetype=git nowrap' -
+    git log --graph --pretty=format:'%h - %d %s (%cr) <%an>' | vim -R -c 'set filetype=git nowrap' -
 }
 
 git-find-when-file-deleted() {
-  git log -1 -- "$1"
+    git log -1 -- "$1"
 }
 
 current-branch() {
@@ -36,5 +36,9 @@ renamebranch() {
 
 setupstream() {
     git branch --set-upstream-to=origin/"$(current-branch)" "$(current-branch)"
+}
+
+gitdebug() {
+    export GIT_TRACE=1
 }
 

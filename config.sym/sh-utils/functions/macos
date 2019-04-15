@@ -2,35 +2,33 @@
 
 # set the system profile theme to day or night mode
 setprof() {
-  # do things differently on osx and linux
-  if [[ $(findcurrentos) == "OSX" ]]; then
-    # set the iTerm theme
-    echo -e "\\033]50;SetProfile=$1\\a";
+    # do things differently on osx and linux
+    if [[ $(findcurrentos) == "OSX" ]]; then
+        # set the iTerm theme
+        echo -e "\\033]50;SetProfile=$1\\a";
 
     # set dock and menubar theme
-    if [[ "$1" == "day" ]]; then
-      osascript -e 'tell application "System Events"
-      tell appearance preferences to set dark mode to false
-      end tell'
-    else
-      osascript -e 'tell application "System Events"
-      tell appearance preferences to set dark mode to true
-      end tell'
+        if [[ "$1" == "day" ]]; then
+        osascript -e 'tell application "System Events"
+        tell appearance preferences to set dark mode to false
+        end tell'
+        else
+        osascript -e 'tell application "System Events"
+        tell appearance preferences to set dark mode to true
+        end tell'
+        fi
     fi
-  else
-    echo "Not implemented for non-OSX systems yet!"
-  fi
 }
 
 cdfinder() {
-  cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')" || return
+    cd "$(osascript -e 'tell app "Finder" to POSIX path of (insertion location as alias)')" || return
 }
 
 showfiles() {
-  defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder
+    defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder
 }
 
 hidefiles() {
-  defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder
+    defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder
 }
 

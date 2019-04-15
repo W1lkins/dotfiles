@@ -5,10 +5,10 @@ gog() {
 }
 
 gogo() {
-  cd "$(find "$GOPATH/src" -type d -iname "$1" | head -n1)" || return
+    cd "$(find "$GOPATH/src" -type d -iname "$1" | head -n1)" || return
 }
 
 gopath() {
-  cd "$GOPATH" || return
+    cd "$GOPATH" || return
 }
 

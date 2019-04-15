@@ -1,32 +1,32 @@
 #!/bin/bash
 
 paclist() {
-  LC_ALL=C pacman -Qei "$(pacman -Qu | cut -d" " -f1)" | awk 'BEGIN {FS=":"} /^Name/{printf("\33[1;36m%s\033[1;37m", $2)} /^Description/{print $2}'
+    LC_ALL=C pacman -Qei "$(pacman -Qu | cut -d" " -f1)" | awk 'BEGIN {FS=":"} /^Name/{printf("\33[1;36m%s\033[1;37m", $2)} /^Description/{print $2}'
 }
 
 # use the `yay` built-in search for aur
 aur() {
-  yay "$1"
+    yay "$1"
 }
 
 # search the aur for a pkg using `yay`
 aursearch() {
-  yay -Ss "$1"
+    yay -Ss "$1"
 }
 
 # download PKGBUILD from aur
 aurdl() {
-  cd /tmp || return
-  yay -G "$1" && cd "$1" || return
+    cd /tmp || return
+    yay -G "$1" && cd "$1" || return
 }
 
 # make a package from aur
 mpack() {
-  makepkg -s
+    makepkg -s
 }
 
 # install a package that has already been built from aur
 ipack() {
-  makepkg -i
+    makepkg -i
 }
 

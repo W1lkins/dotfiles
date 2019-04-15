@@ -20,7 +20,7 @@ da() {
 
 # clean up containers volumes and images
 docker-cleanup() {
-  docker system prune -a
+    docker system prune -a
 }
 
 # delete container if it's not running
@@ -36,16 +36,16 @@ docker-del-stopped() {
 
 # stop all running containers
 docker-stop-all() {
-  docker stop "$(docker ps -a -q)"
+    docker stop "$(docker ps -a -q)"
 }
 
 # remove all stopped docker containers
 docker-remove-all() {
-  docker rm "$(docker ps -a -q)"
+    docker rm "$(docker ps -a -q)"
 }
 
 # docker ps output
 dps() {
-  docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}'
+    docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}'
 }
 

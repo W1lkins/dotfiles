@@ -1,22 +1,22 @@
 #!/bin/bash
 
 ne() {
-  nix-env "$1"
+    nix-env "$1"
 }
 
 ne-install() {
-  nix-env -i "$1"
+    nix-env -i "$1"
 }
 
 ne-uninstall() {
-  nix-env -e "$1"
+    nix-env -e "$1"
 }
 
 ne-upgrade() {
-  nix-env -u
+    nix-env -u
 }
 
 ne-search() {
-  nix-env -qa "$1"
+    nix-env -qa "$1"
 }
 
