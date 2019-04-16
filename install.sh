@@ -342,8 +342,8 @@ setup_git() {
             store="osxkeychain"
         fi
 
-        user_input "what is your GitHub author name? (Default: W1lkins)" author
-        author=${author:-W1lkins}
+        user_input "what is your GitHub author name? (Default: evalexpr)" author
+        author=${author:-evalexpr}
 
         user_input "what is your GitHub email? (Default: wilkinsphysics@gmail.com)" email
         email=${email:-wilkinsphysics@gmail.com}
@@ -433,8 +433,8 @@ post_install() {
 
     mkdir -p "$HOME"/{workspace/checkouts,tmp,downloads,documents}
     mkdir -p "$HOME"/media/{pictures/wallpapers,screenshots,videos,music}
-    mkdir -p "$HOME"/go/src/github.com/W1lkins/
-    ln -sf "$HOME"/go/src/github.com/W1lkins/ "$HOME"/workspace/go
+    mkdir -p "$HOME"/go/src/github.com/evalexpr/
+    ln -sf "$HOME"/go/src/github.com/evalexpr/ "$HOME"/workspace/go
 
     if [[ ! "$IS_SERVER" ]]; then
         sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$(command -v alacritty)" 60 || true

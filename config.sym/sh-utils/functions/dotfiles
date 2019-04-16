@@ -1,7 +1,7 @@
 #!/bin/bash
 
 dots() {
-    cd -q "$HOME/workspace/github.com/w1lkins/dotfiles" 2>/dev/null ||
+    cd -q "$HOME/workspace/github.com/evalexpr/dotfiles" 2>/dev/null ||
         cd "$HOME/dotfiles" 2>/dev/null ||
         return
 }

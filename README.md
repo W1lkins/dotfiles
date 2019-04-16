@@ -54,7 +54,7 @@
 
 ## Installation
 
-- `git clone https://github.com/w1lkins/dotfiles dotfiles && cd $_`
+- `git clone https://github.com/evalexpr/dotfiles dotfiles && cd $_`
 - `make init` (you will be asked about gpg keys for git (defaults to no) and whether you want to backup your existing dotfiles (defaults to skip, which will make no changes)
 - `source ~/.zshrc`
 
@@ -62,6 +62,6 @@
 
 ## Trying without installing
 
-- `git clone https://github.com/w1lkins/dotfiles dotfiles && cd $_`
+- `git clone https://github.com/evalexpr/dotfiles dotfiles && cd $_`
 - `make docker`
 

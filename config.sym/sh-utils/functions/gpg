@@ -17,7 +17,7 @@ glsk() {
 
 # encrypt with gpg
 gencrypt() {
-    gpg -r W1lkins -e "$1"
+    gpg -r evalexpr -e "$1"
 }
 
 # decrypt with gpg
