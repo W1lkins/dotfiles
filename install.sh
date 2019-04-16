@@ -234,7 +234,7 @@ install_rust() {
     rustup install nightly
     rustup default nightly
     rustup update
-    cargo install shellharden ripgrep lsd bat miniserve ffsend || true
+    cargo install shellharden ripgrep lsd bat miniserve ffsend hunter || true
     if [[ ! "$IS_SERVER" ]]; then
         cargo install --git https://github.com/jwilm/alacritty || true
     fi

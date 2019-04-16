@@ -123,7 +123,7 @@ bindsym $mod+Shift+r restart
 bindsym $mod+Shift+e exec prompt "Are you sure you want to exit i3?" "i3-msg exit"
 bindsym $mod+Shift+x exec prompt "Are you sure you want to shutdown?" "sudo shutdown now"
 
-bindsym $mod+o exec $term -e ranger
+bindsym $mod+o exec $term -e hunter
 bindsym $mod+w exec --no-startup-id $browser
 bindsym $mod+i exec $term -e htop
 bindsym $mod+m exec --no-startup-id $music
