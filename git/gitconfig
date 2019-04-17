@@ -1,69 +1,82 @@
 [user]
-  name = AUTHOR_NAME
-  email = AUTHOR_EMAIL
-  signingkey = AUTHOR_GPG_KEY
+    name = AUTHOR_NAME
+    email = AUTHOR_EMAIL
+    signingkey = AUTHOR_GPG_KEY
 [credential]
-  helper = GIT_CREDENTIAL_HELPER
+    helper = GIT_CREDENTIAL_HELPER
 [hub]
-  protocol = https
+    protocol = https
 [alias]
-  ap = add --patch
+    ap = add --patch
 
-  co = checkout
+    co = checkout
 
-  ci = commit --verbose
-  
+    ci = commit --verbose
+
   # view abbreviated SHA, description, and history graph of the latest 20 commits
-  l = log --pretty=oneline -n 20 --graph --abbrev-commit
+    l = log --pretty=oneline -n 20 --graph --abbrev-commit
 
   # coloured graph output of log
-  graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
+    graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 
   # https://git-scm.com/docs/git-fetch#git-fetch--p
-  prune = fetch --prune
+    prune = fetch --prune
 
   # https://git-scm.com/docs/git-reset#git-reset-emgitresetemltmodegtltcommitgt
-  undo = reset --soft HEAD^
+    undo = reset --soft HEAD^
 
   # make sure we save untracked files
-  stash-all = stash save --include-untracked
+    stash-all = stash save --include-untracked
 
   # show all commits from 9am yesterday, useful for standup meetings
-  standup = !"git log --reverse --branches --since=$(if [[ "Mon" == "$(date +%a)" ]]; then echo "last friday"; else echo "yesterday"; fi) --author=$(git config --get user.email) --format=format:'%C(cyan) %ad %C(yellow)%h %Creset %s %Cgreen%d' --date=local"
+    standup = !"git log --reverse --branches --since=$(if [[ "Mon" == "$(date +%a)" ]]; then echo "last friday"; else echo "yesterday"; fi) --author=$(git config --get user.email) --format=format:'%C(cyan) %ad %C(yellow)%h %Creset %s %Cgreen%d' --date=local"
 
   # short format status
-  st = status -s
+    st = status -s
 
   # show the diff between the latest commit and the current state
-  df = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
+    df = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
   # switch to a branch, create it if necessary
-  go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
+    go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
 
   # push to all remotes
-  pushall = "!git remote | xargs -L1 git push --all"
+    pushall = "!git remote | xargs -L1 git push --all"
 [color]
-  diff = auto
-  status = auto
-  branch = auto
-  ui = true
+    diff = auto
+    status = auto
+    branch = auto
+    ui = true
 [core]
-  excludesfile = ~/.gitignore
-  editor = nvim
+    excludesfile = ~/.gitignore
+    editor = nvim
+    pager = diff-so-fancy | less --tabs=4 -RFX
 [apply]
-  whitespace = nowarn
+    whitespace = nowarn
 [mergetool]
-  keepBackup = false
-  conflictstyle = diff3
+    keepBackup = false
+    conflictstyle = diff3
 [difftool]
-  prompt = false
+    prompt = false
 [help]
-  autocorrect = 1
+    autocorrect = 1
 [status]
-  showUntrackedFiles = all
+    showUntrackedFiles = all
 [push]
-  default = simple
+    default = simple
 [commit]
     gpgsign = false
 [ghq]
     root = GHQ_ROOT
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = yellow
+	frag = magenta bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse

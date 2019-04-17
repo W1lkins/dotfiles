@@ -154,6 +154,9 @@ deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
 	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/signal.list
 deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main
 	EOF'
+	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/signal.list
+deb https://deb.nodesource.com/node_11.x stretch main
+	EOF'
 
     # keys
 	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
@@ -313,6 +316,9 @@ install_extras() {
     echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
     sudo apt update -qq && sudo apt install -yqq yarn --no-install-recommends
     success "yarn installed"
+
+    # yarn post-install
+    yarn global add diff-so-fancy
 
     # docker
     if ! command -v docker >/dev/null 2>&1; then
