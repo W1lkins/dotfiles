@@ -272,7 +272,8 @@ install_go() {
     success "go installed, running post-install actions"
     go get -u honnef.co/go/tools/cmd/staticcheck \
         github.com/prasmussen/gdrive \
-        github.com/motemen/ghq
+        github.com/motemen/ghq \
+        github.com/w1lkins/makedl
 }
 
 install_python3() {
@@ -294,6 +295,7 @@ install_python3() {
         icdiff \
         pipreqs \
         magic-wormhole \
+        httpie \
         docker-compose \
         neovim
 }
@@ -457,7 +459,7 @@ post_install() {
 	sudo update-alternatives --config editor
 
     # change shell to zsh
-    if [[ "$SHELL" != "/usr/bin/zsh" ]]; then
+    if [[ "$SHELL" != *"zsh"* ]]; then
         info "changing shell to zsh"
         chsh -s "$(command -v zsh)"
     fi
