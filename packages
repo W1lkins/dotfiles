@@ -20,6 +20,7 @@ fonts-font-awesome
 gcc
 gettext
 git
+gitk
 gnupg
 gnupg2
 gnupg2

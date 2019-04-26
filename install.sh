@@ -122,7 +122,7 @@ install_base() {
         sudo apt -yqq install signal-desktop compton
     fi
 
-    sudo apt autoremove
+    sudo apt -y autoremove
     sudo apt autoclean
     sudo apt clean
 
@@ -414,7 +414,7 @@ setup_vim() {
             cd "$tmpdir" || exit 1;
             git clone https://github.com/neovim/neovim.git;
             cd neovim;
-            make -j8 CMAKE_BUILD_TYPE=RelWithDebInfo;
+            make -j CMAKE_BUILD_TYPE=RelWithDebInfo;
             sudo make install
         ) || fail "failed to install neovim"
     fi
