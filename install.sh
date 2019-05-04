@@ -1,4 +1,5 @@
-#!/bin/bash -e
+#!/bin/bash -eu
+# shellcheck disable=SC2044
 set -o pipefail
 
 DOTFILES_ROOT=$(pwd -P)
@@ -385,8 +386,6 @@ setup_git() {
 
 setup_dotfiles() {
     local overwrite_all=false backup_all=false skip_all=false
-
-    # shellcheck disable=SC2044
     for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.sym' -not -path '*.git*')
     do
         dest="$HOME/.$(basename "${src%.*}")"

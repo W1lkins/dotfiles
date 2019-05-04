@@ -1,5 +1,5 @@
 #!/bin/bash
-figlet -f big $(hostname -s)
+figlet -f big "$(hostname -s)"
 awk -v date="$(date +"%a %b %d %r %Z")" \
     -v hostname="$(hostname)" \
     -v external_ip="$(curl -s checkip.amazonaws.com)" \
@@ -13,8 +13,8 @@ awk -v date="$(date +"%a %b %d %r %Z")" \
     -v free_memory="$(free -h | awk 'NR==2{print $4}')" \
     -v free_cache="$(free -h | awk 'NR==3{print $4}')" \
     -v disk_used="$(df -H --total | awk 'END { printf "%s %s %3s (%s)\n", $3, "/", $2, $5 }')" \
-    -v format="%s %-25s %s %s\n" \
-    -v extra="%s %-25s %s %s %s\n" \
+    -v format="%s %-25s %s %s\\n" \
+    -v extra="%s %-25s %s %s %s\\n" \
     'BEGIN { 
             print "Status:"
             print date
@@ -31,6 +31,6 @@ awk -v date="$(date +"%a %b %d %r %Z")" \
             printf format, "-", "Disk used", "=", disk_used
            }'
 
-printf "  " && printf "%0.s-" {1..43} && printf "\n"
+printf "  " && printf "%0.s-" {1..43} && printf "\\n"
 
 echo
