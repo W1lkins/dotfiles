@@ -1,13 +1,7 @@
-# Variables {{{
-
 NAME := install.sh
 SHELLCHECK := ./bin.sym/test-dotfile-scripts
 .DEFAULT_GOAL := install
 DIR := $(shell pwd)
-
-# }}}
-
-# Installation {{{
 
 .PHONY: all
 all: update init ## runs update and init
@@ -31,10 +25,6 @@ test: ## run the tests if there are any && shellcheck
 init: ## run the dotfile install script with init
 	@echo "+ $@"
 	./$(NAME) init
-
-# }}}
-
-# Docker {{{
 
 .PHONY: docker
 docker: docker-build docker-create docker-start docker-setup docker-attach ## build docker file and attach
@@ -85,9 +75,7 @@ docker-destroy: docker-clean ## stop and remove dotfile container, remove built 
 	@echo "+ $@"
 	@docker rmi dotfiles > /dev/null 2>&1 ||:
 
-# }}}
-
 .PHONY: help
 help:
-	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1,$$2}'
+	@awk -F ':|##' '/^[^\t].+?:.*?##/ { printf "\033[36m%-30s\033[0m %s\n", $$1, $$NF }' $(MAKEFILE_LIST)
 
