@@ -2,6 +2,6 @@
 
 linkremote() {
     [[ -z "$1" || -z "$2" ]] && echo "Usage $0 localport remoteport host" && return
-    ssh -NfL "$1":localhost:"$2" "$3"
+    ssh -NfL "$1":localhost:"$2" "\$3"
 }
 

@@ -1,0 +1,10 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: debian:buster-slim
+    steps:
+      - checkout
+      - run: apt update && apt install -yqq file shellcheck --no-install-recommends
+      - run: ./bin.sym/test-dotfile-scripts
+
