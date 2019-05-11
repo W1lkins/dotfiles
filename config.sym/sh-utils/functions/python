@@ -1,14 +1,6 @@
 #!/bin/bash
 # shellcheck source=/dev/null
 
-function pip() {
-    if [ -s "$HOME"/.local/bin/pip3 ]; then
-        "$HOME"/.local/bin/pip3
-    else
-        pip3
-    fi
-}
-
 function vv() {
     pipenv install
 }
