@@ -164,6 +164,9 @@ deb https://deb.nodesource.com/node_11.x stretch main
     curl -s https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
 
+    # ppa
+    sudo add-apt-repository ppa:hluk/copyq
+
     # speed up apt
     sudo mkdir -p /etc/apt/apt.conf.d
     sudo rm -f /etc/apt/apt.conf.d/99translations
