@@ -1,0 +1,4 @@
+/system package update
+check-for-updates once
+:delay 3s;
+:if ([get status] = "New version is available") do={ install } else={ :put "System is already up-to-date" }

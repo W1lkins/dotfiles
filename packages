@@ -7,6 +7,7 @@ bzip2
 ca-certificates
 cmake
 cmake-data
+copyq
 coreutils
 ctags
 curl
@@ -29,6 +30,7 @@ grep
 gzip
 hostname
 htop
+i3lock-fancy
 imagemagick
 indent
 iptables
@@ -63,6 +65,7 @@ pkg-config
 python-xcbgen
 shellcheck
 software-properties-common
+spotify-client
 ssh
 sshfs
 strace

@@ -9,6 +9,4 @@ alias python=python3
 alias tardown='tar -zxf'
 alias tarup='tar -zcf'
 alias usystemctl='systemctl --user'
-alias vi='$EDITOR'
-alias vim='nvim'
 

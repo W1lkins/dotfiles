@@ -158,11 +158,18 @@ deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main
 	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/signal.list
 deb https://deb.nodesource.com/node_11.x stretch main
 	EOF'
+	sudo bash -c 'cat <<-EOF > /etc/apt/sources.list.d/spotify.list
+deb http://repository.spotify.com stable non-free
+	EOF'
 
     # keys
 	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
     curl -s https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0DF731E45CE24F27EEEB1450EFDC8610341D9410
+
+    # ppa
+    sudo add-apt-repository ppa:hluk/copyq
 
     # speed up apt
     sudo mkdir -p /etc/apt/apt.conf.d
@@ -238,10 +245,12 @@ install_rust() {
     rustup install nightly
     rustup default nightly
     rustup update
-    cargo install shellharden ripgrep lsd bat miniserve ffsend hunter || true
+    cargo install shellharden ripgrep lsd bat miniserve ffsend hunter cargo-update || true
     if [[ ! "$IS_SERVER" ]]; then
         cargo install --git https://github.com/jwilm/alacritty || true
     fi
+    info "updating rust packages"
+    cargo install-update -a
 }
 
 install_go() {
@@ -322,7 +331,7 @@ install_extras() {
     success "yarn installed"
 
     # yarn post-install
-    yarn global add diff-so-fancy
+    yarn global add diff-so-fancy 2>/dev/null
 
     # docker
     if ! command -v docker >/dev/null 2>&1; then
@@ -446,17 +455,17 @@ post_install() {
 
     if [[ ! "$IS_SERVER" ]]; then
         sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$(command -v alacritty)" 60 || true
-        sudo update-alternatives --config x-terminal-emulator || true
+        sudo update-alternatives --set x-terminal-emulator "$(command -v alacritty)"
     fi
 
 	sudo update-alternatives --install /usr/bin/vi vi "$(command -v nvim)" 60
-	sudo update-alternatives --config vi
+    sudo update-alternatives --set vi "$(command -v nvim)"
 
 	sudo update-alternatives --install /usr/bin/vim vim "$(command -v nvim)" 60
-	sudo update-alternatives --config vim
+    sudo update-alternatives --set vim "$(command -v nvim)"
 
 	sudo update-alternatives --install /usr/bin/editor editor "$(command -v nvim)" 60
-	sudo update-alternatives --config editor
+    sudo update-alternatives --set editor "$(command -v nvim)"
 
     # change shell to zsh
     if [[ "$SHELL" != *"zsh"* ]]; then
