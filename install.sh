@@ -274,7 +274,8 @@ install_go() {
     go get -u honnef.co/go/tools/cmd/staticcheck \
         github.com/prasmussen/gdrive \
         github.com/motemen/ghq \
-        github.com/w1lkins/makedl
+        github.com/evalexpr/makedl \
+        github.com/davecheney/httpstat
 }
 
 install_python3() {
