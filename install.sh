@@ -308,7 +308,7 @@ install_python3() {
         magic-wormhole \
         httpie \
         docker-compose \
-        neovim
+        grip
 }
 
 install_extras() {
@@ -415,24 +415,11 @@ setup_systemd() {
 }
 
 setup_vim() {
-    # install neovim if not exists
-    if [[ ! -f /usr/local/bin/nvim ]]; then
-        info "installing neovim"
-        tmpdir=$(mktemp -d)
-        (
-            cd "$tmpdir" || exit 1;
-            git clone https://github.com/neovim/neovim.git;
-            cd neovim;
-            make -j CMAKE_BUILD_TYPE=RelWithDebInfo;
-            sudo make install
-        ) || fail "failed to install neovim"
-    fi
+    # install submodules
+    info "updating submodules"
+    git submodule update --remote --merge --progress
 
-    (
-        cd "$HOME"/.vim || exit 1;
-        nvim +PlugClean +PlugUpdate +UpdateRemotePlugins +qa
-    ) || fail "couldn't cd to $HOME/.vim"
-
+    vim -c "helptags ALL" -c GoInstallBinaries -c q >/dev/null 2>&1
 }
 
 pre_install() {
@@ -458,14 +445,11 @@ post_install() {
         sudo update-alternatives --set x-terminal-emulator "$(command -v alacritty)"
     fi
 
-	sudo update-alternatives --install /usr/bin/vi vi "$(command -v nvim)" 60
-    sudo update-alternatives --set vi "$(command -v nvim)"
+	sudo update-alternatives --install /usr/bin/vi vi /usr/bin/vim 60
+	sudo update-alternatives --set vi /usr/bin/vim
 
-	sudo update-alternatives --install /usr/bin/vim vim "$(command -v nvim)" 60
-    sudo update-alternatives --set vim "$(command -v nvim)"
-
-	sudo update-alternatives --install /usr/bin/editor editor "$(command -v nvim)" 60
-    sudo update-alternatives --set editor "$(command -v nvim)"
+	sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 60
+	sudo update-alternatives --set editor /usr/bin/vim
 
     # change shell to zsh
     if [[ "$SHELL" != *"zsh"* ]]; then

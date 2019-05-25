@@ -30,7 +30,6 @@
 - miniserve
 - mononoki font
 - ncmpcpp
-- neovim
 - oh-my-zsh
 - pipenv
 - polybar
