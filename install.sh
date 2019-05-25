@@ -169,7 +169,7 @@ deb http://repository.spotify.com stable non-free
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0DF731E45CE24F27EEEB1450EFDC8610341D9410
 
     # ppa
-    sudo add-apt-repository ppa:hluk/copyq
+    sudo add-apt-repository -y ppa:hluk/copyq
 
     # speed up apt
     sudo mkdir -p /etc/apt/apt.conf.d
