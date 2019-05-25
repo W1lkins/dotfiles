@@ -72,3 +72,9 @@ nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
 " run make
 nnoremap <leader>m :make
 
+" edit a new file in cwd
+nnoremap <leader>e :edit <c-r>=expand('%:p:h') . '/'<cr>
+
+" jump back and forth between latest two buffers
+nnoremap <leader>. <c-^>
+
