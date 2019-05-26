@@ -61,7 +61,7 @@ endfunction
 " Git {{{
 
 nnoremap <leader>gs :Gstatus<cr>
-nnoremap <leader>gc :Gcommit<cr>
+nnoremap <leader>gc :Gcommit --verbose<cr>
 nnoremap <leader>gp :Gpush<cr>
 
 " }}}
