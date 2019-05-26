@@ -61,14 +61,6 @@ noremap <silent> <leader><space> :noh<cr>:call clearmatches()<cr>
 " ,v opens a vertical split
 noremap <leader>v <c-w>v
 
-" highlight words
-nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
-nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
-nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
-nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
-nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
-nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
-
 " run make
 nnoremap <leader>m :make
 
