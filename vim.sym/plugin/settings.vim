@@ -84,6 +84,9 @@ set shiftwidth=2
 set textwidth=80                                 " marker on 80 chars
 set wrap                                         " lines longer than the width of the window will wrap
 
+" never consider numbers octal, e.g. <c-a> on 007 never becomes 010
+set nrformats-=octal
+
 " save when losing focus
 au FocusLost * :silent! wall
 

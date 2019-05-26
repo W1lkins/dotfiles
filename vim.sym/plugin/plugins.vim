@@ -15,7 +15,7 @@ nnoremap <silent> <leader>, :call WithIcons()<cr>
 nnoremap <c-f> :Rg<space>
 
 " buffer search
-nfromoremap <silent> <leader>o :Buffers<cr>
+nnoremap <silent> <leader>o :Buffers<cr>
 
 " let FZF use ripgrep if it exists
 if executable('rg')
