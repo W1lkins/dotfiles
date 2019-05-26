@@ -250,7 +250,7 @@ install_rust() {
         cargo install --git https://github.com/jwilm/alacritty || true
     fi
     info "updating rust packages"
-    cargo install-update -a
+    # cargo install-update -a
 }
 
 install_go() {
@@ -300,6 +300,7 @@ install_python3() {
         python3 "/$tmpdir/get-pip.py" --user
     fi
     success "python3 and pip installed, running post-install actions"
+    "$HOME"/.local/bin/pip3 install --user --upgrade pip
     "$HOME"/.local/bin/pip3 install --quiet --user --upgrade \
         yapf \
         pipenv \
@@ -318,8 +319,16 @@ install_extras() {
 
     # fzf
     if ! [ -s "$HOME/.fzf" ]; then
+        info "installing fzf"
         git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf" && \
             "$HOME/.fzf/install"
+    else
+        info "updating fzf"
+        (
+            cd "$HOME"/.fzf;
+            git pull;
+            ./install
+        )
     fi
     success "fzf installed"
 
@@ -415,6 +424,18 @@ setup_systemd() {
 }
 
 setup_vim() {
+    # install latest vim
+    if [[ ! -f /usr/local/bin/vim ]]; then
+        tmpdir=$(mktemp -d)
+        (
+            cd "$tmpdir" || exit 1;
+            git clone https://github.com/vim/vim.git;
+            cd vim/src;
+            make;
+            sudo make install
+        ) || fail "couldn't cd to $tmpdir to install vim"
+    fi
+
     # install submodules
     info "updating submodules"
     git submodule update --remote --merge --progress
@@ -445,11 +466,11 @@ post_install() {
         sudo update-alternatives --set x-terminal-emulator "$(command -v alacritty)"
     fi
 
-	sudo update-alternatives --install /usr/bin/vi vi /usr/bin/vim 60
-	sudo update-alternatives --set vi /usr/bin/vim
+	sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/vim 60
+	sudo update-alternatives --set vi /usr/local/bin/vim
 
-	sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 60
-	sudo update-alternatives --set editor /usr/bin/vim
+	sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/vim 60
+	sudo update-alternatives --set editor /usr/local/bin/vim
 
     # change shell to zsh
     if [[ "$SHELL" != *"zsh"* ]]; then
