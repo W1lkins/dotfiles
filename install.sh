@@ -430,7 +430,7 @@ setup_vim() {
         (
             cd "$tmpdir" || exit 1;
             git clone https://github.com/vim/vim.git;
-            cd vim/src;
+            cd vim/src || exit 1;
             make;
             sudo make install
         ) || fail "couldn't cd to $tmpdir to install vim"
