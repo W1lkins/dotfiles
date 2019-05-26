@@ -1,6 +1,7 @@
 set background=dark
 
 set autoindent                                   " copy indent from current line when starting a new
+set autoread                                     " if file changes outside vim, read it back in
 set backspace=indent,eol,start                   " make backspace work like most other apps
 
 set colorcolumn=+1                               " highlight column after 'textwidth'
