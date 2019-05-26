@@ -250,7 +250,7 @@ install_rust() {
         cargo install --git https://github.com/jwilm/alacritty || true
     fi
     info "updating rust packages"
-    # cargo install-update -a
+    cargo install-update -a
 }
 
 install_go() {
