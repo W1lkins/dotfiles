@@ -77,6 +77,7 @@ nnoremap <leader>gs :Gstatus<cr>
 nnoremap <leader>gc :Gcommit --verbose<cr>
 nnoremap <leader>gp :Gpush<cr>
 nnoremap <leader>gd :Gdiff<cr>
+nnoremap <leader>gb :Gblame<cr>
 " }}}
 
 " Lightline {{{
@@ -100,5 +101,13 @@ let g:goyo_height = 80
 
 " Vim-go {{{
 let g:go_fmt_command = "goimports"
+" }}}
+
+" NERDTree {{{
+nnoremap <F2> :NERDTreeToggle<cr>
+
+" close nerdtree if it's the only buffer left open
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
 " }}}
 

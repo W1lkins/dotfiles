@@ -431,7 +431,19 @@ setup_vim() {
             cd "$tmpdir" || exit 1;
             git clone https://github.com/vim/vim.git;
             cd vim/src || exit 1;
-            make;
+            ./configure --with-features=huge \
+                --enable-multibyte \
+                --enable-rubyinterp=yes \
+                --enable-pythoninterp=yes \
+                --with-python-config-dir=/usr/lib/python2.7/config \
+                --enable-python3interp=yes \
+                --with-python3-config-dir=/usr/lib/python3.5/config \
+                --enable-perlinterp=yes \
+                --enable-luainterp=yes \
+                --enable-gui=gtk2 \
+                --enable-cscope \
+                --prefix=/usr/local;
+            make VIMRUNTIMEDIR=/usr/local/share/vim/vim81;
             sudo make install
         ) || fail "couldn't cd to $tmpdir to install vim"
     fi
@@ -439,6 +451,17 @@ setup_vim() {
     # install submodules
     info "updating submodules"
     git submodule update --remote --merge --progress
+    
+    user_input "do you want to set up YouCompleteMe [y/N]" setup_ycm
+    setup_ycm=${setup_ycm:-N}
+    ycm_dir="vim.sym/pack/bundle/start/YouCompleteMe"
+    if [[ -d "$ycm_dir" && "$setup_ycm" == "y" || "$setup_ycm" == "Y" ]]; then
+        (
+            cd "$ycm_dir" || exit 1;
+            git submodule update --init --recursive;
+            python3 install.py --go-completer --ts-completer --rust-completer;
+        )
+    fi
 
     vim -c "helptags ALL" -c GoInstallBinaries -c q >/dev/null 2>&1
 }
