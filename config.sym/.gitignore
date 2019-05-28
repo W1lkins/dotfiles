@@ -1,5 +1,4 @@
 Atom
-libreoffice
 autostart
 base16-shell
 Bitwarden
@@ -27,11 +26,13 @@ gtk-2.0
 gtk-3.0
 heroku
 ibus
+libreoffice
 menus
 mimeapps.list
 monitors.xml
 .mono
 mopidy
+Mullvad VPN
 nautilus
 neofetch
 Notable
