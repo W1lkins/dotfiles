@@ -458,6 +458,7 @@ setup_vim() {
     if [[ -d "$ycm_dir" && "$setup_ycm" == "y" || "$setup_ycm" == "Y" ]]; then
         (
             cd "$ycm_dir" || exit 1;
+            info "setting up YouCompleteMe"
             git submodule update --init --recursive;
             python3 install.py --go-completer --ts-completer --rust-completer;
         )

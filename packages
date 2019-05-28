@@ -5,6 +5,7 @@ bc
 build-essential
 bzip2
 ca-certificates
+checkinstall
 cmake
 cmake-data
 copyq
