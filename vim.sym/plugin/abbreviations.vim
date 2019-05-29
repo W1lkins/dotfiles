@@ -12,6 +12,7 @@ endfunction
 
 call MakeSpacelessIabbrev('mywebsite', 'https://wilkins.tech/')
 call MakeSpacelessIabbrev('myemail', 'jonathan@wilkins.tech')
+call MakeSpacelessIabbrev('edn', '// eslint-disable-next-line')
 
 " date abbreviation
 iab xdate <c-r>=strftime("%FT%H:%M:%S")<cr>
