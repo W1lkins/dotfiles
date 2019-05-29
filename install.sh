@@ -300,6 +300,7 @@ install_python3() {
         python3 "/$tmpdir/get-pip.py" --user
     fi
     success "python3 and pip installed, running post-install actions"
+    "$HOME"/.local/bin/pip3 install --user --upgrade pip
     "$HOME"/.local/bin/pip3 install --quiet --user --upgrade \
         yapf \
         pipenv \
@@ -308,7 +309,7 @@ install_python3() {
         magic-wormhole \
         httpie \
         docker-compose \
-        neovim
+        grip
 }
 
 install_extras() {
@@ -318,8 +319,16 @@ install_extras() {
 
     # fzf
     if ! [ -s "$HOME/.fzf" ]; then
+        info "installing fzf"
         git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf" && \
             "$HOME/.fzf/install"
+    else
+        info "updating fzf"
+        (
+            cd "$HOME"/.fzf;
+            git pull;
+            ./install
+        )
     fi
     success "fzf installed"
 
@@ -415,24 +424,47 @@ setup_systemd() {
 }
 
 setup_vim() {
-    # install neovim if not exists
-    if [[ ! -f /usr/local/bin/nvim ]]; then
-        info "installing neovim"
+    # install latest vim
+    if [[ ! -f /usr/local/bin/vim ]]; then
         tmpdir=$(mktemp -d)
         (
             cd "$tmpdir" || exit 1;
-            git clone https://github.com/neovim/neovim.git;
-            cd neovim;
-            make -j CMAKE_BUILD_TYPE=RelWithDebInfo;
+            git clone https://github.com/vim/vim.git;
+            cd vim/src || exit 1;
+            ./configure --with-features=huge \
+                --enable-multibyte \
+                --enable-rubyinterp=yes \
+                --enable-pythoninterp=yes \
+                --with-python-config-dir=/usr/lib/python2.7/config \
+                --enable-python3interp=yes \
+                --with-python3-config-dir=/usr/lib/python3.5/config \
+                --enable-perlinterp=yes \
+                --enable-luainterp=yes \
+                --enable-gui=gtk2 \
+                --enable-cscope \
+                --prefix=/usr/local;
+            make VIMRUNTIMEDIR=/usr/local/share/vim/vim81;
             sudo make install
-        ) || fail "failed to install neovim"
+        ) || fail "couldn't cd to $tmpdir to install vim"
     fi
 
-    (
-        cd "$HOME"/.vim || exit 1;
-        nvim +PlugClean +PlugUpdate +UpdateRemotePlugins +qa
-    ) || fail "couldn't cd to $HOME/.vim"
+    # install submodules
+    info "updating submodules"
+    git submodule update --remote --merge --progress
+    
+    user_input "do you want to set up YouCompleteMe [y/N]" setup_ycm
+    setup_ycm=${setup_ycm:-N}
+    ycm_dir="vim.sym/pack/bundle/start/YouCompleteMe"
+    if [[ -d "$ycm_dir" && "$setup_ycm" == "y" || "$setup_ycm" == "Y" ]]; then
+        (
+            cd "$ycm_dir" || exit 1;
+            info "setting up YouCompleteMe"
+            git submodule update --init --recursive;
+            python3 install.py --go-completer --ts-completer --rust-completer;
+        )
+    fi
 
+    vim -u NONE -c "helptags ALL" -c GoInstallBinaries -c q >/dev/null 2>&1
 }
 
 pre_install() {
@@ -458,14 +490,11 @@ post_install() {
         sudo update-alternatives --set x-terminal-emulator "$(command -v alacritty)"
     fi
 
-	sudo update-alternatives --install /usr/bin/vi vi "$(command -v nvim)" 60
-    sudo update-alternatives --set vi "$(command -v nvim)"
+	sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/vim 60
+	sudo update-alternatives --set vi /usr/local/bin/vim
 
-	sudo update-alternatives --install /usr/bin/vim vim "$(command -v nvim)" 60
-    sudo update-alternatives --set vim "$(command -v nvim)"
-
-	sudo update-alternatives --install /usr/bin/editor editor "$(command -v nvim)" 60
-    sudo update-alternatives --set editor "$(command -v nvim)"
+	sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/vim 60
+	sudo update-alternatives --set editor /usr/local/bin/vim
 
     # change shell to zsh
     if [[ "$SHELL" != *"zsh"* ]]; then

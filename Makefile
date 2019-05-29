@@ -41,6 +41,7 @@ docker-create: docker-stop docker-clean ## stop dotfile container, remove, and r
 	docker create --interactive --tty \
 		--name dotfiles \
 		--hostname dotfiles \
+		--env	IS_SERVER=1 \
 		--volume $(DIR):/dotfiles \
 		dotfiles \
 		/bin/zsh --login

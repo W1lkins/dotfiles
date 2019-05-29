@@ -1,0 +1,39 @@
+[submodule "vim.sym/pack/bundle/start/vim-go"]
+	path = vim.sym/pack/bundle/start/vim-go
+	url = https://github.com/fatih/vim-go
+[submodule "vim.sym/pack/bundle/start/vim-devicons"]
+	path = vim.sym/pack/bundle/start/vim-devicons
+	url = https://github.com/ryanoasis/vim-devicons
+[submodule "vim.sym/pack/bundle/start/gotests-vim"]
+	path = vim.sym/pack/bundle/start/gotests-vim
+	url = https://github.com/buoto/gotests-vim
+[submodule "vim.sym/pack/bundle/start/vim-polyglot"]
+	path = vim.sym/pack/bundle/start/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot
+[submodule "vim.sym/pack/bundle/start/tagbar"]
+	path = vim.sym/pack/bundle/start/tagbar
+	url = https://github.com/majutsushi/tagbar
+[submodule "vim.sym/pack/bundle/start/vim-gitgutter"]
+	path = vim.sym/pack/bundle/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
+[submodule "vim.sym/pack/bundle/start/vim-fugitive"]
+	path = vim.sym/pack/bundle/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "vim.sym/pack/bundle/start/vim-gutentags"]
+	path = vim.sym/pack/bundle/start/vim-gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags
+[submodule "vim.sym/pack/bundle/start/goyo"]
+	path = vim.sym/pack/bundle/start/goyo
+	url = https://github.com/junegunn/goyo.vim
+[submodule "vim.sym/pack/bundle/start/lightline"]
+	path = vim.sym/pack/bundle/start/lightline
+	url = https://github.com/itchyny/lightline.vim
+[submodule "vim.sym/pack/bundle/start/fzf.vim"]
+	path = vim.sym/pack/bundle/start/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
+[submodule "vim.sym/pack/bundle/start/nerdtree"]
+	path = vim.sym/pack/bundle/start/nerdtree
+	url = https://github.com/scrooloose/nerdtree
+[submodule "vim.sym/pack/bundle/start/YouCompleteMe"]
+	path = vim.sym/pack/bundle/start/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe

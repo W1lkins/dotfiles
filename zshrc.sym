@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# stop terminals from being shit
+stty -ixon
+
 # first source our env variables
 source "$HOME/.env"
 

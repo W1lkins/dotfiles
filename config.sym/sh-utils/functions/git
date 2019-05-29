@@ -42,3 +42,7 @@ gitdebug() {
     export GIT_TRACE=1
 }
 
+git-submodule-update() {
+    git submodule update --init --recursive
+}
+
