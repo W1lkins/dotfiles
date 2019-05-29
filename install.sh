@@ -464,7 +464,7 @@ setup_vim() {
         )
     fi
 
-    vim -c "helptags ALL" -c GoInstallBinaries -c q >/dev/null 2>&1
+    vim -u NONE -c "helptags ALL" -c GoInstallBinaries -c q >/dev/null 2>&1
 }
 
 pre_install() {
