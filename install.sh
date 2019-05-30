@@ -486,14 +486,14 @@ post_install() {
     ln -sf "$HOME"/go/src/github.com/evalexpr/ "$HOME"/workspace/go
 
     if [[ ! "$IS_SERVER" ]]; then
-        sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$(command -v alacritty)" 60 || true
+        sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$(command -v alacritty)" 100 || true
         sudo update-alternatives --set x-terminal-emulator "$(command -v alacritty)"
     fi
 
-	sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/vim 60
+	sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/vim 100
 	sudo update-alternatives --set vi /usr/local/bin/vim
 
-	sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/vim 60
+	sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/vim 100
 	sudo update-alternatives --set editor /usr/local/bin/vim
 
     # change shell to zsh
