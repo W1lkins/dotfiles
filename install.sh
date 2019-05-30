@@ -431,6 +431,9 @@ setup_vim() {
             cd "$tmpdir" || exit 1;
             git clone https://github.com/vim/vim.git;
             cd vim/src || exit 1;
+            tag=$(git describe --tags)
+            info "checking out tag $tag"
+            git checkout "$tag" || fail "couldn't check out $tag";
             ./configure --with-features=huge \
                 --enable-multibyte \
                 --enable-rubyinterp=yes \
@@ -443,9 +446,9 @@ setup_vim() {
                 --enable-gui=gtk2 \
                 --enable-cscope \
                 --prefix=/usr/local;
-            make VIMRUNTIMEDIR=/usr/local/share/vim/vim81;
+            make -j VIMRUNTIMEDIR=/usr/local/share/vim/vim81;
             sudo make install
-        ) || fail "couldn't cd to $tmpdir to install vim"
+        ) || fail "couldn't install vim"
     fi
 
     # install submodules
