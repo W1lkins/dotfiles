@@ -37,3 +37,6 @@
 [submodule "vim.sym/pack/bundle/start/YouCompleteMe"]
 	path = vim.sym/pack/bundle/start/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe
+[submodule "vim.sym/pack/bundle/start/editorconfig"]
+	path = vim.sym/pack/bundle/start/editorconfig
+	url = https://github.com/editorconfig/editorconfig-vim
