@@ -1,3 +1,7 @@
+let g:netrw_winsize=30
+let g:netrw_liststyle=3
+let g:netrw_localrmdir='rm -r'
+
 set background=dark
 
 set autoindent                                   " copy indent from current line when starting a new
