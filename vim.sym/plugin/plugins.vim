@@ -103,11 +103,3 @@ let g:goyo_height = 80
 let g:go_fmt_command = "goimports"
 " }}}
 
-" NERDTree {{{
-nnoremap <F2> :NERDTreeToggle<cr>
-
-" close nerdtree if it's the only buffer left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-" }}}
-

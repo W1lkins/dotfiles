@@ -23,8 +23,22 @@ noremap gj j
 noremap gk k
 
 " easy split navigation
-noremap <c-h> <c-w>h
-noremap <c-j> <c-w>j
-noremap <c-k> <c-w>k
-noremap <c-l> <c-w>l
+nnoremap <silent> <c-h> :call WinMove('h')<cr>
+nnoremap <silent> <c-j> :call WinMove('j')<cr>
+nnoremap <silent> <c-k> :call WinMove('k')<cr>
+nnoremap <silent> <c-l> :call WinMove('l')<cr>
+
+" WinMove creates a split if it doesn't exist and focuses it
+function! WinMove(key)
+  let t:curwin = winnr()
+  exec "wincmd ".a:key
+  if (t:curwin == winnr())
+    if (match(a:key,'[jk]'))
+      wincmd v
+    else
+      wincmd s
+    endif
+    exec "wincmd ".a:key
+  endif
+endfunction
 

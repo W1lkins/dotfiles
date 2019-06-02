@@ -104,3 +104,6 @@ nnoremap <right> :cnext<cr>zvzz
 nnoremap <up>    :lprev<cr>zvzz
 nnoremap <down>  :lnext<cr>zvzz
 
+" file browser
+nnoremap <F2> :Vexplore<cr>
+

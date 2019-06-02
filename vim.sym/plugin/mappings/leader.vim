@@ -18,7 +18,8 @@ nnoremap <leader>) :tabnext<cr>
 nnoremap <leader>W :set wrap!<cr>
 
 " Rebuild Ctags (mnemonic RC -> CR -> <cr>) [ install ctags ]
-nnoremap <leader><cr> :silent !myctags >/dev/null 2>&1 &<cr>:redraw!<cr>
+set tags+=.git/tags
+nnoremap <leader><cr> :silent !ctags -Rf .git/tags --tag-relative --extra=+f --exclude.git,pkg --languages=-sql >/dev/null 2>&1 &<cr>:redraw!<cr>
 
 " clear trailing whitespace
 nnoremap <leader>rw mz:%s/\s\+$//<cr>:let @/=''<cr>`z

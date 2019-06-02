@@ -4,6 +4,7 @@ set autoindent                                   " copy indent from current line
 set autoread                                     " if file changes outside vim, read it back in
 set backspace=indent,eol,start                   " make backspace work like most other apps
 
+set textwidth=80                                 " marker on 80 chars
 set colorcolumn=+1                               " highlight column after 'textwidth'
 set encoding=UTF-8                               " set encoding
 set hidden                                       " buffer becomes hidden when it is abandoned
@@ -82,7 +83,6 @@ set formatoptions=qrn1j                          " how vim will auto format
 set softtabstop=2                                " number of spaces a <Tab> counts for while editing
 set tabstop=2                                    " number of spaces a <Tab> counts for
 set shiftwidth=2
-set textwidth=80                                 " marker on 80 chars
 set wrap                                         " lines longer than the width of the window will wrap
 
 " never consider numbers octal, e.g. <c-a> on 007 never becomes 010
