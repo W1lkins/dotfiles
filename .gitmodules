@@ -33,7 +33,8 @@
 	url = https://github.com/junegunn/fzf.vim
 [submodule "vim.sym/pack/bundle/start/YouCompleteMe"]
 	path = vim.sym/pack/bundle/start/YouCompleteMe
-	url = https://github.com/Valloric/YouCompleteMe
+  url = https://github.com/Valloric/YouCompleteMe
+  ignore = dirty
 [submodule "vim.sym/pack/bundle/start/editorconfig"]
 	path = vim.sym/pack/bundle/start/editorconfig
 	url = https://github.com/editorconfig/editorconfig-vim
