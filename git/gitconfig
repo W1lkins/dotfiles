@@ -13,34 +13,31 @@
 
     ci = commit --verbose
 
-  # view abbreviated SHA, description, and history graph of the latest 20 commits
+    # view abbreviated SHA, description, and history graph of the latest 20 commits
     l = log --pretty=oneline -n 20 --graph --abbrev-commit
 
-  # coloured graph output of log
+    # coloured graph output of log
     graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
 
-  # https://git-scm.com/docs/git-fetch#git-fetch--p
+    # https://git-scm.com/docs/git-fetch#git-fetch--p
     prune = fetch --prune
 
-  # https://git-scm.com/docs/git-reset#git-reset-emgitresetemltmodegtltcommitgt
+    # https://git-scm.com/docs/git-reset#git-reset-emgitresetemltmodegtltcommitgt
     undo = reset --soft HEAD^
 
-  # make sure we save untracked files
+    # make sure we save untracked files
     stash-all = stash save --include-untracked
 
-  # show all commits from 9am yesterday, useful for standup meetings
+    # show all commits from 9am yesterday, useful for standup meetings
     standup = !"git log --reverse --branches --since=$(if [[ "Mon" == "$(date +%a)" ]]; then echo "last friday"; else echo "yesterday"; fi) --author=$(git config --get user.email) --format=format:'%C(cyan) %ad %C(yellow)%h %Creset %s %Cgreen%d' --date=local"
 
-  # short format status
-    st = status -s
+    # short format status
+    st = status -s --ignore-submodules=dirty
 
-  # show the diff between the latest commit and the current state
+    # show the diff between the latest commit and the current state
     df = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
 
-  # switch to a branch, create it if necessary
-    go = "!f() { git checkout -b \"$1\" 2> /dev/null || git checkout \"$1\"; }; f"
-
-  # push to all remotes
+    # push to all remotes
     pushall = "!git remote | xargs -L1 git push --all"
 [color]
     diff = auto

@@ -8,7 +8,7 @@ nnoremap zO zczO
 nnoremap <Space> za
 
 " kill window
-nnoremap K :q<cr>
+nnoremap K :q!<cr>
 
 " save
 nnoremap s :w<cr>
