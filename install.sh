@@ -453,6 +453,7 @@ setup_vim() {
 
     # install submodules
     info "updating submodules"
+    git submodule init
     git submodule update --remote --merge --progress
     
     user_input "do you want to set up YouCompleteMe [y/N]" setup_ycm
