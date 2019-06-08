@@ -166,7 +166,7 @@ deb http://repository.spotify.com stable non-free
 	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
     curl -s https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0DF731E45CE24F27EEEB1450EFDC8610341D9410
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0DF731E45CE24F27EEEB1450EFDC8610341D9410 1655A0AB68576280 A87FF9DF48BF1C90
 
     # ppa
     sudo add-apt-repository -y ppa:hluk/copyq
