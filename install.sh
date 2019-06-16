@@ -455,18 +455,6 @@ setup_vim() {
     info "updating submodules"
     git submodule init
     git submodule update --remote --merge --progress
-    
-    user_input "do you want to set up YouCompleteMe [y/N]" setup_ycm
-    setup_ycm=${setup_ycm:-N}
-    ycm_dir="vim.sym/pack/bundle/start/YouCompleteMe"
-    if [[ -d "$ycm_dir" && "$setup_ycm" == "y" || "$setup_ycm" == "Y" ]]; then
-        (
-            cd "$ycm_dir" || exit 1;
-            info "setting up YouCompleteMe"
-            git submodule update --init --recursive;
-            python3 install.py --go-completer --ts-completer --rust-completer;
-        )
-    fi
 
     vim -u NONE -c "helptags ALL" -c GoInstallBinaries -c q >/dev/null 2>&1
 }
