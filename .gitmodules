@@ -41,3 +41,6 @@
 [submodule "vim.sym/pack/bundle/start/vim-buftabline"]
 	path = vim.sym/pack/bundle/start/vim-buftabline
 	url = https://github.com/ap/vim-buftabline
+[submodule "vim.sym/pack/bundle/start/coc"]
+	path = vim.sym/pack/bundle/start/coc
+	url = https://github.com/neoclide/coc.nvim

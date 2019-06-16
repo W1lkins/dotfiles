@@ -2,6 +2,9 @@ let g:netrw_winsize=30
 let g:netrw_liststyle=3
 let g:netrw_localrmdir='rm -r'
 
+" remove whitespace on save
+autocmd BufWritePre * %s/\s\+$//e
+
 set background=dark
 
 set autoindent                                   " copy indent from current line when starting a new
@@ -84,9 +87,9 @@ set wildignore+=*.o,*.rej
 
 set expandtab                                    " insert mode, uses spaces to insert <Tab>
 set formatoptions=qrn1j                          " how vim will auto format
-set softtabstop=2                                " number of spaces a <Tab> counts for while editing
-set tabstop=2                                    " number of spaces a <Tab> counts for
-set shiftwidth=2
+set softtabstop=4                                " number of spaces a <Tab> counts for while editing
+set tabstop=4                                    " number of spaces a <Tab> counts for
+set shiftwidth=4
 set wrap                                         " lines longer than the width of the window will wrap
 
 " never consider numbers octal, e.g. <c-a> on 007 never becomes 010
