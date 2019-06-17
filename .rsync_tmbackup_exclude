@@ -1,0 +1,9 @@
+- .ansible
+- .cache
+- .cargo
+- .fzf
+- .local
+- .oh-my-zsh
+- .rnd
+- .rustup
+- .viminfo
