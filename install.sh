@@ -361,6 +361,10 @@ install_extras() {
     # speedtest
     curl -sSL https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | sudo tee /usr/local/bin/speedtest >/dev/null
 	sudo chmod +x /usr/local/bin/speedtest
+
+    # rsync_tmbackup
+    curl -sSL https://github.com/laurent22/rsync-time-backup/blob/master/rsync_tmbackup.sh | sudo tee /usr/local/bin/rsync_tmbackup.sh >/dev/null
+    sudo chmod +x /usr/local/bin/rsync_tmbackup.sh
 }
 
 setup_git() {
@@ -456,7 +460,7 @@ setup_vim() {
     git submodule init
     git submodule update --remote --merge --progress
 
-    vim -u NONE -c "helptags ALL" -c GoInstallBinaries -c q >/dev/null 2>&1
+    vim -c "helptags ALL" -c "call coc#util#install()" -c GoInstallBinaries -c q >/dev/null 2>&1
 }
 
 pre_install() {
