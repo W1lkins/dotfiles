@@ -1,0 +1,44 @@
+#!/bin/bash
+
+vs() {
+    [[ -z "$VIM_SESSION_DIR" ]] && echo "err: No VIM_SESSION_DIR found" && return
+
+    # ensure VIM_SESSION_DIR exists
+    mkdir -p "$VIM_SESSION_DIR"
+
+    # use session.vim by default
+    if [ "$#" -ne 1 ]; then
+        SESSION_NAME=session
+    else
+        SESSION_NAME=$1
+    fi
+
+    SESSION_PATH="$VIM_SESSION_DIR/$SESSION_NAME"
+
+    if [[ ! -f $SESSION_PATH ]]; then
+        # create
+        vim -c "Obsession $SESSION_PATH"
+    else
+        # source
+        vim -S "$SESSION_PATH"
+    fi
+}
+
+vb() {
+    [[ -z "$VIM_SESSION_DIR" ]] && echo "err: No VIM_SESSION_DIR found" && return
+
+    repo="$(basename "$(git rev-parse --show-toplevel)")"
+    branch="$(git rev-parse --abbrev-ref HEAD)"
+    if [[ -z $branch || -z $repo  ]]; then
+        return 0
+    fi
+
+    mkdir -p "$VIM_SESSION_DIR/$repo"
+    path_segment="$repo/$branch.vim"
+
+    if [[ $1 ]]; then
+        rm -f "$VIM_SESSION_DIR/$path_segment"
+    fi
+
+    vs "$path_segment"
+}
