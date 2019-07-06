@@ -54,6 +54,7 @@ vb() {
     vs "$path_segment"
 }
 
+# cleans $VIM_SESSION_DIR with confirmation prompt
 vsclean() {
     [[ -z "$VIM_SESSION_DIR" ]] && echo "err: No VIM_SESSION_DIR found" && return
     rm -Irf "${VIM_SESSION_DIR:?}"/*
