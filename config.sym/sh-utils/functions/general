@@ -6,15 +6,6 @@ commandexists() {
     type "$1" &> /dev/null ;
 }
 
-# `v` with no arguments opens `pwd` in vim otherwise opens location
-v() {
-    if [ $# -eq 0 ]; then
-        $EDITOR
-    else
-        $EDITOR "$@"
-    fi
-}
-
 # list users on the system
 listusers() {
     cut -d: -f1 /etc/passwd

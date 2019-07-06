@@ -44,3 +44,6 @@
 [submodule "vim.sym/pack/bundle/start/coc"]
 	path = vim.sym/pack/bundle/start/coc
 	url = https://github.com/neoclide/coc.nvim
+[submodule "vim.sym/pack/bundle/start/vim-obsession"]
+	path = vim.sym/pack/bundle/start/vim-obsession
+	url = https://github.com/tpope/vim-obsession.git
