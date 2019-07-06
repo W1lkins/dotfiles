@@ -1,5 +1,15 @@
 #!/bin/bash
 
+# `v` with no arguments opens `pwd` in vim otherwise opens location
+v() {
+    if [ $# -eq 0 ]; then
+        $EDITOR
+    else
+        $EDITOR "$@"
+    fi
+}
+
+# `vs` opens a vim session file from $VIM_SESSION_DIR (defaults to session.vim)
 vs() {
     [[ -z "$VIM_SESSION_DIR" ]] && echo "err: No VIM_SESSION_DIR found" && return
 
@@ -17,13 +27,14 @@ vs() {
 
     if [[ ! -f $SESSION_PATH ]]; then
         # create
-        vim -c "Obsession $SESSION_PATH"
+        $EDITOR -c "Obsession $SESSION_PATH"
     else
         # source
-        vim -S "$SESSION_PATH"
+        $EDITOR -S "$SESSION_PATH"
     fi
 }
 
+# `vb` opens a vim session file corresponding to the repository/branch that is checked out
 vb() {
     [[ -z "$VIM_SESSION_DIR" ]] && echo "err: No VIM_SESSION_DIR found" && return
 
@@ -42,3 +53,9 @@ vb() {
 
     vs "$path_segment"
 }
+
+vsclean() {
+    [[ -z "$VIM_SESSION_DIR" ]] && echo "err: No VIM_SESSION_DIR found" && return
+    rm -Irf "${VIM_SESSION_DIR:?}"/*
+}
+
