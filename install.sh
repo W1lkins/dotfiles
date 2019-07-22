@@ -377,8 +377,8 @@ setup_git() {
         user_input "what is your GitHub author name? (Default: evalexpr)" author
         author=${author:-evalexpr}
 
-        user_input "what is your GitHub email? (Default: wilkinsphysics@gmail.com)" email
-        email=${email:-wilkinsphysics@gmail.com}
+        user_input "what is your GitHub email? (Default: jonathan@wilkins.tech)" email
+        email=${email:-jonathan@wilkins.tech}
 
         user_input "do you want to use a GPG key with git? [y/N]" using_gpg
         using_gpg=${using_gpg:-N}
@@ -460,7 +460,7 @@ setup_vim() {
     git submodule init
     git submodule update --remote --merge --progress
 
-    vim -c "helptags ALL" -c "call coc#util#install()" -c GoInstallBinaries -c q >/dev/null 2>&1
+    vim -c "helptags ALL" -c q >/dev/null 2>&1
 }
 
 pre_install() {
