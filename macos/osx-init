@@ -1,11 +1,10 @@
-#!/bin/sh
-export DOTS=$HOME/dotfiles
+#!/bin/bash
 
 # Set macOS defaults
-"$DOTS"/macos/set-defaults
+./macos/set-defaults
 
 # Install homebrew
-"$DOTS"/macos/brew-init 2>&1
+./macos/brew-init 2>&1
 
 # Install casks
-"$DOTS"/macos/brew-cask-init 2>&1
+./macos/brew-cask-init 2>&1
