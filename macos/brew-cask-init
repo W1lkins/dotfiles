@@ -1,33 +1,23 @@
 #!/bin/bash
-
 brew tap caskroom/cask
 
 # install applications
-brew cask install alfred
-brew cask install battle-net
-brew cask install captain
-brew cask install contexts
-brew cask install docker
-brew cask install dropbox
-brew cask install fing
-brew cask install flux
-brew cask install git
-brew cask install github-desktop
-brew cask install google-chrome
-brew cask install iterm2
-brew cask install pinentry
-brew cask install pinentry-mac
-brew cask install postman
-brew cask install slack
-brew cask install spectacle
-brew cask install sublime-text
-brew cask install tunnelblick
-brew cask install utorrent
-brew cask install vlc
-brew cask install ykman
-brew cask install ykpers
-
-brew cask cleanup
+brew cask install alfred \
+    battle-net \
+    captain \
+    contexts \
+    docker \
+    fing \
+    flux \
+    google-chrome-dev \
+    iterm2 \
+    postman \
+    signal \
+    slack \
+    spectacle \
+    spotify \
+    sublime-text \
+    tunnelblick \
+    vlc
 
 exit 0
-

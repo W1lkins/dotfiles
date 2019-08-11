@@ -11,42 +11,45 @@ brew update
 brew upgrade
 
 # install applications
-brew install ansible
-brew install blueutil
-brew install brew-cask-completion
-brew install coreutils
-brew install curl
-brew install dialog
-brew install ffmpeg --with-libvpx
-brew install findutils
-brew install fzf
-brew install git
-brew install gnu-sed --with-default-names
-brew install go
-brew install htop
-brew install imagemagick --with-webp
-brew install mariadb
-brew install mas
-brew install moreutils
-brew install node
-brew install perl
-brew install python
-brew install python3
-brew install ripgrep
-brew install screenfetch
-brew install shellcheck
-brew install sqlite
-brew install tmux
-brew install tree
-brew install vim --with-override-system-vi
-brew install watch
-brew install wget --with-iri
-brew install yarn
-brew install youtube-dl
-brew install zsh
-brew install zsh-completions
-
-brew cleanup
+brew install ansible \
+    brew-cask-completion \
+    coreutils \
+    ctags \
+    curl \
+    dialog \
+    ext4fuse \
+    ffmpeg \
+    findutils \
+    fzf \
+    git \
+    gnu-sed \
+    gnupg \
+    go \
+    gstreamer \
+    gstreamermm \
+    hopenpgp-tools \
+    htop \
+    imagemagick \
+    jq \
+    moreutils \
+    node \
+    perl \
+    pinentry-mac \
+    python3 \
+    ripgrep \
+    rust \
+    screenfetch \
+    shellcheck \
+    sqlite \
+    tmux \
+    tree \
+    vim \
+    watch \
+    wget \
+    yarn \
+    ykman \
+    youtube-dl \
+    yubikey-personalization  \
+    zsh
 
 exit 0
-

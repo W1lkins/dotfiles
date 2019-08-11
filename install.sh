@@ -29,8 +29,9 @@ user_input() {
 determine_arch() {
     arch=$(arch)
     case $arch in
-        x86*) arch=amd64;;
-        arm*) arch=arm;;
+    i386*) arch=i386 ;;
+    x86*) arch=amd64 ;;
+    arm*) arch=arm ;;
     esac
     echo "$arch"
 }
@@ -41,31 +42,37 @@ link_file() {
 
     # check if the destinaton is already a file/dir/symlink
     if [ -f "$dest" ] || [ -d "$dest" ] || [ -L "$dest" ]; then
-        if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ];then
+        if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
             # shellcheck disable=SC2155
             local current="$(readlink "$dest")"
 
             if [ "$current" == "$src" ]; then
-                skip=true;
+                skip=true
             else
                 info "file already exists: $dest ($(basename "$src")), what do you want to do?"
                 user_input "[s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?" action
 
                 case "$action" in
-                    o)
-                        overwrite=true;;
-                    O)
-                        overwrite_all=true;;
-                    b)
-                        backup=true;;
-                    B)
-                        backup_all=true;;
-                    s)
-                        skip=true;;
-                    S)
-                        skip_all=true;;
-                    *)
-                        ;;
+                o)
+                    overwrite=true
+                    ;;
+                O)
+                    overwrite_all=true
+                    ;;
+                b)
+                    backup=true
+                    ;;
+                B)
+                    backup_all=true
+                    ;;
+                s)
+                    skip=true
+                    ;;
+                S)
+                    skip_all=true
+                    ;;
+                *) ;;
+
                 esac
             fi
         fi
@@ -101,10 +108,10 @@ setup_sudo() {
     sudo groupadd systemd-journal || true
     sudo groupadd systemd-network || true
 
-    sudo gpasswd -a "$USER" sudo
-    sudo gpasswd -a "$USER" systemd-journal
-	sudo gpasswd -a "$USER" systemd-network
-	sudo gpasswd -a "$USER" docker
+    sudo gpasswd -a "$USER" sudo || true
+    sudo gpasswd -a "$USER" systemd-journal || true
+    sudo gpasswd -a "$USER" systemd-network || true
+    sudo gpasswd -a "$USER" docker || true
 
     sudo mkdir -p /etc/sudoers.d/
     echo "removing /etc/sudoers.d/$USER"
@@ -117,7 +124,7 @@ install_base() {
     # TODO(jwilkins): Make this arch agnostic
     sudo apt update -qq || true
     sudo apt -yqq upgrade
-    < packages xargs sudo apt install -yqq --no-install-recommends
+    xargs <packages sudo apt install -yqq --no-install-recommends
 
     if [[ ! "$IS_SERVER" ]]; then
         sudo apt -yqq install signal-desktop compton
@@ -131,9 +138,9 @@ install_base() {
     if [[ ! -f /usr/local/bin/polybar ]] && [[ ! "$IS_SERVER" ]]; then
         tmpdir=$(mktemp -d)
         (
-            cd "$tmpdir" || exit 1;
-            git clone https://github.com/jaagr/polybar.git;
-            cd polybar;
+            cd "$tmpdir" || exit 1
+            git clone https://github.com/jaagr/polybar.git
+            cd polybar
             ./build.sh
         ) || fail "couldn't cd to $tmpdir to install polybar"
     fi
@@ -163,7 +170,7 @@ deb http://repository.spotify.com stable non-free
 	EOF'
 
     # keys
-	curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+    curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
     curl -s https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
     curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 0DF731E45CE24F27EEEB1450EFDC8610341D9410 1655A0AB68576280 A87FF9DF48BF1C90
@@ -174,27 +181,27 @@ deb http://repository.spotify.com stable non-free
     # speed up apt
     sudo mkdir -p /etc/apt/apt.conf.d
     sudo rm -f /etc/apt/apt.conf.d/99translations
-	echo 'Acquire::Languages "none";' | sudo tee -a /etc/apt/apt.conf.d/99translations >/dev/null
+    echo 'Acquire::Languages "none";' | sudo tee -a /etc/apt/apt.conf.d/99translations >/dev/null
 }
 
 install_fonts() {
-	mkdir -p "$HOME/.fonts"
+    mkdir -p "$HOME/.fonts"
     if fc-list | grep 'mononoki'; then
         info "mononoki font exists"
     else
         tmpdir=$(mktemp -d)
         info "installing Mononoki font"
         (
-            cd "$tmpdir" || exit 1;
-            url="$(curl -fsSL https://api.github.com/repos/madmalik/mononoki/releases | jq '.[0].assets[0].browser_download_url')";
-            url=$(echo "$url" | tr -d '"');
-            curl -fsSL "$url" -o mononoki.zip;
+            cd "$tmpdir" || exit 1
+            url="$(curl -fsSL https://api.github.com/repos/madmalik/mononoki/releases | jq '.[0].assets[0].browser_download_url')"
+            url=$(echo "$url" | tr -d '"')
+            curl -fsSL "$url" -o mononoki.zip
             if [[ ! -f mononoki.zip ]]; then
                 exit 1
             fi
-            unzip "mononoki.zip";
-            rm "mononoki.zip";
-            mv ./* "$HOME/.fonts";
+            unzip "mononoki.zip"
+            rm "mononoki.zip"
+            mv ./* "$HOME/.fonts"
             fc-cache -fv
         ) || fail "couldn't download Mononoki"
     fi
@@ -205,16 +212,16 @@ install_fonts() {
         tmpdir=$(mktemp -d)
         info "installing Iosevka font"
         (
-            cd "$tmpdir";
-            url="$(curl -fsSL https://api.github.com/repos/be5invis/Iosevka/releases | jq '.[0].assets[0].browser_download_url')";
-            url=$(echo "$url" | tr -d '"');
-            curl -fsSL "$url" -o iosevka.zip;
+            cd "$tmpdir"
+            url="$(curl -fsSL https://api.github.com/repos/be5invis/Iosevka/releases | jq '.[0].assets[0].browser_download_url')"
+            url=$(echo "$url" | tr -d '"')
+            curl -fsSL "$url" -o iosevka.zip
             if [[ ! -f iosevka.zip ]]; then
                 exit 1
             fi
-            unzip "iosevka.zip";
-            rm "iosevka.zip";
-            mv ./ttf/* "$HOME/.fonts";
+            unzip "iosevka.zip"
+            rm "iosevka.zip"
+            mv ./ttf/* "$HOME/.fonts"
             fc-cache -fv
         ) || fail "couldn't download Iosevka"
     fi
@@ -245,12 +252,23 @@ install_rust() {
     rustup install nightly
     rustup default nightly
     rustup update
-    cargo install shellharden ripgrep lsd bat miniserve ffsend hunter cargo-update || true
+
+    export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:/usr/local/opt/libffi/lib/pkgconfig:/usr/local/opt/gst-plugins-base/lib/pkgconfig/"
+    rustup run nightly cargo install shellharden \
+        ripgrep \
+        lsd \
+        bat \
+        miniserve \
+        ffsend \
+        hunter \
+        cargo-update || true
+
     if [[ ! "$IS_SERVER" ]]; then
-        cargo install --git https://github.com/jwilm/alacritty || true
+        rustup run nightly cargo install --git https://github.com/jwilm/alacritty || true
     fi
+
     info "updating rust packages"
-    cargo install-update -a
+    rustup run nightly cargo install-update -a
 }
 
 install_go() {
@@ -265,7 +283,7 @@ install_go() {
     if [[ "$INSTALLED_VERSION" != "$GO_VERSION" ]]; then
         GO_VERSION=${GO_VERSION#go}
         info "installing new go version: $GO_VERSION"
-		sudo rm -rf "$GO_SRC"
+        sudo rm -rf "$GO_SRC"
 
         local_arch=$ARCH
         if [[ "$local_arch" == "arm" ]]; then
@@ -320,13 +338,13 @@ install_extras() {
     # fzf
     if ! [ -s "$HOME/.fzf" ]; then
         info "installing fzf"
-        git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf" && \
+        git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf" &&
             "$HOME/.fzf/install"
     else
         info "updating fzf"
         (
-            cd "$HOME"/.fzf;
-            git pull;
+            cd "$HOME"/.fzf
+            git pull
             ./install
         )
     fi
@@ -358,19 +376,16 @@ install_extras() {
     fi
     success "1password cli installed"
 
-    # speedtest
-    curl -sSL https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | sudo tee /usr/local/bin/speedtest >/dev/null
-	sudo chmod +x /usr/local/bin/speedtest
-
-    # rsync_tmbackup
-    curl -sSL https://github.com/laurent22/rsync-time-backup/blob/master/rsync_tmbackup.sh | sudo tee /usr/local/bin/rsync_tmbackup.sh >/dev/null
-    sudo chmod +x /usr/local/bin/rsync_tmbackup.sh
+    install_bin
 }
 
 setup_git() {
     if ! [ -s "$HOME/.gitconfig" ]; then
+        my_sed="sed"
         store="cache"
-        if [[ "$OSTYPE" == "Darwin"* ]]; then
+
+        if [[ "$OSTYPE" == "darwin"* ]]; then
+            my_sed="gsed"
             store="osxkeychain"
         fi
 
@@ -384,20 +399,20 @@ setup_git() {
         using_gpg=${using_gpg:-N}
 
         key=
-        if [ "$using_gpg" != "${using_gpg#[Yy]}" ] ;then
+        if [ "$using_gpg" != "${using_gpg#[Yy]}" ]; then
             gpg --list-keys --keyid-format LONG
             user_input "which key" key
         fi
 
         cp git/gitconfig "$HOME/.gitconfig"
 
-        sed -e "s/AUTHOR_NAME/$author/g" -e "s/AUTHOR_EMAIL/$email/g" -e "s/GIT_CREDENTIAL_HELPER/$store/g" -i "$HOME/.gitconfig"
+        $my_sed -e "s/AUTHOR_NAME/$author/g" -e "s/AUTHOR_EMAIL/$email/g" -e "s/GIT_CREDENTIAL_HELPER/$store/g" -i "$HOME/.gitconfig"
         if ! [ -z "$key" ]; then
-            sed -e "s/AUTHOR_GPG_KEY/$key/g" -e "s/gpgsign = false/gpgsign = true/g" -i "$HOME/.gitconfig"
+            $my_sed -e "s/AUTHOR_GPG_KEY/$key/g" -e "s/gpgsign = false/gpgsign = true/g" -i "$HOME/.gitconfig"
         fi
         if command -v ghq >/dev/null 2>&1; then
             # Use "|" as a delimiter since $HOME/workspace contains "/"
-            sed -e "s|GHQ_ROOT|$HOME/workspace|g" -i "$HOME/.gitconfig"
+            $my_sed -e "s|GHQ_ROOT|$HOME/workspace|g" -i "$HOME/.gitconfig"
         fi
 
         success "created gitconfig"
@@ -406,19 +421,16 @@ setup_git() {
     fi
 }
 
-
 setup_dotfiles() {
     local overwrite_all=false backup_all=false skip_all=false
-    for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.sym' -not -path '*.git*')
-    do
+    for src in $(find -H "$DOTFILES_ROOT" -maxdepth 2 -name '*.sym' -not -path '*.git*'); do
         dest="$HOME/.$(basename "${src%.*}")"
         link_file "$src" "$dest"
     done
 }
 
 setup_systemd() {
-    for file in $(find -H config.sym/systemd/system -type f -name '*.service')
-    do
+    for file in $(find -H config.sym/systemd/system -type f -name '*.service'); do
         dest="/etc/systemd/system/$(basename "$file")"
         if ! [ -L "$dest" ]; then
             info "linking $file to $dest"
@@ -432,12 +444,12 @@ setup_vim() {
     if [[ ! -f /usr/local/bin/vim ]]; then
         tmpdir=$(mktemp -d)
         (
-            cd "$tmpdir" || exit 1;
-            git clone https://github.com/vim/vim.git;
-            cd vim/src || exit 1;
+            cd "$tmpdir" || exit 1
+            git clone https://github.com/vim/vim.git
+            cd vim/src || exit 1
             tag=$(git describe --tags)
             info "checking out tag $tag"
-            git checkout "$tag" || fail "couldn't check out $tag";
+            git checkout "$tag" || fail "couldn't check out $tag"
             ./configure --with-features=huge \
                 --enable-multibyte \
                 --enable-rubyinterp=yes \
@@ -449,13 +461,18 @@ setup_vim() {
                 --enable-luainterp=yes \
                 --enable-gui=gtk2 \
                 --enable-cscope \
-                --prefix=/usr/local;
-            make -j VIMRUNTIMEDIR=/usr/local/share/vim/vim81;
+                --prefix=/usr/local
+            make -j VIMRUNTIMEDIR=/usr/local/share/vim/vim81
             sudo make install
         ) || fail "couldn't install vim"
     fi
 
-    # install submodules
+
+    # run post-install vim steps
+    vim_post_install
+}
+
+vim_post_install() {
     info "updating submodules"
     git submodule init
     git submodule update --remote --merge --progress
@@ -467,7 +484,7 @@ pre_install() {
     sudo apt install -yqq --no-install-recommends curl apt-transport-https
 }
 
-post_install() {
+setup_home() {
     # check ssh key for host
     key_path="$HOME/.ssh/$(hostname)"
     info "ensuring ssh key at $key_path exists"
@@ -480,17 +497,21 @@ post_install() {
     mkdir -p "$HOME"/media/{pictures/wallpapers,screenshots,videos,music}
     mkdir -p "$HOME"/go/src/github.com/evalexpr/
     ln -sf "$HOME"/go/src/github.com/evalexpr/ "$HOME"/workspace/go
+}
+
+post_install() {
+    setup_home
 
     if [[ ! "$IS_SERVER" ]]; then
         sudo update-alternatives --install /usr/bin/x-terminal-emulator x-terminal-emulator "$(command -v alacritty)" 100 || true
         sudo update-alternatives --set x-terminal-emulator "$(command -v alacritty)"
     fi
 
-	sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/vim 100
-	sudo update-alternatives --set vi /usr/local/bin/vim
+    sudo update-alternatives --install /usr/bin/vi vi /usr/local/bin/vim 100
+    sudo update-alternatives --set vi /usr/local/bin/vim
 
-	sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/vim 100
-	sudo update-alternatives --set editor /usr/local/bin/vim
+    sudo update-alternatives --install /usr/bin/editor editor /usr/local/bin/vim 100
+    sudo update-alternatives --set editor /usr/local/bin/vim
 
     # change shell to zsh
     if [[ "$SHELL" != *"zsh"* ]]; then
@@ -502,12 +523,75 @@ post_install() {
     rm -f go.mod go.sum
 }
 
+install_bin() {
+    info "installing /usr/local/bin scripts"
+    # speedtest
+    curl -sSL https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | sudo tee /usr/local/bin/speedtest >/dev/null
+    sudo chmod +x /usr/local/bin/speedtest
+
+    # rsync_tmbackup
+    curl -sSL https://github.com/laurent22/rsync-time-backup/blob/master/rsync_tmbackup.sh | sudo tee /usr/local/bin/rsync_tmbackup.sh >/dev/null
+    sudo chmod +x /usr/local/bin/rsync_tmbackup.sh
+}
+
+setup_mac() {
+    info "setting up macos"
+    cmd="$1"
+
+    if [[ ! -z $cmd && $cmd == "init" ]]; then
+        setup_sudo
+
+        info "running osx-init, first run will take a while"
+        ./macos/osx-init
+        success "finished running osx-init"
+
+        info "installing fonts, rust, and go"
+        install_fonts
+        install_rust
+
+        info "installing go packages"
+        go get -u honnef.co/go/tools/cmd/staticcheck \
+            github.com/prasmussen/gdrive \
+            github.com/motemen/ghq \
+            github.com/evalexpr/makedl \
+            github.com/davecheney/httpstat
+
+        info "installing pip stuff"
+        pip3 install --user --upgrade pip
+        pip3 install --quiet --user --upgrade \
+            yapf \
+            pipenv \
+            icdiff \
+            pipreqs \
+            magic-wormhole \
+            httpie \
+            docker-compose \
+            grip
+
+        info "installing diff-so-fancy"
+        yarn global add diff-so-fancy 2>/dev/null
+
+        install_bin
+    fi
+
+    setup_git
+    setup_dotfiles
+    vim_post_install
+    setup_zsh
+    setup_home
+
+    success "installation complete"
+    exit 0
+}
+
 main() {
     local cmd="$1"
     readonly KERNEL="$(uname -s | tr '[:upper:]' '[:lower:]')"
     readonly ARCH="$(determine_arch)"
-    readonly DIST="$(lsb_release -si | tr '[:upper:]' '[:lower:]')"
     info "running for kernel: $KERNEL and arch $ARCH"
+
+    # handle macos
+    [[ "$OSTYPE" == "darwin"* ]] && setup_mac "$cmd"
 
     info "running pre-install"
     pre_install

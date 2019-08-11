@@ -12,7 +12,6 @@ copyq
 coreutils
 ctags
 curl
-curl
 dirmngr
 dnsutils
 figlet
@@ -22,9 +21,7 @@ fonts-font-awesome
 gcc
 gettext
 git
-gitk
 gnupg
-gnupg2
 gnupg2
 google-cloud-sdk
 grep
