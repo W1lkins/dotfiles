@@ -16,6 +16,7 @@
 - dmenu
 - docker
 - ffsend
+- fonts
 - fzf
 - gdrive
 - ghq
@@ -24,11 +25,9 @@
 - htoprc
 - icdiff
 - inputrc
-- iosevka font
 - lsd
 - magic-wormhole
 - miniserve
-- mononoki font
 - ncmpcpp
 - oh-my-zsh
 - pipenv
