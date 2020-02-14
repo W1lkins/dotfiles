@@ -14,8 +14,12 @@ nnoremap <leader>A :tselect<CR>
 
 " FZF {{{
 " source the plugin
-" TODO(jwilkins): degrade gracefull with if statements
-source ~/.fzf/plugin/fzf.vim
+if !empty(glob("~/.fzf/plugin/fzf.vim"))
+    source ~/.fzf/plugin/fzf.vim
+endif
+if !empty(glob("/usr/local/opt/fzf/plugin/fzf.vim"))
+    source /usr/local/opt/fzf/plugin/fzf.vim
+endif
 
 let g:fzf_layout = { 'up': '~40%' }
 let g:fzf_buffers_jump = 1

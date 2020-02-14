@@ -473,6 +473,7 @@ vim_post_install() {
     git submodule update --remote --merge --progress
 
     vim -c "helptags ALL" -c q >/dev/null 2>&1
+    vim -c ":call coc#util#install()" -c q >/dev/null 2>&1
 }
 
 pre_install() {
