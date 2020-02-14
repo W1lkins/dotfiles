@@ -5,28 +5,27 @@ resgpg() {
     sudo pkill -9 gpg-agent && gpg-connect-agent reloadagent /bye
 }
 
-# list gpg keys
-glk() {
-    gpg --list-keys
-}
-
 # list secret gpg keys
-glsk() {
-    gpg --list-secret-keys
+gpglist() {
+    gpg --list-keys --keyid-format LONG
 }
 
 # encrypt with gpg
-gencrypt() {
-    gpg -r evalexpr -e "$1"
+gpgencrypt() {
+    gpg -r jonathan@wilkins.tech -e "$1"
 }
 
 # decrypt with gpg
-gdecrypt() {
+gpgdecrypt() {
     gpg -d "$1"
 }
 
 # import keys
-gimport() {
+gpgimport() {
     gpg --allow-secret-key-import --import "$1"
+}
+
+gpgexport() {
+    gpg --armor --export "$1"
 }
 

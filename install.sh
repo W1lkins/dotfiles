@@ -253,7 +253,6 @@ install_rust() {
     rustup default nightly
     rustup update
 
-    export PKG_CONFIG_PATH="${PKG_CONFIG_PATH}:/usr/local/opt/libffi/lib/pkgconfig:/usr/local/opt/gst-plugins-base/lib/pkgconfig/"
     rustup run nightly cargo install shellharden \
         ripgrep \
         lsd \
@@ -262,10 +261,6 @@ install_rust() {
         ffsend \
         hunter \
         cargo-update || true
-
-    if [[ ! "$IS_SERVER" ]]; then
-        rustup run nightly cargo install --git https://github.com/jwilm/alacritty || true
-    fi
 
     info "updating rust packages"
     rustup run nightly cargo install-update -a
@@ -551,8 +546,6 @@ setup_mac() {
 
         info "installing go packages"
         go get -u honnef.co/go/tools/cmd/staticcheck \
-            github.com/prasmussen/gdrive \
-            github.com/motemen/ghq \
             github.com/evalexpr/makedl \
             github.com/davecheney/httpstat
 

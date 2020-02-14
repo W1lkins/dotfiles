@@ -11,22 +11,17 @@ brew update
 brew upgrade
 
 # install applications
-brew install ansible \
-    brew-cask-completion \
+brew install brew-cask-completion \
     coreutils \
     ctags \
     curl \
     dialog \
-    ext4fuse \
     ffmpeg \
     findutils \
     fzf \
     git \
-    gnu-sed \
     gnupg \
     go \
-    gstreamer \
-    gstreamermm \
     hopenpgp-tools \
     htop \
     imagemagick \
@@ -37,8 +32,6 @@ brew install ansible \
     pinentry-mac \
     python3 \
     ripgrep \
-    rust \
-    screenfetch \
     shellcheck \
     sqlite \
     tmux \
@@ -46,7 +39,6 @@ brew install ansible \
     vim \
     watch \
     wget \
-    yarn \
     ykman \
     youtube-dl \
     yubikey-personalization  \

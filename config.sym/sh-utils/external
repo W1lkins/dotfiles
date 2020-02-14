@@ -1,10 +1,6 @@
 #!/bin/bash
 # shellcheck source=/dev/null
 
-# git ssh settings
-GIT_SSH_COMMAND="ssh -i ~/.ssh/$(/bin/cat /etc/hostname)"
-export GIT_SSH_COMMAND
-
 # fzf
 [ -s ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
@@ -33,5 +29,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"
 
 # some zsh additions
+# shellcheck disable=SC2034
+plugins=(ssh-agent)
 zle -N fg-bg
 bindkey '^Z' fg-bg
+
