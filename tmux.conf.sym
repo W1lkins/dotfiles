@@ -64,15 +64,14 @@ bind-key -n S-Right next-window
 # bar colours outwith middle pane
 set-option -g status-bg colour235
 set-option -g status-fg colour208
-set-option -g status-attr bold
+set-option -g status-style bold
 
 # pane border (| - colors)
-set-option -g pane-border-fg colour240
-set-option -g pane-active-border-fg colour208
+set -g pane-border-style fg=colour240
+set -g pane-active-border-style fg=colour208
 
 # message text (displays when prefix pressed and typing begins)
-set-option -g message-bg colour235
-set-option -g message-fg colour208
+set-option -g message-style bg=colour235,fg=colour208
 
 # pane number display <C-a>:display-panes
 set-option -g display-panes-active-colour colour33
