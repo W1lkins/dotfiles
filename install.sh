@@ -536,9 +536,9 @@ setup_mac() {
     if [[ ! -z $cmd && $cmd == "init" ]]; then
         setup_sudo
 
-        info "running osx-init, first run will take a while"
-        ./macos/osx-init
-        success "finished running osx-init"
+        info "running install.sh in macos dir, first run will take a while"
+        ./macos/install.sh
+        success "finished running mac install"
 
         info "installing fonts, rust, and go"
         install_fonts

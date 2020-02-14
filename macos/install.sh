@@ -1,5 +1,5 @@
-#!/bin/sh
-echo "Apply system and application defaults."
+#!/bin/bash
+echo "Applying system and application defaults..."
 osascript -e 'tell application "System Preferences" to quit'
 
 # System
@@ -123,3 +123,11 @@ defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false
 
 echo "TweetBot - Bypass t.co slowness"
 sudo defaults write com.tapbots.TweetbotMac OpenURLsDirectly -bool true
+
+if ! type brew &> /dev/null; then
+    echo "Installing Homebrew..."
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
+echo "Installing brew stuff..."
+brew bundle --file=macos/Brewfile
