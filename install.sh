@@ -29,16 +29,6 @@ user_input() {
     read -re -p $'\033[0;33m'"$1"$'\033[0m: ' "$2"
 }
 
-determine_arch() {
-    arch=$(arch)
-    case $arch in
-    i386*) arch=i386 ;;
-    x86*) arch=amd64 ;;
-    arm*) arch=arm ;;
-    esac
-    echo "$arch"
-}
-
 link_file() {
     local src="$1" dest="$2"
     local overwrite="" backup="" skip="" action=""
@@ -269,8 +259,7 @@ install_dots() {
 main() {
     local cmd="$1"
     readonly KERNEL="$(uname -s | tr '[:upper:]' '[:lower:]')"
-    readonly ARCH="$(determine_arch)"
-    info "running for kernel: $KERNEL and arch $ARCH"
+    info "running for kernel: $KERNEL"
 
     if [[ "$OSTYPE" == "darwin"* ]]; then
         # If we don't pass a command, we just want to install dotfiles
