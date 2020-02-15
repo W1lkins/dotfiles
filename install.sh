@@ -197,10 +197,11 @@ vim_post_install() {
     git submodule init
     info "updating submodules"
     git submodule update --remote --merge --progress
+    info "finished installing submodules"
 
-    info "generating tags and installing coc"
-    vim -c "helptags ALL" -c q >/dev/null 2>&1
-    vim -c ":call coc#util#install()" -c q >/dev/null 2>&1
+    info "running vim commands"
+    vim -c "helptags ALL" -c q
+    vim -c ":call coc#util#install()" -c q
 }
 
 linux_pre_install() {

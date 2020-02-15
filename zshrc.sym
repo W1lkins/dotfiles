@@ -1,8 +1,10 @@
 # stop terminals from being shit
 stty -ixon
 
-# first source our env variables
-source "$HOME/.env"
+# zsh stuff
+autoload -Uz compinit
+compinit
+zstyle ':completion:*' menu select rehash true
 
 # start ssh-agent
 eval "$(ssh-agent -s)" >/dev/null 2>&1
