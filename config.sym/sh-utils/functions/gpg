@@ -25,6 +25,7 @@ gpgimport() {
     gpg --allow-secret-key-import --import "$1"
 }
 
+# export a particular key
 gpgexport() {
     gpg --armor --export "$1"
 }
