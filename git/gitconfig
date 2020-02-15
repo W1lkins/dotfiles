@@ -36,7 +36,7 @@
     # rename branch
     rename-branch = !"git branch -m $1"
     # update all submodules
-    submodule-update = submodule update --init --recursive
+    submodule-update = submodule update --remote --merge --progress
 [color]
     diff = auto
     status = auto
