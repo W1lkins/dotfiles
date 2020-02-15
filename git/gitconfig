@@ -7,40 +7,36 @@
 [hub]
     protocol = https
 [alias]
+    # add incrementally
     ap = add --patch
-
-    co = checkout
-
+    # short format status without submodule info
+    st = status -s --ignore-submodules=dirty
+    # show the diff between the latest commit and the current state
+    df = !"git diff-index --quiet HEAD -- || git --no-pager diff --patch-with-stat"
+    # see changes while committing
     ci = commit --verbose
-
+    # force push with lease
     pushf = push --force-with-lease
-
-    # view abbreviated SHA, description, and history graph of the latest 20 commits
+    # push and set upstream
+    pushu = push -u origin HEAD
+    # view SHA, description, and history of the last 20 commits
     l = log --pretty=oneline -n 20 --graph --abbrev-commit
-
     # coloured graph output of log
     graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'
-
     # https://git-scm.com/docs/git-fetch#git-fetch--p
     prune = fetch --prune
-
     # https://git-scm.com/docs/git-reset#git-reset-emgitresetemltmodegtltcommitgt
     undo = reset --soft HEAD^
-
     # make sure we save untracked files
     stash-all = stash save --include-untracked
-
-    # show all commits from 9am yesterday, useful for standup meetings
-    standup = !"git log --reverse --branches --since=$(if [[ "Mon" == "$(date +%a)" ]]; then echo "last friday"; else echo "yesterday"; fi) --author=$(git config --get user.email) --format=format:'%C(cyan) %ad %C(yellow)%h %Creset %s %Cgreen%d' --date=local"
-
-    # short format status
-    st = status -s --ignore-submodules=dirty
-
-    # show the diff between the latest commit and the current state
-    df = !"git diff-index --quiet HEAD -- || clear; git --no-pager diff --patch-with-stat"
-
     # push to all remotes
     pushall = "!git remote | xargs -L1 git push --all"
+    # get the current branch
+    current = rev-parse --abbrev-ref HEAD
+    # rename branch
+    rename-branch = !"git branch -m $1"
+    # update all submodules
+    submodule-update = submodule update --init --recursive
 [color]
     diff = auto
     status = auto
@@ -48,7 +44,7 @@
     ui = true
 [core]
     excludesfile = ~/.gitignore
-    editor = nvim
+    editor = vim
     pager = diff-so-fancy | less --tabs=4 -RFX
 [apply]
     whitespace = nowarn
@@ -65,8 +61,6 @@
     default = simple
 [commit]
     gpgsign = false
-[ghq]
-    root = GHQ_ROOT
 [color "diff-highlight"]
 	oldNormal = red bold
 	oldHighlight = red bold 52
