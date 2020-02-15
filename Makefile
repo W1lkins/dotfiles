@@ -33,7 +33,7 @@ docker: docker-build docker-create docker-start docker-setup docker-attach ## bu
 .PHONY: docker-build
 docker-build:
 	@echo "+ $@"
-	docker build --tag dotfiles --rm - < docker.sym/dotfiletest/Dockerfile
+	docker build --tag dotfiles --rm .
 
 .PHONY: docker-create
 docker-create: docker-stop docker-clean ## stop dotfile container, remove, and recreate
@@ -41,8 +41,8 @@ docker-create: docker-stop docker-clean ## stop dotfile container, remove, and r
 	docker create --interactive --tty \
 		--name dotfiles \
 		--hostname dotfiles \
-		--env	IS_SERVER=1 \
-		--volume $(DIR):/dotfiles \
+		--env IS_SERVER=1 \
+		--volume $(DIR):/home/wilkins/.dotfiles \
 		dotfiles \
 		/bin/zsh --login
 
