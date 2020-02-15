@@ -103,10 +103,10 @@ setup_sudo() {
     sudo gpasswd -a "$USER" docker || true
 
     sudo mkdir -p /etc/sudoers.d/
-    echo "removing /etc/sudoers.d/$USER"
-    sudo rm -f /etc/sudoers.d/"$USER"
-    echo "adding /etc/sudoers.d/$USER"
-    echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/"$USER" >/dev/null
+    if ! [ -s "/etc/sudoers.d/$USER" ]; then
+        echo "adding /etc/sudoers.d/$USER"
+        echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/"$USER" >/dev/null
+    fi
 }
 
 install_programs() {
