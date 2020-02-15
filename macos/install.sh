@@ -130,4 +130,4 @@ if ! type brew &> /dev/null; then
 fi
 
 echo "Installing brew stuff..."
-brew bundle --file=macos/Brewfile
+brew bundle --file=./Brewfile
