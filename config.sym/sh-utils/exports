@@ -1,0 +1,29 @@
+#!/bin/bash
+# shellcheck source=/dev/null
+
+# linuxbrew
+if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    test -d /home/linuxbrew/.linuxbrew && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    eval "$("$(brew --prefix)"/bin/brew shellenv)"
+fi
+
+# fzf
+[ -s ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow -g "!{.git,node_modules}/*" 2> /dev/null'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+
+# add cargo/npm/yarn/gem/pip modules to path
+export PATH=$PATH:"$HOME"/.cargo/bin:"$HOME"/.npm-global/bin:"$HOME"/.yarn/bin:"$HOME"/.local/bin:"$HOME"/.gem/bin
+
+# gpg
+if type gpgconf &> /dev/null; then
+  GPG_TTY="$(tty)"; export GPG_TTY; SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket); export SSH_AUTH_SOCK; gpgconf --launch gpg-agent
+fi
+
+# nix
+[ -s "$HOME"/.nix-profile/etc/profile.d/nix.sh ] && source "$HOME"/.nix-profile/etc/profile.d/nix.sh
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && source "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && source "$NVM_DIR/bash_completion"

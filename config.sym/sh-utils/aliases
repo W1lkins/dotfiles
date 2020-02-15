@@ -1,0 +1,10 @@
+#!/bin/bash
+alias cat="bat"
+alias httpserver="python3 -m http.server"
+alias ls="lsd"
+alias python="python3"
+alias tardown="tar -zxf"
+alias tarup="tar -zcf"
+alias usystemctl="systemctl --user"
+alias backup="/usr/local/bin/rsync_tmbackup.sh"
+alias ap='ansible-playbook'
