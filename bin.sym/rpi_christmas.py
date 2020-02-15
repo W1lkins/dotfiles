@@ -10,4 +10,3 @@ for led in TREE:
     led.source_delay = 1
     led.source = random_values()
 pause()
-
