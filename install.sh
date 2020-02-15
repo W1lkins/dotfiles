@@ -2,6 +2,7 @@
 # shellcheck disable=SC2044
 set -o pipefail
 DOTFILES_ROOT=$(pwd -P)
+PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
 
 info() {
     printf "[\\033[00;34m.\\033[0m] %s\\n" "$1"
@@ -103,7 +104,7 @@ setup_sudo() {
     sudo gpasswd -a "$USER" docker || true
 
     sudo mkdir -p /etc/sudoers.d/
-    if ! [ -s "/etc/sudoers.d/$USER" ]; then
+    if ! [ -f "/etc/sudoers.d/$USER" ]; then
         echo "adding /etc/sudoers.d/$USER"
         echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/"$USER" >/dev/null
     fi
