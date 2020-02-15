@@ -104,7 +104,7 @@ setup_sudo() {
     sudo gpasswd -a "$USER" docker || true
 
     sudo mkdir -p /etc/sudoers.d/
-    if ! [ -f "/etc/sudoers.d/$USER" ]; then
+    if ! sudo grep -qr "$USER" /etc/sudoers{,.d}/; then
         echo "adding /etc/sudoers.d/$USER"
         echo "$USER ALL=(ALL) NOPASSWD:ALL" | sudo tee -a /etc/sudoers.d/"$USER" >/dev/null
     fi
