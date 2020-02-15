@@ -20,13 +20,7 @@ aurdl() {
     yay -G "$1" && cd "$1" || return
 }
 
-# make a package from aur
-mpack() {
-    makepkg -s
-}
-
-# install a package that has already been built from aur
+# build and install a package from aur
 ipack() {
-    makepkg -i
+    makepkg -si
 }
-

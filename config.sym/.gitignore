@@ -1,10 +1,23 @@
+
+.mono
+.op
 Atom
+Bitwarden
+Code
+Google Play Music Desktop Player
+Mullvad VPN
+Notable
+Postman
+QtProject.conf
+Signal
+Slack
+Thunar
+Trolltech.conf
+Yubico
 autostart
 base16-shell
-Bitwarden
 chromium
 coc
-Code
 configstore
 copyq
 cros-garcon.conf
@@ -22,7 +35,6 @@ gnome-initial-setup-done
 gocode
 google-chrome
 google-chrome*
-Google Play Music Desktop Player
 gtk-2.0
 gtk-3.0
 heroku
@@ -31,33 +43,23 @@ libreoffice
 menus
 mimeapps.list
 monitors.xml
-.mono
 mopidy
-Mullvad VPN
 nautilus
 neofetch
-Notable
-.op
-Postman
+pavucontrol.ini
 pulse
-QtProject.conf
 ranger/bookmarks
 ranger/history
 ranger/tagged
-Signal
-Slack
 spotify
 streamlink-twitch-gui
 sublime-text-3
 systemd/user/default.target.wants
 thefuck
-Thunar
 transmission
-Trolltech.conf
 vlc
 weston.ini
 xfce4/terminal/accels.scm
 xfce4/xfconf
 yarn
 yelp
-Yubico

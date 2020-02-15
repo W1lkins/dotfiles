@@ -66,26 +66,6 @@ ta() {
     tmux attach -t "$1"
 }
 
-# simple calculator
-calc() {
-    local result=""
-    result="$(printf "scale=10;%s\\n" "$*" | bc --mathlib | tr -d '\\\n')"
-
-    if [[ "$result" == *.* ]]; then
-        # improve the output for decimal numbers
-        # add "0" for cases like ".5"
-        # add "0" for cases like "-.5"
-        # remove trailing zeros
-        printf "%s" "$result" |
-        sed -e 's/^\./0./'  \
-        -e 's/^-\./-0./' \
-        -e 's/0*$//;s/\.$//'
-    else
-        printf "%s" "$result"
-    fi
-    printf "\\n"
-}
-
 # create a new directory and enter it
 mkd() {
     mkdir -p "$@"
@@ -101,76 +81,6 @@ tmpd() {
         dir=$(mktemp -d -t "${1}.XXXXXXXXXX")
     fi
     cd "$dir" || return
-}
-
-# determine size of a file or total size of a directory
-fs() {
-    if du -b /dev/null > /dev/null 2>&1; then
-        local arg=-sbh
-    else
-        local arg=-sh
-    fi
-
-    if [[ -n "$*" ]]; then
-        du $arg -- "$@"
-    else
-        du $arg -- .[^.]* *
-    fi
-}
-
-# shorthand for `tree` hiddenfiles and colour enabled, ignores .git, directories first, piped into less if output too big
-tre() {
-    tree -aC -I '.git' --dirsfirst "$@" | less -FRNX
-}
-
-# check if website is up
-isup() {
-    local uri=$1
-    if curl -s --head  --request GET "$uri" | grep "200 OK" > /dev/null ; then
-        notify-send --urgency=critical "$uri is down"
-    else
-        notify-send --urgency=low "$uri is up"
-    fi
-}
-
-# attempt find the current operating system
-findcurrentos() {
-    local DISTRO="";
-    local os_type="";
-
-    os_type=$(uname);
-    case "$os_type" in
-        "Darwin") {
-        echo "OSX"
-        } ;;
-    "Linux") {
-        # If available, use LSB to identify distribution
-        if [ -f /etc/lsb-release ] || [ -d /etc/lsb-release.d ]; then
-        DISTRO=$(awk -F= '/^NAME/{print $2}' /etc/os-release)
-        else
-        DISTRO=$(echo /etc/[A-Za-z]*[_-][rv]e[lr]* | grep -v "lsb" | cut -d'/' -f3 | cut -d'-' -f1 | cut -d'_' -f1)
-        fi
-        echo "$DISTRO" | tr '[:lower:]' '[:upper:]'
-    } ;;
-    *) {
-    echo "UNKNOWN"
-    } ;;
-    esac;
-}
-
-# check if website is up
-down4me() {
-    curl -s "downforeveryoneorjustme.com/$1" | sed '/just you/!d;s/<[^>]*>//g';
-}
-
-# youtube-dl full 1080p video/audio
-youtubedlhd() {
-    youtube-dl "$1" -f 137+140
-}
-
-# extract audio in mp3 format
-youtubedlmp3() {
-    youtube-dl -v --no-mtime -o '%(stitle)s.%(ext)s' --extract-audio --audio-format mp3  "$1"
 }
 
 # open default tmux or attach, if we're in a session already then use fzf to switch between them
@@ -196,17 +106,6 @@ extract() {
         *.xz) tar -xf "$1";;
         *) echo "Nothing to do";;
     esac
-}
-
-# connect external monitor
-connectmonitor() {
-    if [[ $1 == 'off' ]]; then
-        xrandr --output LVDS1 --size 1366x768 && xrandr --output HDMI1 --off
-    elif [[ $1 == 'on' ]]; then
-        xrandr --output LVDS1 --off && xrandr --output HDMI1 --size 3440x1440
-    else
-        echo "Unrecognised option" && return
-    fi
 }
 
 # list current jails in fail2ban
@@ -249,11 +148,6 @@ listrunningservices() {
     fi
 }
 
-# look at dmesg output every second
-watchkern() {
-    watch -n1 'dmesg | tail'
-}
-
 # show terminal colors
 tcolors() {
     for i in {0..255};
@@ -266,22 +160,12 @@ tcolors() {
 
 # check ip
 checkip() {
-    curl -s http://checkip.dyndns.org/ | sed 's/[a-zA-Z<>/ :]//g'
+    curl -fsSL ip.wilkins.tech | sed 's/[a-zA-Z<>/ :]//g'
 }
 
 # re-source the terminal
 src() {
     source ~/.zshrc
-}
-
-# irc application
-irc() {
-    weechat
-}
-
-# basic weather
-weather() {
-    curl wttr.in/Edinburgh
 }
 
 # make CTRL-Z background things and unbackground them.
@@ -293,19 +177,9 @@ fg-bg() {
     fi
 }
 
-# get ssl key for znc - argument should be path to znc.pem
-znckey() {
-    openssl x509 -sha512 -fingerprint -noout < "$1" | tr -d ':' | tr '[:upper:]' '[:lower:]' | cut -d = -f 2
-}
-
 # remove a repository from apt
 remove-apt-repository() {
     sudo add-apt-repository -r "$1"
-}
-
-# show available process signals, zsh doesn't seem to handle this nicely
-signals() {
-    bash -c 'kill -l'
 }
 
 # use icdiff if it exists else fall back to normal diff
@@ -317,3 +191,11 @@ diff() {
     fi
 }
 
+# v with no arguments opens CWD in vim otherwise opens location
+v() {
+    if [ $# -eq 0 ]; then
+        $EDITOR
+    else
+        $EDITOR "$@"
+    fi
+}
