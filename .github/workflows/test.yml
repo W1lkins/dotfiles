@@ -1,0 +1,25 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    if: "!contains(github.event.head_commit.message, '[ci skip]')"
+
+    steps:
+    - name: Check out dotfiles
+      uses: actions/checkout@v2
+
+    - name: Install shellcheck
+      run: sudo apt update && sudo apt install -yqq file shellcheck --no-install-recommends
+
+    - name: Ensure scripts pass shellcheck
+      run: ./bin.sym/test-dotfile-scripts
