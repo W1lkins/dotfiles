@@ -160,8 +160,9 @@ for_window [title="Google Play Music Desktop Player"] move to workspace $ws10
 
 # startup programs {{{
 
-# start polybar
-exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+# start bar
+# TODO(evalexpr): should have a fallback from polybar in launch.sh too
+exec_always --no-startup-id $HOME/.config/i3bar/launch.sh
 # turn off beeping
 exec --no-startup-id xset b off
 # fix the keyboard layout
@@ -215,4 +216,3 @@ bindsym XF86AudioNext exec $next
 bindsym XF86AudioPrev exec $prev
 
 # }}}
-
