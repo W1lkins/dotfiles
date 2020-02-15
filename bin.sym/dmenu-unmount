@@ -11,4 +11,3 @@ choice=$(echo "$points" | dmenu -i -p "Which drive?" | awk '{print $1}')
 [[ "$choice" = "" ]] && exit
 
 sudo umount "$choice"
-

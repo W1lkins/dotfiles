@@ -2,4 +2,3 @@
 # `./prompt "Do you want to shutdown?" "shutdown -h now"`
 
 [ "$(echo -e "No\\nYes" | dmenu -i -p "$1" -nb darkred -sb red -sf white -nf gray -fn mono)" == "Yes" ] && $2
-

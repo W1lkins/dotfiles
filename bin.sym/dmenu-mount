@@ -16,4 +16,3 @@ if [[ ! -d "$mp" ]]; then
 	[[ "$mkdiryn" = Yes ]] && sudo mkdir -p "$mp"
 fi
 sudo mount "$choice" "$mp"
-
