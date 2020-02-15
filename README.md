@@ -6,54 +6,18 @@
  \__,_|\___/ \__|_| |_|_|\___||___/
 ```
 
-## Includes
+Uses a mixture of a bootstrapping script at install.sh and a [Brewfile](Brewfile) which uses [homebrew-bundle](https://github.com/Homebrew/homebrew-bundle.git) to install a list of packages.
 
-- 1password-cli
-- [packages](packages)
-- alacritty
-- bat
-- compton
-- dmenu
-- docker
-- ffsend
-- fonts
-- fzf
-- gdrive
-- ghq
-- git config
-- go
-- htoprc
-- icdiff
-- inputrc
-- lsd
-- magic-wormhole
-- miniserve
-- ncmpcpp
-- oh-my-zsh
-- pipenv
-- polybar
-- python3
-- ranger
-- redshift
-- ripgrep
-- rust
-- screenlayouts for monitors
-- shellharden
-- staticcheck
-- sudoers setup
-- tmux
-- xinitrc which starts i3
-- xresources
-- yapf
-- yarn
-- zsh
+Should work on both Linux and macOS.
 
 ---
 
 ## Installation
 
+### Buyer beware: look at what you're installing first before doing this, some of this is custom to me only
+
 - `git clone https://github.com/evalexpr/dotfiles dotfiles && cd $_`
-- `make init` (you will be asked about gpg keys for git (defaults to no) and whether you want to backup your existing dotfiles (defaults to skip, which will make no changes)
+- `make init`
 - `source ~/.zshrc`
 
 ---
@@ -62,4 +26,3 @@
 
 - `git clone https://github.com/evalexpr/dotfiles dotfiles && cd $_`
 - `make docker`
-
