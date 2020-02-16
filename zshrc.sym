@@ -3,10 +3,6 @@ stty -ixon
 unsetopt BEEP
 
 # zsh stuff
-autoload -Uz compinit promptinit
-compinit
-promptinit
-
 # shellcheck disable=SC2034
 zle -N fg-bg
 bindkey '^Z' fg-bg
