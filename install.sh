@@ -231,8 +231,7 @@ linux_pre_install() {
 setup_home() {
     mkdir -p "$HOME"/.ssh
     mkdir -p "$HOME"/{workspace/checkouts,tmp}
-    mkdir -p "$HOME"/go/src/github.com/evalexpr/
-    ln -sf "$HOME"/go/src/github.com/evalexpr/ "$HOME"/workspace/go
+    mkdir -p "$HOME"/go/src/github.com/evalexpr
 }
 
 post_install() {
