@@ -201,6 +201,7 @@ vim_post_install() {
     info "finished installing submodules"
 
     info "running vim commands"
+    vim -c ":GoInstallBinaries" -c q
     vim -c "helptags ALL" -c q
     vim -c ":call coc#util#install()" -c q
 }
