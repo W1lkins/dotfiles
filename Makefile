@@ -4,12 +4,13 @@ SHELLCHECK := ./bin.sym/test-dotfile-scripts
 DIR := $(shell pwd)
 
 .PHONY: all
-all: update init ## runs update and init
+all: update install ## runs update and install
 
 .PHONY: update
 update: ## update from GitHub
 	@echo "+ $@"
 	@git pull origin master
+	@git submodule-update
 
 .PHONY: install
 install: ## run the dotfile install script
