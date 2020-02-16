@@ -118,18 +118,19 @@ install_programs() {
 shell_setup() {
     info "setting up shell"
 
-    # oh-my-zsh
-    if ! [ -s "$HOME/.oh-my-zsh" ]; then
-        git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh"
+    # prezto
+    PREZTO_DIR="$HOME/.zprezto"
+    if ! [ -d "$PREZTO_DIR" ]; then
+        git clone --recursive https://github.com/sorin-ionescu/prezto.git "$PREZTO_DIR"
+    else
+        info "updating prezto"
+        (
+            cd "$PREZTO_DIR"
+            git pull
+            git submodule update --init --recursive
+        )
     fi
-    success "oh-my-zsh installed"
-
-    THEME_DIR="$HOME/.oh-my-zsh/custom/themes"
-    if [[ ! -d $THEME_DIR ]]; then
-        mkdir -p "$THEME_DIR"
-    fi
-    info "linking theme"
-    ln -sf "$HOME/.zsh-prompt" "$THEME_DIR/wilkins-custom.zsh-theme"
+    success "prezto installed"
 }
 
 setup_git() {

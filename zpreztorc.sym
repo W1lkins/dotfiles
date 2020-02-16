@@ -1,0 +1,10 @@
+zstyle ':prezto:load' pmodule \
+  'directory' \
+  'completion' \
+  'git' \
+  'prompt' \
+  'syntax-highlighting' \
+  'history' \
+
+zstyle ':prezto:module:prompt' theme 'steeef'
+

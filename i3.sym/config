@@ -120,8 +120,8 @@ bindsym $mod+Ctrl+e layout toggle split
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
 
-bindsym $mod+Shift+e exec prompt "Are you sure you want to exit i3?" "i3-msg exit"
-bindsym $mod+Shift+x exec prompt "Are you sure you want to shutdown?" "sudo shutdown now"
+bindsym $mod+Shift+e exec dmenu-prompt "Are you sure you want to exit i3?" "i3-msg exit"
+bindsym $mod+Shift+x exec dmenu-prompt "Are you sure you want to shutdown?" "sudo shutdown now"
 
 bindsym $mod+o exec $term -e hunter
 bindsym $mod+w exec --no-startup-id $browser

@@ -1,22 +1,20 @@
 # stop terminals from being shit
 stty -ixon
+unsetopt BEEP
 
 # zsh stuff
-autoload -Uz compinit
+autoload -Uz compinit promptinit
 compinit
+promptinit
+
+# shellcheck disable=SC2034
+zle -N fg-bg
+bindkey '^Z' fg-bg
+
 zstyle ':completion:*' menu select rehash true
 
 # start ssh-agent
 eval "$(ssh-agent -s)" >/dev/null 2>&1
-
-# some zsh additions
-# shellcheck disable=SC2034
-plugins=(ssh-agent)
-zle -N fg-bg
-bindkey '^Z' fg-bg
-
-# source oh-my-zsh
-[ -s "$ZSH"/oh-my-zsh.sh ] && source "$ZSH"/oh-my-zsh.sh
 
 # source all the files in .config
 for file in $(find "$HOME/.config/sh-utils" -type f)
@@ -27,3 +25,7 @@ unset file
 
 # source a system specific config if one exists
 [ -f "$HOME"/.extra ] && source "$HOME"/.extra || return 0
+
+# source zprezto
+[ -s "$HOME"/.zprezto/init.zsh ] && source "$HOME"/.zprezto/init.zsh
+
