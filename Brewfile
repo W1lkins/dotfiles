@@ -1,3 +1,4 @@
+tap "filippo.io/age", "https://filippo.io/age"
 tap "github/gh"
 tap "homebrew/bundle"
 tap "homebrew/cask"
@@ -5,6 +6,7 @@ tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "nektos/tap"
 
+brew "age"
 brew "awscli"
 brew "bat"
 brew "black"
