@@ -235,6 +235,44 @@ setup_home() {
     mkdir -p "$HOME"/go/src/github.com/evalexpr
 }
 
+setup_vscode() {
+    info "setting up vscode"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        SETTINGS_LOCATION="$HOME/Library/Application Support/Code/User/settings.json"
+    else
+        SETTINGS_LOCATION="$HOME/.config/Code/User/settings.json"
+    fi
+
+    rm -f "$SETTINGS_LOCATION"
+    ln -s "$PWD/vscode/settings.json" "$SETTINGS_LOCATION"
+
+    info "installing vscode extensions"
+    # Vim
+    code --install-extension vscodevim.vim
+    # TODO Highlight
+    code --install-extension wayou.vscode-todo-highlight
+    # Tailwind CSS IntelliSense
+    code --install-extension bradlc.vscode-tailwindcss
+    # Gruvbox Theme
+    code --install-extension jdinhlife.gruvbox
+    # GitLens
+    code --install-extension eamodio.gitlens
+    # DotENV
+    code --install-extension mikestead.dotenv
+    # Docker
+    code --install-extension ms-azuretools.vscode-docker
+    # CSS Peek
+    code --install-extension pranaygp.vscode-css-peek
+    # Color Highlight
+    code --install-extension naumovs.color-highlight
+    # Material Icon Theme
+    code --install-extension PKief.material-icon-theme
+    # Go
+    code --install-extension ms-vscode.Go
+
+    success "finished installing vscode"
+}
+
 post_install() {
     info "running post install commands"
 
@@ -256,6 +294,7 @@ install_dots() {
     setup_git
     setup_dotfiles
     shell_setup
+    setup_vscode
     post_install
 }
 

@@ -1,0 +1,97 @@
+{
+  "workbench.preferredDarkColorTheme": "Gruvbox Dark Hard",
+  "workbench.iconTheme": "material-icon-theme",
+  "workbench.list.horizontalScrolling": true,
+  "workbench.panel.defaultLocation": "right",
+  "workbench.fontAliasing": "antialiased",
+  "workbench.activityBar.visible": false,
+  "workbench.statusBar.visible": false,
+  "workbench.startupEditor": "none",
+  "workbench.settings.editor": "json",
+  "workbench.editor.showIcons": false,
+  "workbench.settings.enableNaturalLanguageSearch": false,
+  /* Window */
+  "window.autoDetectColorScheme": true,
+  "window.zoomLevel": 1,
+  "window.restoreWindows": "all",
+  "window.newWindowDimensions": "maximized",
+  /* Search */
+  "search.quickOpen.includeHistory": false,
+  "search.smartCase": true,
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.git": true,
+    "**/dist": true,
+    "dist": true,
+    "out": true,
+    "coverage": true
+  },
+  /* Terminal */
+  "terminal.integrated.fontSize": 12,
+  "terminal.integrated.inheritEnv": false,
+  /* Explorer */
+  "explorer.openEditors.visible": 0,
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "explorer.decorations.badges": false,
+  /* Editor */
+  "editor.fontFamily": "JetBrains Mono",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 12,
+  "editor.lineHeight": 22,
+  "editor.letterSpacing": 0.5,
+  "editor.fontWeight": "400",
+  "editor.cursorStyle": "line",
+  "editor.cursorBlinking": "solid",
+  "editor.formatOnSave": true,
+  "editor.renderLineHighlight": "gutter",
+  "editor.hideCursorInOverviewRuler": true,
+  "editor.scrollBeyondLastLine": false,
+  "editor.occurrencesHighlight": false,
+  "editor.overviewRulerBorder": false,
+  "editor.renderIndentGuides": true,
+  "editor.folding": false,
+  "editor.snippetSuggestions": "top",
+  "editor.lightbulb.enabled": false,
+  "editor.minimap.enabled": true,
+  "editor.lineNumbers": "relative",
+  /* Files */
+  "files.exclude": {
+    "node_modules/": true,
+    "**/.git": true,
+    "**/.next": true,
+    "**/.DS_Store": true,
+    "**/package-lock.json": true,
+    "**/yarn.lock": true,
+    "vendor": true,
+    "**/npm-debug.log": true,
+    "dist": true,
+    "**/dist": true
+  },
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  "files.eol": "\n",
+  /* Language specific */
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[json]": {
+    "editor.tabSize": 4
+  },
+  // Go
+  "go.useLanguageServer": true,
+  "go.formatTool": "gofmt",
+  "[go]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": true
+    }
+  },
+  // Python
+  "python.formatting.provider": "black",
+  "python.linting.pylintEnabled": false,
+  "python.linting.flake8Enabled": true,
+  // Vim
+  "vim.leader": ",",
+  "vim.useSystemClipboard": true,
+  "workbench.colorTheme": "Gruvbox Dark Hard"
+}
