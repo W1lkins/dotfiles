@@ -1,10 +1,10 @@
 {
-  "workbench.preferredDarkColorTheme": "Gruvbox Dark Hard",
+  "workbench.colorTheme": "Gruvbox Dark Hard",
   "workbench.iconTheme": "material-icon-theme",
   "workbench.list.horizontalScrolling": true,
   "workbench.panel.defaultLocation": "right",
   "workbench.fontAliasing": "antialiased",
-  "workbench.activityBar.visible": false,
+  "workbench.activityBar.visible": true,
   "workbench.statusBar.visible": false,
   "workbench.startupEditor": "none",
   "workbench.settings.editor": "json",
@@ -86,12 +86,13 @@
       "source.organizeImports": true
     }
   },
+  "go.lintTool": "golangci-lint",
+  "go.lintFlags": ["--fast"],
   // Python
   "python.formatting.provider": "black",
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
   // Vim
   "vim.leader": ",",
-  "vim.useSystemClipboard": true,
-  "workbench.colorTheme": "Gruvbox Dark Hard"
+  "vim.useSystemClipboard": true
 }

@@ -1,3 +1,13 @@
 module.exports = {
-  defaultBrowser: "Safari"
+  defaultBrowser: "Safari",
+  handlers: [
+    {
+      match: finicky.matchHostnames(["youtube.com", "twitch.tv"]),
+      browser: "Brave Browser Nightly",
+    },
+    {
+      match: finicky.matchDomains("open.spotify.com"),
+      browser: "Spotify",
+    },
+  ],
 };
