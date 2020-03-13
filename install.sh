@@ -248,27 +248,27 @@ setup_vscode() {
 
     info "installing vscode extensions"
     # Vim
-    code --install-extension vscodevim.vim
+    code --install-extension vscodevim.vim --force
     # TODO Highlight
-    code --install-extension wayou.vscode-todo-highlight
+    code --install-extension wayou.vscode-todo-highlight --force
     # Tailwind CSS IntelliSense
-    code --install-extension bradlc.vscode-tailwindcss
+    code --install-extension bradlc.vscode-tailwindcss --force
     # Gruvbox Theme
-    code --install-extension jdinhlife.gruvbox
+    code --install-extension jdinhlife.gruvbox --force
     # GitLens
-    code --install-extension eamodio.gitlens
+    code --install-extension eamodio.gitlens --force
     # DotENV
-    code --install-extension mikestead.dotenv
+    code --install-extension mikestead.dotenv --force
     # Docker
-    code --install-extension ms-azuretools.vscode-docker
+    code --install-extension ms-azuretools.vscode-docker --force
     # CSS Peek
-    code --install-extension pranaygp.vscode-css-peek
+    code --install-extension pranaygp.vscode-css-peek --force
     # Color Highlight
-    code --install-extension naumovs.color-highlight
+    code --install-extension naumovs.color-highlight --force
     # Material Icon Theme
-    code --install-extension PKief.material-icon-theme
+    code --install-extension PKief.material-icon-theme --force
     # Go
-    code --install-extension ms-vscode.Go
+    code --install-extension ms-vscode.Go --force
 
     success "finished installing vscode"
 }
@@ -279,8 +279,10 @@ post_install() {
     vim_post_install
     setup_home
 
-    sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 100 || true
-    sudo update-alternatives --set editor /usr/bin/vim || true
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        sudo update-alternatives --install /usr/bin/editor editor /usr/bin/vim 100 || true
+        sudo update-alternatives --set editor /usr/bin/vim || true
+    fi
 
     # change shell to zsh
     if [[ "$SHELL" != *"zsh"* ]]; then

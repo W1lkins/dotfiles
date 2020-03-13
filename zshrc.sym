@@ -25,3 +25,6 @@ unset file
 # source zprezto
 [ -s "$HOME"/.zprezto/init.zsh ] && source "$HOME"/.zprezto/init.zsh
 
+# load starship theme
+eval "$(starship init zsh)"
+
