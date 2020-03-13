@@ -236,7 +236,13 @@ setup_home() {
 }
 
 setup_vscode() {
+    if [[ ! $(which code >/dev/null 2>&1) ]]; then
+        warn "vscode not installed, ignoring extensions"
+        return
+    fi
+
     info "setting up vscode"
+
     if [[ "$OSTYPE" == "darwin"* ]]; then
         SETTINGS_LOCATION="$HOME/Library/Application Support/Code/User/settings.json"
     else
