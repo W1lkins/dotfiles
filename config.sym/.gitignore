@@ -1,4 +1,3 @@
-
 .mono
 .op
 Atom
@@ -29,6 +28,7 @@ filezilla
 gcloud
 gconf
 gedit
+gh
 git
 git-cola
 gnome-initial-setup-done
