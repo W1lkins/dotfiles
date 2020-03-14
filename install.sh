@@ -236,7 +236,7 @@ setup_home() {
 }
 
 setup_vscode() {
-    if [[ ! $(which code >/dev/null 2>&1) ]]; then
+    if [[ ! $(command -v code >/dev/null 2>&1) ]]; then
         warn "vscode not installed, ignoring extensions"
         return
     fi
