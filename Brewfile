@@ -1,14 +1,20 @@
+# ytop
 tap "cjbassi/ytop"
+# age
 tap "filippo.io/age", "https://filippo.io/age"
+# gh
 tap "github/gh"
+# golangci-lint
 tap "golangci/tap"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
+# act, local GitHub actions
 tap "nektos/tap"
 
 brew "age"
+brew "avr-libc"
 brew "awscli"
 brew "bat"
 brew "black"
