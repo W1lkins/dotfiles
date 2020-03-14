@@ -293,6 +293,7 @@ post_install() {
     # change shell to zsh
     if [[ "$SHELL" != *"zsh"* ]]; then
         info "changing shell to zsh"
+        sudo sh -c 'echo $(brew --prefix)/bin/zsh >> /etc/shells'
         chsh -s "$(command -v zsh)"
     fi
 }
