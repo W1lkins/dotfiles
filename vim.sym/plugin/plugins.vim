@@ -128,14 +128,15 @@ endfunction
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Use <cr> to confirm completion
+" `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Remap key for goto
 nmap <silent> gd <Plug>(coc-definition)
 
-" Use K to show documentation in preview window
+" Use F to show documentation in preview window
 nnoremap <silent> F :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
