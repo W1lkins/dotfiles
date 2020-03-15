@@ -22,10 +22,6 @@
 [submodule "vim.sym/pack/bundle/start/fzf.vim"]
 	path = vim.sym/pack/bundle/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
-[submodule "vim.sym/pack/bundle/start/YouCompleteMe"]
-	path = vim.sym/pack/bundle/start/YouCompleteMe
-  url = https://github.com/Valloric/YouCompleteMe
-  ignore = dirty
 [submodule "vim.sym/pack/bundle/start/vim-buftabline"]
 	path = vim.sym/pack/bundle/start/vim-buftabline
 	url = https://github.com/ap/vim-buftabline
