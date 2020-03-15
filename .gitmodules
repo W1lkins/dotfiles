@@ -35,9 +35,6 @@
 	path = vim.sym/pack/bundle/start/YouCompleteMe
   url = https://github.com/Valloric/YouCompleteMe
   ignore = dirty
-[submodule "vim.sym/pack/bundle/start/editorconfig"]
-	path = vim.sym/pack/bundle/start/editorconfig
-	url = https://github.com/editorconfig/editorconfig-vim
 [submodule "vim.sym/pack/bundle/start/vim-buftabline"]
 	path = vim.sym/pack/bundle/start/vim-buftabline
 	url = https://github.com/ap/vim-buftabline
