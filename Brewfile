@@ -14,7 +14,6 @@ tap "homebrew/core"
 tap "nektos/tap"
 
 brew "age"
-brew "avr-libc"
 brew "awscli"
 brew "bat"
 brew "black"
