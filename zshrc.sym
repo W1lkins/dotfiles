@@ -13,7 +13,7 @@ zstyle ':completion:*' menu select rehash true
 eval "$(ssh-agent -s)" >/dev/null 2>&1
 
 # source all the files in .config
-for file in $(find "$HOME/.config/sh-utils" -type f)
+for file in $(/usr/bin/find "$HOME/.config/sh-utils" -type f)
 do
     source "$file"
 done
