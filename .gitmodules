@@ -7,9 +7,6 @@
 [submodule "vim.sym/pack/bundle/start/gotests-vim"]
 	path = vim.sym/pack/bundle/start/gotests-vim
 	url = https://github.com/buoto/gotests-vim
-[submodule "vim.sym/pack/bundle/start/vim-polyglot"]
-	path = vim.sym/pack/bundle/start/vim-polyglot
-	url = https://github.com/sheerun/vim-polyglot
 [submodule "vim.sym/pack/bundle/start/vim-gitgutter"]
 	path = vim.sym/pack/bundle/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
