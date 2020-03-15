@@ -97,12 +97,6 @@ let g:lightline = {
       \ }
 " }}}
 
-" Goyo {{{
-nnoremap <leader>f :Goyo<cr>
-let g:goyo_width = 110
-let g:goyo_height = 80
-" }}}
-
 " Vim-go {{{
 let g:go_fmt_command = "goimports"
 " }}}
