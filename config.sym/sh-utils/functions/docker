@@ -49,3 +49,7 @@ dps() {
     docker ps --format 'table {{.ID}}\t{{.Names}}\t{{.Image}}\t{{.Status}}'
 }
 
+pihole(){
+	docker exec pihole pihole "$@"
+}
+
