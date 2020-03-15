@@ -10,9 +10,6 @@
 [submodule "vim.sym/pack/bundle/start/vim-polyglot"]
 	path = vim.sym/pack/bundle/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
-[submodule "vim.sym/pack/bundle/start/tagbar"]
-	path = vim.sym/pack/bundle/start/tagbar
-	url = https://github.com/majutsushi/tagbar
 [submodule "vim.sym/pack/bundle/start/vim-gitgutter"]
 	path = vim.sym/pack/bundle/start/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
