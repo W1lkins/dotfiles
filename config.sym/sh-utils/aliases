@@ -13,3 +13,5 @@ alias usystemctl="systemctl --user"
 alias backup="/usr/local/bin/rsync_tmbackup.sh"
 alias ap='ansible-playbook'
 
+alias xrdb='xrdb -load ~/.config/X11/xresources'
+
