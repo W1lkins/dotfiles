@@ -19,6 +19,8 @@
     pushf = push --force-with-lease
     # push and set upstream
     pushu = push -u origin HEAD
+    # view branches sorted by most recent
+    branches = branch --sort=-committerdate -vv
     # view SHA, description, and history of the last 20 commits
     l = log --pretty=oneline -n 20 --graph --abbrev-commit
     # coloured graph output of log

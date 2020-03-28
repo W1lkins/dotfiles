@@ -53,17 +53,17 @@ man() {
 
 # list tmux sessions
 tl() {
-    tmux list-sessions
+    tmux -f ~/.config/tmux/tmux.conf list-sessions
 }
 
 # create a tmux session with a name corresponding to 1st argv
 tc() {
-    tmux new -s "$1"
+    tmux -f ~/.config/tmux/tmux.conf new -s "$1"
 }
 
 # attach to tmux session with name corresponding to 1st argv
 ta() {
-    tmux attach -t "$1"
+    tmux -f ~/.config/tmux/tmux.conf attach -t "$1"
 }
 
 # create a new directory and enter it
