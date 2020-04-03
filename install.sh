@@ -241,7 +241,7 @@ setup_home() {
 }
 
 ensure_vscode_extension() {
-    code --list-extensions | grep "$1" || code --install-extension "$1" --force
+    code --list-extensions | grep -q "$1" || code --install-extension "$1" --force
 }
 
 setup_vscode() {
