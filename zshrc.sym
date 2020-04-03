@@ -28,3 +28,6 @@ unset file
 # load starship theme
 eval "$(starship init zsh)"
 
+# load dircolors
+test -r "$HOME/.dir_colors" && eval $(dircolors "$HOME/.dir_colors")
+

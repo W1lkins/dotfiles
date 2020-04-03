@@ -170,7 +170,7 @@ exec_always --no-startup-id xmodmap ~/.Xmodmap
 # wifi
 exec --no-startup-id nm-applet
 # x-application resources
-exec_always --no-startup-id xrdb ~/.Xresources
+exec_always --no-startup-id xrdb ~/.config/X11/xresources
 # screen colour
 exec --no-startup-id xflux -l 55.9 -g -3.5
 # wallpaper

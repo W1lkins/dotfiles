@@ -1,5 +1,5 @@
 syntax enable
-colorscheme badwolf
+colorscheme nord
 
 " Machine overrides in ~/.vim/host/$HOSTNAME.vim and ~/.vim/vimrc.local.
 let s:hostfile =

@@ -35,6 +35,9 @@ export SPOTIPY_REDIRECT_URI='http://localhost/listentothis/callback/'
 # where to store vim sessions
 export VIM_SESSION_DIR=$HOME/.vim/sessions
 
+# add gnubin to PATH
+export PATH="$PATH:/usr/local/opt/coreutils/libexec/gnubin"
+
 # don't run update on every `brew` invocation
 export HOMEBREW_NO_AUTO_UPDATE=1
 

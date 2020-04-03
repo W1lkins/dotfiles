@@ -28,3 +28,9 @@
 [submodule "vim.sym/pack/bundle/start/coc"]
 	path = vim.sym/pack/bundle/start/coc
 	url = https://github.com/neoclide/coc.nvim
+[submodule "nord-dircolors"]
+	path = nord-dircolors
+	url = https://github.com/arcticicestudio/nord-dircolors.git
+[submodule "config.sym/tmux/plugins/tpm"]
+	path = config.sym/tmux/plugins/tpm
+	url = https://github.com/tmux-plugins/tpm

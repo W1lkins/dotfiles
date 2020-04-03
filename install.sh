@@ -2,7 +2,7 @@
 # shellcheck disable=SC2044
 set -o pipefail
 DOTFILES_ROOT=$(pwd -P)
-PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
+PATH="$PATH:/home/linuxbrew/.linuxbrew/bin:/usr/local/bin"
 
 info() {
     printf "[\\033[00;34m.\\033[0m] %s\\n" "$1"
@@ -131,6 +131,11 @@ shell_setup() {
         )
     fi
     success "prezto installed"
+
+    # install dircolors
+    info "linking dircolors"
+    ln -sf "$PWD/nord-dircolors/src/dir_colors" "$HOME/.dir_colors"
+    success "linked dircolors"
 }
 
 setup_git() {
@@ -235,11 +240,13 @@ setup_home() {
     mkdir -p "$HOME"/go/src/github.com/evalexpr
 }
 
+ensure_vscode_extension() {
+    code --list-extensions | grep "$1" || code --install-extension "$1" --force
+}
+
 setup_vscode() {
-    if [[ ! $(command -v code >/dev/null 2>&1) ]]; then
-        warn "vscode not installed, ignoring extensions"
-        return
-    fi
+    [ ! "$(command -v code 2>/dev/null)" ] && \
+        warn "vscode not installed, ignoring extensions" && return
 
     info "setting up vscode"
 
@@ -254,27 +261,27 @@ setup_vscode() {
 
     info "installing vscode extensions"
     # Vim
-    code --install-extension vscodevim.vim --force
+    ensure_vscode_extension vscodevim.vim
     # TODO Highlight
-    code --install-extension wayou.vscode-todo-highlight --force
+    ensure_vscode_extension wayou.vscode-todo-highlight
     # Tailwind CSS IntelliSense
-    code --install-extension bradlc.vscode-tailwindcss --force
+    ensure_vscode_extension bradlc.vscode-tailwindcss
     # Gruvbox Theme
-    code --install-extension jdinhlife.gruvbox --force
+    ensure_vscode_extension jdinhlife.gruvbox
     # GitLens
-    code --install-extension eamodio.gitlens --force
+    ensure_vscode_extension eamodio.gitlens
     # DotENV
-    code --install-extension mikestead.dotenv --force
+    ensure_vscode_extension mikestead.dotenv
     # Docker
-    code --install-extension ms-azuretools.vscode-docker --force
+    ensure_vscode_extension ms-azuretools.vscode-docker
     # CSS Peek
-    code --install-extension pranaygp.vscode-css-peek --force
+    ensure_vscode_extension pranaygp.vscode-css-peek
     # Color Highlight
-    code --install-extension naumovs.color-highlight --force
+    ensure_vscode_extension naumovs.color-highlight
     # Material Icon Theme
-    code --install-extension PKief.material-icon-theme --force
+    ensure_vscode_extension PKief.material-icon-theme
     # Go
-    code --install-extension ms-vscode.Go --force
+    ensure_vscode_extension ms-vscode.Go
 
     success "finished installing vscode"
 }
