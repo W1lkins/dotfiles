@@ -303,6 +303,9 @@ post_install() {
         sudo sh -c 'echo $(brew --prefix)/bin/zsh >> /etc/shells'
         chsh -s "$(command -v zsh)"
     fi
+
+    # enable fzf for zsh
+    "$(brew --prefix)"/opt/fzf/install
 }
 
 install_dots() {
