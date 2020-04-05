@@ -241,7 +241,7 @@ setup_home() {
 }
 
 ensure_vscode_extension() {
-    code --list-extensions | grep -q "$1" || code --install-extension "$1" --force
+    code --list-extensions | xargs | grep -q "$1" || code --install-extension "$1" --force
 }
 
 setup_vscode() {
@@ -257,7 +257,7 @@ setup_vscode() {
     fi
 
     rm -f "$SETTINGS_LOCATION"
-    ln -s "$PWD/vscode/settings.json" "$SETTINGS_LOCATION"
+    ln -sf "$PWD/vscode/settings.json" "$SETTINGS_LOCATION"
 
     info "installing vscode extensions"
     # Vim
@@ -282,6 +282,8 @@ setup_vscode() {
     ensure_vscode_extension PKief.material-icon-theme
     # Go
     ensure_vscode_extension ms-vscode.Go
+    # Nord theme
+    ensure_vscode_extension arcticicestudio.nord-visual-studio-code
 
     success "finished installing vscode"
 }
