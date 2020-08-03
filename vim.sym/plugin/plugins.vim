@@ -101,7 +101,10 @@ let g:lightline = {
 let g:go_fmt_command = "goimports"
 " }}}
 
-" Coc {{{
+" CoC {{{
+
+" CoC extensions
+let g:coc_global_extensions = ['coc-tsserver']
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
