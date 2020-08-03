@@ -77,21 +77,12 @@
   "[json]": {
     "editor.tabSize": 4
   },
-  // Go
-  "go.useLanguageServer": true,
-  "go.formatTool": "gofmt",
-  "[go]": {
-    "editor.codeActionsOnSave": {
-      "source.organizeImports": true
-    }
-  },
-  "go.lintTool": "golangci-lint",
-  "go.lintFlags": ["--fast"],
   // Python
   "python.formatting.provider": "black",
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
   // Vim
   "vim.leader": ",",
-  "vim.useSystemClipboard": true
+  "vim.useSystemClipboard": true,
+  "go.formatTool": "goimports",
 }
