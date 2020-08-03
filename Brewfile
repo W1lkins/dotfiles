@@ -82,6 +82,7 @@ end
 
 cask "1password"
 cask "alfred"
+cask "android-platform-tools"
 cask "appcleaner"
 cask "bartender"
 cask "battle-net"
