@@ -34,3 +34,15 @@
 [submodule "config.sym/tmux/plugins/tpm"]
 	path = config.sym/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm
+[submodule "vim.sym/pack/bundle/start/vim-javascript"]
+	path = vim.sym/pack/bundle/start/vim-javascript
+	url = https://github.com/pangloss/vim-javascript.git
+[submodule "vim.sym/pack/bundle/start/typescript-vim"]
+	path = vim.sym/pack/bundle/start/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim.git
+[submodule "vim.sym/pack/bundle/start/vim-jsx-pretty"]
+	path = vim.sym/pack/bundle/start/vim-jsx-pretty
+	url = https://github.com/MaxMEllon/vim-jsx-pretty.git
+[submodule "vim.sym/pack/bundle/start/vim-graphql"]
+	path = vim.sym/pack/bundle/start/vim-graphql
+	url = https://github.com/jparise/vim-graphql.git
